@@ -32,9 +32,9 @@ export default function TabsLayout() {
           }}
         />
         <Tabs.Screen
-            name="upload"
+            name="laga"
             options={{
-              title: 'upload',
+              title: 'laga',
             }}
           />
             <Tabs.Screen

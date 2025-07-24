@@ -28,11 +28,11 @@ const tabItems: TabItem[] = [
     label: 'Explore'
   },
   {
-    name: 'upload',
-    route: '/(tabs)/upload',
+    name: 'laga',
+    route: '/(tabs)/laga',
     whiteIcon: require('../../assets/images/upload-white.png'),
     chocolateIcon: require('../../assets/images/upload-chocolate.png'),
-    label: 'Upload'
+    label: 'Laga'
   },
   {
     name: 'umkm',
@@ -124,7 +124,7 @@ const BottomBar: React.FC = () => {
   const getActiveTab = (pathname: string): string => {
     if (pathname.includes('/home')) return 'home';
     if (pathname.includes('/explore')) return 'explore';
-    if (pathname.includes('/upload')) return 'upload';
+    if (pathname.includes('/laga')) return 'laga';
     if (pathname.includes('/umkm')) return 'umkm';
     if (pathname.includes('/profile')) return 'profile';
     return 'home';
