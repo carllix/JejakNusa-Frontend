@@ -1,17 +1,31 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import './global.css'
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { useEffect } from 'react';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    'SpaceMono': require('../assets/fonts/SpaceMono-Regular.ttf'),
+    'Poppins-LightItalic': require('../assets/fonts/Poppins-LightItalic.ttf'),
+    'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
+    'Poppins-SemiBold': require('../assets/fonts/Poppins-SemiBold.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+
   });
+
+
+    useEffect(() => {
+        if (loaded) {
+          SplashScreen.hideAsync();
+        }
+      }, [loaded]);
 
   if (!loaded) {
     // Async font loading only occurs in development.
