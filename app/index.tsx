@@ -1,10 +1,7 @@
-// home page (beranda)
-import { View ,Text} from "react-native"
+import { Redirect } from 'expo-router';
 
-export default function BerandaIndex() {
-    return (<View className="">
-        <Text>beranda</Text>
-            
-    </View>)
-
+export default function Index() {
+  // You can add authentication logic here
+  // For now, redirect to login
+  return <Redirect href="/(tabs)/home"/>;
 }
