@@ -1,0 +1,536 @@
+<osm version="0.6" generator="openstreetmap-cgimap 2.0.1 (2143501 spike-08.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+<relation id="304751" visible="true" version="240" changeset="168796316" timestamp="2025-07-11T13:15:09Z" user="kenken234" uid="17241816">
+<member type="node" ref="29939632" role="admin_centre"/>
+<member type="node" ref="6677037562" role="label"/>
+<member type="way" ref="1181737324" role="outer"/>
+<member type="way" ref="204904616" role="outer"/>
+<member type="way" ref="204904548" role="outer"/>
+<member type="way" ref="1181363476" role="outer"/>
+<member type="way" ref="541046960" role="outer"/>
+<member type="way" ref="766149851" role="outer"/>
+<member type="way" ref="204904634" role="outer"/>
+<member type="way" ref="204904262" role="outer"/>
+<member type="way" ref="766149852" role="outer"/>
+<member type="way" ref="204904291" role="outer"/>
+<member type="way" ref="204904328" role="outer"/>
+<member type="way" ref="204904307" role="outer"/>
+<member type="way" ref="766115538" role="outer"/>
+<member type="way" ref="204904434" role="outer"/>
+<member type="way" ref="766145999" role="outer"/>
+<member type="way" ref="204904316" role="outer"/>
+<member type="way" ref="204904703" role="outer"/>
+<member type="way" ref="1181363488" role="outer"/>
+<member type="way" ref="1181363494" role="outer"/>
+<member type="way" ref="766115537" role="outer"/>
+<member type="way" ref="204904721" role="outer"/>
+<member type="way" ref="1181363499" role="outer"/>
+<member type="way" ref="766128431" role="outer"/>
+<member type="way" ref="204904614" role="outer"/>
+<member type="way" ref="204904477" role="outer"/>
+<member type="way" ref="204904583" role="outer"/>
+<member type="way" ref="349225220" role="outer"/>
+<member type="way" ref="766115536" role="outer"/>
+<member type="way" ref="1181363502" role="outer"/>
+<member type="way" ref="204904379" role="outer"/>
+<member type="way" ref="766121405" role="outer"/>
+<member type="way" ref="204904352" role="outer"/>
+<member type="way" ref="1181363501" role="outer"/>
+<member type="way" ref="204904613" role="outer"/>
+<member type="way" ref="204904285" role="outer"/>
+<member type="way" ref="766115535" role="outer"/>
+<member type="way" ref="204904277" role="outer"/>
+<member type="way" ref="204904449" role="outer"/>
+<member type="way" ref="204904418" role="outer"/>
+<member type="way" ref="766126310" role="outer"/>
+<member type="way" ref="204904341" role="outer"/>
+<member type="way" ref="204904254" role="outer"/>
+<member type="way" ref="204904256" role="outer"/>
+<member type="way" ref="231704463" role="outer"/>
+<member type="way" ref="993484416" role="outer"/>
+<member type="way" ref="1147865295" role="outer"/>
+<member type="way" ref="1147865283" role="outer"/>
+<member type="way" ref="1147865296" role="outer"/>
+<member type="way" ref="333364475" role="outer"/>
+<member type="way" ref="333364481" role="outer"/>
+<member type="way" ref="288680799" role="outer"/>
+<member type="way" ref="288680798" role="outer"/>
+<member type="way" ref="1414078048" role="outer"/>
+<member type="way" ref="190681125" role="outer"/>
+<member type="way" ref="333364485" role="outer"/>
+<member type="way" ref="1147195794" role="outer"/>
+<member type="way" ref="1147195791" role="outer"/>
+<member type="way" ref="1147195792" role="outer"/>
+<member type="way" ref="1147195793" role="outer"/>
+<member type="way" ref="222121885" role="outer"/>
+<member type="way" ref="751573378" role="outer"/>
+<member type="way" ref="222123237" role="outer"/>
+<member type="way" ref="751573379" role="outer"/>
+<member type="way" ref="751572774" role="outer"/>
+<member type="way" ref="221718045" role="outer"/>
+<member type="way" ref="548451585" role="outer"/>
+<member type="way" ref="222314813" role="outer"/>
+<member type="way" ref="751237491" role="outer"/>
+<member type="way" ref="333364482" role="outer"/>
+<member type="way" ref="1147865285" role="outer"/>
+<member type="way" ref="1147865288" role="outer"/>
+<member type="way" ref="1147865286" role="outer"/>
+<member type="way" ref="1147865287" role="outer"/>
+<member type="way" ref="1147865292" role="outer"/>
+<member type="way" ref="1147865289" role="outer"/>
+<member type="way" ref="1147865290" role="outer"/>
+<member type="way" ref="1147865291" role="outer"/>
+<member type="way" ref="286428595" role="outer"/>
+<member type="way" ref="286428598" role="outer"/>
+<member type="way" ref="611998163" role="outer"/>
+<member type="way" ref="611998165" role="outer"/>
+<member type="way" ref="286428599" role="outer"/>
+<member type="way" ref="286428593" role="outer"/>
+<member type="way" ref="286271268" role="outer"/>
+<member type="way" ref="286325660" role="outer"/>
+<member type="way" ref="286335110" role="outer"/>
+<member type="way" ref="286335106" role="outer"/>
+<member type="way" ref="287574136" role="outer"/>
+<member type="way" ref="286335108" role="outer"/>
+<member type="way" ref="286335102" role="outer"/>
+<member type="way" ref="286271266" role="outer"/>
+<member type="way" ref="286339173" role="outer"/>
+<member type="way" ref="1301948275" role="outer"/>
+<member type="way" ref="1301948277" role="outer"/>
+<member type="way" ref="286339322" role="outer"/>
+<member type="way" ref="222314809" role="outer"/>
+<member type="way" ref="1146032881" role="outer"/>
+<member type="way" ref="204893984" role="outer"/>
+<member type="way" ref="818495877" role="outer"/>
+<member type="way" ref="669620682" role="outer"/>
+<member type="way" ref="204893982" role="outer"/>
+<member type="way" ref="204893980" role="outer"/>
+<member type="way" ref="910852256" role="outer"/>
+<member type="way" ref="204893978" role="outer"/>
+<member type="way" ref="330381229" role="outer"/>
+<member type="way" ref="910852352" role="outer"/>
+<member type="way" ref="204893979" role="outer"/>
+<member type="way" ref="204893977" role="outer"/>
+<member type="way" ref="204893981" role="outer"/>
+<member type="way" ref="204893983" role="outer"/>
+<member type="way" ref="1146032884" role="outer"/>
+<member type="way" ref="1146032877" role="outer"/>
+<member type="way" ref="231691140" role="outer"/>
+<member type="way" ref="1146032879" role="outer"/>
+<member type="way" ref="1147941019" role="outer"/>
+<member type="way" ref="1147941018" role="outer"/>
+<member type="way" ref="1147941021" role="outer"/>
+<member type="way" ref="1147941020" role="outer"/>
+<member type="way" ref="281898544" role="outer"/>
+<member type="way" ref="231691134" role="outer"/>
+<member type="way" ref="181368695" role="outer"/>
+<member type="way" ref="541982372" role="outer"/>
+<member type="way" ref="27773742" role="outer"/>
+<member type="way" ref="43895607" role="outer"/>
+<member type="way" ref="542420646" role="outer"/>
+<member type="way" ref="1115458890" role="outer"/>
+<member type="way" ref="43895273" role="outer"/>
+<member type="way" ref="205222323" role="outer"/>
+<member type="way" ref="542420632" role="outer"/>
+<member type="way" ref="43856205" role="outer"/>
+<member type="way" ref="205210119" role="outer"/>
+<member type="way" ref="205210118" role="outer"/>
+<member type="way" ref="181368694" role="outer"/>
+<member type="way" ref="27773739" role="outer"/>
+<member type="way" ref="324503640" role="outer"/>
+<member type="way" ref="399032516" role="outer"/>
+<member type="way" ref="1118426758" role="outer"/>
+<member type="way" ref="286423242" role="outer"/>
+<member type="way" ref="286423240" role="outer"/>
+<member type="way" ref="286425790" role="outer"/>
+<member type="way" ref="699379033" role="outer"/>
+<member type="way" ref="286425796" role="outer"/>
+<member type="way" ref="286337046" role="outer"/>
+<member type="way" ref="366449994" role="outer"/>
+<member type="way" ref="231704467" role="outer"/>
+<member type="way" ref="231704464" role="outer"/>
+<member type="way" ref="28285984" role="outer"/>
+<member type="way" ref="705988335" role="outer"/>
+<member type="way" ref="705988334" role="outer"/>
+<member type="way" ref="204904463" role="outer"/>
+<member type="way" ref="1181737230" role="outer"/>
+<member type="way" ref="204904405" role="outer"/>
+<member type="way" ref="204904391" role="outer"/>
+<member type="way" ref="541039940" role="outer"/>
+<member type="way" ref="204904602" role="outer"/>
+<member type="way" ref="1181737260" role="outer"/>
+<member type="way" ref="204904733" role="outer"/>
+<member type="way" ref="292112371" role="outer"/>
+<member type="way" ref="204904729" role="outer"/>
+<member type="way" ref="204904672" role="outer"/>
+<member type="way" ref="204904493" role="outer"/>
+<member type="way" ref="1181737270" role="outer"/>
+<member type="way" ref="204904731" role="outer"/>
+<member type="way" ref="204904652" role="outer"/>
+<member type="way" ref="204904730" role="outer"/>
+<member type="way" ref="1181737326" role="outer"/>
+<member type="way" ref="541039941" role="outer"/>
+<member type="way" ref="204904507" role="outer"/>
+<member type="way" ref="1067013692" role="outer"/>
+<member type="way" ref="366449995" role="outer"/>
+<member type="way" ref="204904529" role="outer"/>
+<member type="way" ref="204904735" role="outer"/>
+<member type="way" ref="1067012527" role="outer"/>
+<member type="way" ref="766149850" role="outer"/>
+<member type="way" ref="204904268" role="outer"/>
+<member type="way" ref="204904734" role="outer"/>
+<member type="way" ref="204904299" role="outer"/>
+<member type="way" ref="1067012528" role="outer"/>
+<member type="way" ref="204904563" role="outer"/>
+<member type="way" ref="1146032883" role="inner"/>
+<member type="way" ref="204895422" role="inner"/>
+<member type="way" ref="818495876" role="inner"/>
+<member type="way" ref="204895418" role="inner"/>
+<member type="way" ref="204895420" role="inner"/>
+<member type="way" ref="910852250" role="inner"/>
+<member type="way" ref="204895416" role="inner"/>
+<member type="way" ref="204895424" role="inner"/>
+<member type="way" ref="910852249" role="inner"/>
+<member type="way" ref="204895417" role="inner"/>
+<member type="way" ref="204895423" role="inner"/>
+<member type="way" ref="910852248" role="inner"/>
+<member type="way" ref="204895421" role="inner"/>
+<member type="way" ref="280202419" role="inner"/>
+<member type="way" ref="1146032882" role="inner"/>
+<member type="way" ref="1110117289" role="inner"/>
+<member type="relation" ref="2390836" role="subarea"/>
+<member type="relation" ref="2390843" role="subarea"/>
+<member type="relation" ref="2390841" role="subarea"/>
+<member type="relation" ref="2390840" role="subarea"/>
+<member type="relation" ref="3797244" role="subarea"/>
+<member type="relation" ref="2390838" role="subarea"/>
+<member type="relation" ref="2390842" role="subarea"/>
+<member type="relation" ref="3797243" role="subarea"/>
+<member type="relation" ref="2390837" role="subarea"/>
+<member type="relation" ref="2390839" role="subarea"/>
+<member type="relation" ref="2388356" role="subarea"/>
+<member type="relation" ref="6362934" role="subarea"/>
+<member type="relation" ref="2388361" role="subarea"/>
+<member type="relation" ref="2388357" role="subarea"/>
+<member type="relation" ref="5616105" role="subarea"/>
+<member type="relation" ref="3438227" role="subarea"/>
+<member type="relation" ref="2388616" role="subarea"/>
+<member type="relation" ref="2388613" role="subarea"/>
+<member type="relation" ref="2388615" role="subarea"/>
+<member type="relation" ref="5449459" role="subarea"/>
+<member type="relation" ref="5449460" role="subarea"/>
+<member type="relation" ref="2388666" role="subarea"/>
+<member type="relation" ref="2388665" role="subarea"/>
+<member type="relation" ref="2388664" role="subarea"/>
+<member type="relation" ref="2388669" role="subarea"/>
+<member type="relation" ref="2388667" role="subarea"/>
+<member type="relation" ref="2388668" role="subarea"/>
+<member type="relation" ref="1615622" role="subarea"/>
+<member type="relation" ref="2396778" role="subarea"/>
+<member type="relation" ref="1615621" role="subarea"/>
+<member type="relation" ref="2396796" role="subarea"/>
+<member type="relation" ref="2396795" role="subarea"/>
+<member type="relation" ref="14905625" role="subarea"/>
+<member type="relation" ref="4521145" role="subarea"/>
+<member type="relation" ref="4521144" role="subarea"/>
+<member type="relation" ref="14309178" role="subarea"/>
+<member type="relation" ref="14309176" role="subarea"/>
+<member type="relation" ref="14309177" role="subarea"/>
+<tag k="admin_level" v="2"/>
+<tag k="alt_name" v="Negara Kesatuan Republik Indonesia"/>
+<tag k="alt_name:as" v="ইণ্ডোনেছিয়া"/>
+<tag k="alt_name:ha" v="Indunusiya"/>
+<tag k="alt_name:quz" v="Inrunisya"/>
+<tag k="alt_name:ti" v="ኢንዶኔዢያ"/>
+<tag k="alt_name:vi" v="Nam Dương"/>
+<tag k="border_type" v="nation"/>
+<tag k="boundary" v="administrative"/>
+<tag k="default_language" v="id"/>
+<tag k="driving_side" v="left"/>
+<tag k="flag" v="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg"/>
+<tag k="ISO3166-1" v="ID"/>
+<tag k="ISO3166-1:alpha2" v="ID"/>
+<tag k="ISO3166-1:alpha3" v="IDN"/>
+<tag k="ISO3166-1:numeric" v="360"/>
+<tag k="name" v="Indonesia"/>
+<tag k="name:ace" v="Indonesia"/>
+<tag k="name:af" v="Indonesië"/>
+<tag k="name:ak" v="Indonesia"/>
+<tag k="name:als" v="Indonesien"/>
+<tag k="name:am" v="ኢንዶኔዥያ"/>
+<tag k="name:an" v="Indonesia"/>
+<tag k="name:ang" v="Indonesia"/>
+<tag k="name:aqm" v="Indonesia"/>
+<tag k="name:ar" v="إندونيسيا"/>
+<tag k="name:arz" v="اندونيسيا"/>
+<tag k="name:as" v="ইণ্ডোনেচিয়া"/>
+<tag k="name:ast" v="Indonesia"/>
+<tag k="name:ay" v="Indunisya"/>
+<tag k="name:az" v="İndoneziya"/>
+<tag k="name:azb" v="Indonesia"/>
+<tag k="name:ba" v="Индонезия"/>
+<tag k="name:ban" v="Indonesia"/>
+<tag k="name:bar" v="Indonesien"/>
+<tag k="name:bat-smg" v="Induonezėjė"/>
+<tag k="name:bcl" v="Indonesya"/>
+<tag k="name:be" v="Інданезія"/>
+<tag k="name:be-tarask" v="Інданэзія"/>
+<tag k="name:bg" v="Индонезия"/>
+<tag k="name:bgv" v="Indonesia"/>
+<tag k="name:bgz" v="Indonesia"/>
+<tag k="name:bi" v="Indonesia"/>
+<tag k="name:bjn" v="Indunisia"/>
+<tag k="name:bn" v="ইন্দোনেশিয়া"/>
+<tag k="name:bo" v="ཨིན་རྡུ་ནི་ཤིས་ཡ།"/>
+<tag k="name:bpv" v="Indonesia"/>
+<tag k="name:bpy" v="ইন্দোনেশিয়া"/>
+<tag k="name:br" v="Indonezia"/>
+<tag k="name:bs" v="Indonezija"/>
+<tag k="name:btx" v="Indonesia"/>
+<tag k="name:bug" v="Indonesia"/>
+<tag k="name:bxr" v="Индонези"/>
+<tag k="name:ca" v="Indonèsia"/>
+<tag k="name:cbk-zam" v="Indonesia"/>
+<tag k="name:ce" v="Индонези"/>
+<tag k="name:ceb" v="Indonesia"/>
+<tag k="name:ch" v="Indonesia"/>
+<tag k="name:chr" v="ᎢᏂᏙᏂᏍᏯ"/>
+<tag k="name:cia" v="인도네시아"/>
+<tag k="name:ckb" v="ئیندۆنیزیا"/>
+<tag k="name:co" v="Indunesia"/>
+<tag k="name:crh" v="İndoneziya"/>
+<tag k="name:cs" v="Indonésie"/>
+<tag k="name:csb" v="Jindonezjô"/>
+<tag k="name:cu" v="Їндонисїꙗ"/>
+<tag k="name:cv" v="Индонези"/>
+<tag k="name:cy" v="Indonesia"/>
+<tag k="name:da" v="Indonesien"/>
+<tag k="name:de" v="Indonesien"/>
+<tag k="name:diq" v="İndonezya"/>
+<tag k="name:dsb" v="Indoneziska"/>
+<tag k="name:dv" v="އިންޑޮނޭޝިޔާ"/>
+<tag k="name:el" v="Ινδονησία"/>
+<tag k="name:en" v="Indonesia"/>
+<tag k="name:eo" v="Indonezio"/>
+<tag k="name:es" v="Indonesia"/>
+<tag k="name:et" v="Indoneesia"/>
+<tag k="name:eu" v="Indonesia"/>
+<tag k="name:ext" v="Indonésia"/>
+<tag k="name:fa" v="اندونزی"/>
+<tag k="name:fi" v="Indonesia"/>
+<tag k="name:fo" v="Indonesia"/>
+<tag k="name:fr" v="Indonésie"/>
+<tag k="name:frp" v="Endonèsie"/>
+<tag k="name:frr" v="Indoneesien"/>
+<tag k="name:fur" v="Indonesie"/>
+<tag k="name:fy" v="Yndoneezje"/>
+<tag k="name:ga" v="An Indinéis"/>
+<tag k="name:gag" v="İndoneziya"/>
+<tag k="name:gan" v="印度尼西亞"/>
+<tag k="name:gd" v="An Innd-Innse"/>
+<tag k="name:gl" v="Indonesia"/>
+<tag k="name:gn" v="Indonesia"/>
+<tag k="name:gu" v="ઈંડોનેશિયા"/>
+<tag k="name:gv" v="Yn Indoneesh"/>
+<tag k="name:ha" v="Indonesiya"/>
+<tag k="name:hak" v="Yin-thu-nì-sî-â"/>
+<tag k="name:haw" v="‘Inidonesia"/>
+<tag k="name:he" v="אינדונזיה"/>
+<tag k="name:hi" v="इंडोनेशिया"/>
+<tag k="name:hif" v="Indonesia"/>
+<tag k="name:hr" v="Indonezija"/>
+<tag k="name:hsb" v="Indoneska"/>
+<tag k="name:ht" v="Endonezi"/>
+<tag k="name:hu" v="Indonézia"/>
+<tag k="name:hy" v="Ինդոնեզիա"/>
+<tag k="name:ia" v="Indonesia"/>
+<tag k="name:id" v="Indonesia"/>
+<tag k="name:ie" v="Indonesia"/>
+<tag k="name:ig" v="Indọnisia"/>
+<tag k="name:ilo" v="Indonesia"/>
+<tag k="name:io" v="Indonezia"/>
+<tag k="name:is" v="Indónesía"/>
+<tag k="name:it" v="Indonesia"/>
+<tag k="name:iu" v="ᐄᓅᓯᐊ"/>
+<tag k="name:ja" v="インドネシア"/>
+<tag k="name:jaq" v="Indonesia"/>
+<tag k="name:jbo" v="bidgu'e"/>
+<tag k="name:jei" v="Indonesia"/>
+<tag k="name:jel" v="Indonesia"/>
+<tag k="name:jv" v="Indonésia"/>
+<tag k="name:ka" v="ინდონეზია"/>
+<tag k="name:kab" v="Indunisya"/>
+<tag k="name:kbd" v="Индонезиэ"/>
+<tag k="name:kcd" v="Indonesia"/>
+<tag k="name:khd" v="Indonesia"/>
+<tag k="name:ki" v="Indonesia"/>
+<tag k="name:kig" v="Indonesia"/>
+<tag k="name:kk" v="Индонезия"/>
+<tag k="name:kl" v="Indonesia"/>
+<tag k="name:km" v="ឥណ្ឌូនេស៊ី"/>
+<tag k="name:kn" v="ಇಂಡೋನೇಷ್ಯಾ"/>
+<tag k="name:ko" v="인도네시아"/>
+<tag k="name:kok" v="इंडोनेशीया"/>
+<tag k="name:krz" v="Indonesia"/>
+<tag k="name:ku" v="Îndonezya"/>
+<tag k="name:kv" v="Индонезия"/>
+<tag k="name:kw" v="Indonesi"/>
+<tag k="name:kxq" v="Indonesia"/>
+<tag k="name:ky" v="Индонезия"/>
+<tag k="name:kyt" v="Indonesia"/>
+<tag k="name:la" v="Indonesia"/>
+<tag k="name:lb" v="Indonesien"/>
+<tag k="name:lez" v="Индонезия"/>
+<tag k="name:li" v="Indonesië"/>
+<tag k="name:lij" v="Indonexia"/>
+<tag k="name:lmo" v="Indunesia"/>
+<tag k="name:ln" v="Indonezí"/>
+<tag k="name:lo" v="ປະເທດອິນໂດເນເຊຍ"/>
+<tag k="name:lrc" v="ٱندونزی"/>
+<tag k="name:lt" v="Indonezija"/>
+<tag k="name:lv" v="Indonēzija"/>
+<tag k="name:lzh" v="印度尼西亞"/>
+<tag k="name:map-bms" v="Indonesia"/>
+<tag k="name:mg" v="Indonezia"/>
+<tag k="name:mgf" v="Indonesia"/>
+<tag k="name:mhr" v="Индонезий"/>
+<tag k="name:mi" v="Initonīhia"/>
+<tag k="name:min" v="Indonesia"/>
+<tag k="name:mk" v="Индонезија"/>
+<tag k="name:ml" v="ഇന്തോനേഷ്യ"/>
+<tag k="name:mn" v="Индонез"/>
+<tag k="name:mr" v="इंडोनेशिया"/>
+<tag k="name:mrj" v="Индонези"/>
+<tag k="name:mrz" v="Indonesia"/>
+<tag k="name:ms" v="Indonesia"/>
+<tag k="name:ms-Arab" v="إندؤنيسيا"/>
+<tag k="name:mt" v="Indoneżja"/>
+<tag k="name:my" v="အင်ဒိုနီးရှားနိုင်ငံ"/>
+<tag k="name:mzn" v="اندونزی"/>
+<tag k="name:na" v="Indonitsiya"/>
+<tag k="name:nah" v="Indonesia"/>
+<tag k="name:nan" v="Ìn-nî"/>
+<tag k="name:nap" v="Indonesia"/>
+<tag k="name:nds" v="Indonesien"/>
+<tag k="name:nds-nl" v="Indonezie"/>
+<tag k="name:ne" v="इन्डोनेसिया"/>
+<tag k="name:new" v="इन्दोनेसिया"/>
+<tag k="name:nl" v="Indonesië"/>
+<tag k="name:nn" v="Indonesia"/>
+<tag k="name:no" v="Indonesia"/>
+<tag k="name:nov" v="Indonesia"/>
+<tag k="name:nqm" v="Indonesia"/>
+<tag k="name:nv" v="Indoníízha"/>
+<tag k="name:oc" v="Indonesia"/>
+<tag k="name:om" v="Indoneeshiyaa"/>
+<tag k="name:or" v="ଇଣ୍ଡୋନେସିଆ"/>
+<tag k="name:os" v="Индонези"/>
+<tag k="name:pa" v="ਇੰਡੋਨੇਸ਼ੀਆ"/>
+<tag k="name:pag" v="Indonesiya"/>
+<tag k="name:pam" v="Indonesia"/>
+<tag k="name:pap" v="Indonesia"/>
+<tag k="name:pih" v="Endonesya"/>
+<tag k="name:pl" v="Indonezja"/>
+<tag k="name:pms" v="Indonesia"/>
+<tag k="name:pnb" v="انڈونیشیا"/>
+<tag k="name:ps" v="اندونيزيا"/>
+<tag k="name:pt" v="Indonésia"/>
+<tag k="name:qu" v="Indunisya"/>
+<tag k="name:quz" v="Indunisya"/>
+<tag k="name:ran" v="Indonesia"/>
+<tag k="name:rm" v="Indonesia"/>
+<tag k="name:ro" v="Indonezia"/>
+<tag k="name:roa-tara" v="Indonesie"/>
+<tag k="name:ru" v="Индонезия"/>
+<tag k="name:rue" v="Індонезія"/>
+<tag k="name:rw" v="Indonesiya"/>
+<tag k="name:sa" v="इण्डोनेशिया"/>
+<tag k="name:sah" v="Индонезия"/>
+<tag k="name:scn" v="Indunesia"/>
+<tag k="name:sco" v="Indonesie"/>
+<tag k="name:sd" v="انڊونيشيا"/>
+<tag k="name:se" v="Indonesia"/>
+<tag k="name:sg" v="Ênndonezïi"/>
+<tag k="name:sh" v="Indonezija"/>
+<tag k="name:si" v="ඉන්දුනීසියාව"/>
+<tag k="name:simple" v="Indonesia"/>
+<tag k="name:sk" v="Indonézia"/>
+<tag k="name:sl" v="Indonezija"/>
+<tag k="name:sm" v="Indyunisia"/>
+<tag k="name:smn" v="Indonesia"/>
+<tag k="name:sms" v="Indonesia"/>
+<tag k="name:so" v="Indunisiya"/>
+<tag k="name:sq" v="Indonezia"/>
+<tag k="name:sr" v="Индонезија"/>
+<tag k="name:srn" v="Indonesikondre"/>
+<tag k="name:ss" v="INdonesiya"/>
+<tag k="name:stq" v="Indonesien"/>
+<tag k="name:su" v="Indonésia"/>
+<tag k="name:sv" v="Indonesien"/>
+<tag k="name:sw" v="Indonesia"/>
+<tag k="name:szl" v="Indōnezyjŏ"/>
+<tag k="name:ta" v="இந்தோனேசியா"/>
+<tag k="name:tcg" v="Indonesia"/>
+<tag k="name:te" v="ఇండోనేషియా"/>
+<tag k="name:tet" v="Indonézia"/>
+<tag k="name:tg" v="Индонезия"/>
+<tag k="name:th" v="ประเทศอินโดนีเซีย"/>
+<tag k="name:ti" v="ኢንዶኔዥያ"/>
+<tag k="name:tk" v="Indoneziýa"/>
+<tag k="name:tl" v="Indonesya"/>
+<tag k="name:to" v="ʻInitonēsia"/>
+<tag k="name:tok" v="ma Intonesija"/>
+<tag k="name:tpi" v="Indonisia"/>
+<tag k="name:tr" v="Endonezya"/>
+<tag k="name:tt" v="Индонезия"/>
+<tag k="name:tzl" v="Indonesía"/>
+<tag k="name:udm" v="Индонезия"/>
+<tag k="name:ug" v="ھىندونېزىيە"/>
+<tag k="name:uk" v="Індонезія"/>
+<tag k="name:ur" v="انڈونیشیا"/>
+<tag k="name:uz" v="Indoneziya"/>
+<tag k="name:vec" v="Indonexia"/>
+<tag k="name:vep" v="Indonezii"/>
+<tag k="name:vi" v="Indonesia"/>
+<tag k="name:vlca" v="Indonèsia"/>
+<tag k="name:vo" v="Lindäna-Seänuäns"/>
+<tag k="name:vro" v="Indoneesiä"/>
+<tag k="name:wa" v="Indonezeye"/>
+<tag k="name:war" v="Indonesia"/>
+<tag k="name:wo" v="Endoneesi"/>
+<tag k="name:wuu" v="印度尼西亚"/>
+<tag k="name:xal" v="Эндонесин Орн"/>
+<tag k="name:yi" v="אינדאנעזיע"/>
+<tag k="name:yo" v="Indonésíà"/>
+<tag k="name:yue" v="印尼"/>
+<tag k="name:za" v="Yindunizsihya"/>
+<tag k="name:zea" v="Indonesië"/>
+<tag k="name:zh" v="印度尼西亚 / 印度尼西亞"/>
+<tag k="name:zh-Hans" v="印度尼西亚"/>
+<tag k="name:zh-Hant" v="印度尼西亞"/>
+<tag k="name:zu" v="I-Indonesia"/>
+<tag k="official_name" v="Republik Indonesia"/>
+<tag k="official_name:ar" v="جمهورية إندونيسيا"/>
+<tag k="official_name:bjn" v="Ripublik Indunisia"/>
+<tag k="official_name:ca" v="República d'Indonèsia"/>
+<tag k="official_name:ckb" v="کۆماری ئیندۆنیزیا"/>
+<tag k="official_name:cs" v="Indonéská republika"/>
+<tag k="official_name:de" v="Republik Indonesien"/>
+<tag k="official_name:en" v="Republic of Indonesia"/>
+<tag k="official_name:es" v="República de Indonesia"/>
+<tag k="official_name:fa" v="جمهوری اندونزی"/>
+<tag k="official_name:id" v="Republik Indonesia"/>
+<tag k="official_name:ku" v="Komara Îndonezya"/>
+<tag k="official_name:ru" v="Республика Индонезия"/>
+<tag k="official_name:ur" v="جمہوریہ انڈونیشیا"/>
+<tag k="official_name:zh" v="印度尼西亚共和国 / 印度尼西亞共和國"/>
+<tag k="official_name:zh-Hans" v="印度尼西亚共和国"/>
+<tag k="official_name:zh-Hant" v="印度尼西亞共和國"/>
+<tag k="population" v="270203917"/>
+<tag k="population:census:2020" v="https://en.wikipedia.org/wiki/Indonesia#cite_note-2020census-8"/>
+<tag k="ref" v="ID"/>
+<tag k="short_name" v="NKRI"/>
+<tag k="type" v="boundary"/>
+<tag k="wikidata" v="Q252"/>
+<tag k="wikipedia" v="id:Indonesia"/>
+</relation>
+</osm>
