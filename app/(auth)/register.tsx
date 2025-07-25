@@ -314,7 +314,7 @@ const RegisterPage: React.FC = () => {
                   className="py-4 rounded-lg"
                 >
                   <Text 
-                    className="text-white text-center font-semibold text-base"
+                    className="text-white text-center font-semibold text-base p-2"
                     style={{ fontFamily: 'Poppins-SemiBold' }}
                   >
                     {isLoading ? 'Creating Account...' : 'Sign Up'}

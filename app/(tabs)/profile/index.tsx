@@ -10,9 +10,9 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Header from '@/app/components/header';
-import { Ionicons, Feather, FontAwesome5,AntDesign } from '@expo/vector-icons';
+import { Ionicons, Feather, FontAwesome5, AntDesign } from '@expo/vector-icons';
 import { router } from 'expo-router';
-
+import { useAuth } from '../../contexts/AuthContext';
 
 // Interface untuk data user
 interface UserProfile {
@@ -45,18 +45,6 @@ interface Achievement {
   icon: string;
 }
 
-// Mock data
-const mockUser: UserProfile = {
-  name: "Nerya Aurellia",
-  username: "@neryanau ",
-  bio: "Pecinta budaya Bali yang ingin membagikan kearifan lokal dengan dunia. Individu yang senang mendokumentasikan upacara adat dan kuliner tradisional.",
-  location: "Bali",
-  joinDate: "March 15, 2024",
-  following: 526,
-  followers: 3794,
-  likes: "110rb",
-  profileImage: "../../assets/images/default-profile.png"
-};
 
 const mockPosts: Post[] = [
   {
@@ -92,40 +80,89 @@ const mockAchievements: Achievement[] = [
   }
 ];
 
-// const Header: React.FC<{ title: string }> = ({ title }) => {
-//   const insets = useSafeAreaInsets();
-  
-//   return (
-//     <LinearGradient
-//       colors={['#28110A', '#4E1F00']}
-//       start={{ x: 0, y: 0 }}
-//       end={{ x: 0, y: 1 }}
-//       style={{
-//         // paddingTop: insets.top + 10,
-//         paddingHorizontal: 24,
-//         paddingBottom: 16,
-//         alignItems: 'center',
-//         justifyContent: 'center'
-//       }}
-//     >
-//       <Text 
-//         style={{
-//           color: 'white',
-//           fontSize: 20,
-//           fontWeight: '600',
-//           textAlign: 'center',
-//           fontFamily: 'Poppins-SemiBold'
-//         }}
-//       >
-//         {title}
-//       </Text>
-//     </LinearGradient>
-//   );
-// };
+// Component untuk user yang belum login
+const LoginPrompt: React.FC = () => {
+  const handleLoginPress = () => {
+    router.push('/login');
+  };
+
+  return (
+    <View className="flex-1 bg-yellow-low">
+      <StatusBar barStyle="light-content" />
+      <Header title="Profile" />
+      
+      <View className="flex-1 justify-center items-center px-8">
+        <View className="bg-white rounded-2xl p-8 shadow-lg w-full max-w-sm">
+          {/* Icon */}
+          <View className="items-center mb-6">
+            <View className="w-20 h-20 bg-amber-100 rounded-full items-center justify-center mb-4">
+              <Ionicons name="person-outline" size={40} color="#92400e" />
+            </View>
+            
+            <Text 
+              className="text-2xl font-bold text-gray-900 text-center mb-2"
+              style={{ fontFamily: 'Poppins-Bold' }}
+            >
+              Welcome to JejakNusa!
+            </Text>
+            
+            <Text 
+              className="text-gray-600 text-center leading-5"
+              style={{ fontFamily: 'Poppins-Regular' }}
+            >
+              Please log in to your existing account to access your profile and explore Indonesia&apos;s rich cultural heritage.
+            </Text>
+          </View>
+
+          {/* Login Button */}
+          <TouchableOpacity 
+            onPress={handleLoginPress}
+            className="mb-4"
+          >
+            <LinearGradient
+              colors={['#28110A', '#4E1F00']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              className="py-4 rounded-lg flex-row items-center justify-center rounded-md"
+            >
+              <Text 
+                className="text-white font-semibold text-base text-center py-2"
+                style={{ fontFamily: 'Poppins-SemiBold' }}
+              >
+                Login
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+
+          {/* Register Link */}
+          <View className="flex-row items-center justify-center">
+            <Text 
+              className="text-gray-600 text-sm"
+              style={{ fontFamily: 'Poppins-Regular' }}
+            >
+              Don&apos;t have an account? 
+            </Text>
+            <TouchableOpacity 
+              onPress={() => router.push('/register')}
+              className="ml-1"
+            >
+              <Text 
+                className="text-amber-800 text-sm font-medium"
+                style={{ fontFamily: 'Poppins-Medium' }}
+              >
+                Sign up here
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+};
 
 const ProfileSection: React.FC<{ user: UserProfile }> = ({ user }) => {
   return (
-    <View className="bg-white  mx-4 mt-4 rounded-lg p-6">
+    <View className="bg-white mx-4 mt-4 rounded-lg p-6">
       <View className="items-center mb-4">
         <View className="w-20 h-20 rounded-full overflow-hidden mb-3 border-4 border-amber-100">
           <Image 
@@ -351,7 +388,29 @@ const AchievementsSection: React.FC<{ achievements: Achievement[] }> = ({ achiev
   );
 };
 
-const ProfilePage: React.FC = () => {
+const AuthenticatedProfile: React.FC = () => {
+  const { user, logout } = useAuth();
+
+  const userProfile: UserProfile = {
+    name: user?.display_name || 'User',
+    username: user?.email || 'user@example.com',
+    bio: "Pecinta budaya Indonesia yang ingin membagikan kearifan lokal dengan dunia. Individu yang senang mendokumentasikan upacara adat dan kuliner tradisional.",
+    location: "Indonesia",
+    joinDate: "March 15, 2024", 
+    following: 526,
+    followers: 3794,
+    likes: "110rb",
+    profileImage: "../../assets/images/default-profile.png"
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   return (
     <View className="flex-1 bg-yellow-low">
       <StatusBar barStyle="light-content" />
@@ -359,21 +418,52 @@ const ProfilePage: React.FC = () => {
       <Header title="Profile" />
       
       <ScrollView className="flex-1">
-        <ProfileSection user={mockUser} />
+        <ProfileSection user={userProfile} />
         <RecentPostsSection posts={mockPosts} />
         <AchievementsSection achievements={mockAchievements} />
         
-        {/* Added for testing navigation */}
-        {/* <TouchableOpacity 
-          className="bg-blue-500 py-3 rounded-lg flex-row items-center justify-center mx-4 mb-6"
-          onPress={() => router.push('../../(auth)/login')}
-        >
-          <Text className="text-white font-medium mr-2">Go to Login (Test)</Text>
-          <Ionicons name="arrow-forward" size={20} color="white" />
-        </TouchableOpacity> */}
+        {/* Logout Button */}
+        <View className="mx-4 mb-8">
+          <TouchableOpacity 
+            onPress={handleLogout}
+            className="bg-red-500 py-4 rounded-lg flex-row items-center justify-center"
+          >
+            <Ionicons name="log-out-outline" size={20} color="white" style={{ marginRight: 8 }} />
+            <Text 
+              className="text-white font-semibold text-base"
+              style={{ fontFamily: 'Poppins-SemiBold' }}
+            >
+              Logout
+            </Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
+};
+
+const ProfilePage: React.FC = () => {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  // Tampilkan loading jika masih checking auth
+  if (isLoading) {
+    return (
+      <View className="flex-1 bg-yellow-low justify-center items-center">
+        <StatusBar barStyle="light-content" />
+        <Header title="Profile" />
+        <View className="flex-1 justify-center items-center">
+          <Text 
+            className="text-gray-600"
+            style={{ fontFamily: 'Poppins-Regular' }}
+          >
+            Loading...
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  return isAuthenticated ? <AuthenticatedProfile /> : <LoginPrompt />;
 };
 
 export default ProfilePage;
