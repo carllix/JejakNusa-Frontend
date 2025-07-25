@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -7,6 +8,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Linking,
 } from "react-native"; // Tambahkan TouchableOpacity
 import MapView, { Marker, Callout, Region } from "react-native-maps"; // Import Marker dan Callout
 
@@ -276,10 +278,15 @@ const MyMap = () => {
     Alert.alert("Provinsi", `Anda memilih: ${provinceName}`, [
       { text: "OK", style: "default" },
     ]);
+    router.push("/home/daerah");
   };
 
   if (!initialRegion) return <Text>Memuat peta...</Text>;
-
+  const openWebsite = () => {
+    Linking.openURL(
+      "https://www.google.com/maps/place/7+Tempat+Keajaiban+dunia/@-7.6078728,110.2038319,2a,89.9y,85.52h,94.68t/data=!3m7!1e1!3m5!1sueD4CkqetE9dT7SUo6cyug!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-4.6815258553536125%26panoid%3DueD4CkqetE9dT7SUo6cyug%26yaw%3D85.52253035939387!7i13312!8i6656!4m14!1m7!3m6!1s0x2e7a8dd217aad765:0x99123cb8cb53fa40!2s7+Tempat+Keajaiban+dunia!8m2!3d-7.6078632!4d110.2038479!16s%2Fg%2F11sjvt6t4p!3m5!1s0x2e7a8dd217aad765:0x99123cb8cb53fa40!8m2!3d-7.6078632!4d110.2038479!16s%2Fg%2F11sjvt6t4p?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D"
+    ); // Ganti dengan URL tujuan
+  };
   return (
     <View style={styles.container}>
       <MapView style={styles.map} initialRegion={initialRegion}>
@@ -318,12 +325,52 @@ const MyMap = () => {
             </Callout>
           </Marker>
         ))}
+        <Marker
+          key={10000}
+          coordinate={{
+            latitude: -7.6079,
+            longitude: 110.2038,
+          }}
+        >
+          <View style={styles.customMarker}>
+            <Image
+              source={require("../../../assets/images/provinces/Borobudur.png")} // ganti URL gambar sesuai kebutuhan
+              style={styles.markerImage}
+              resizeMode="contain"
+            />
+          </View>
+          <Callout
+            style={styles.calloutContainer}
+            onPress={() => openWebsite()}
+          >
+            <View style={styles.calloutContent}>
+              <Text style={styles.calloutTitle}>Candi Borobudur</Text>
+
+              <TouchableOpacity
+                style={styles.calloutButton}
+                activeOpacity={0.7}
+              >
+                <Text style={styles.calloutButtonText}>Jelajahi 3D</Text>
+              </TouchableOpacity>
+            </View>
+          </Callout>
+        </Marker>
       </MapView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "#0066CC",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "600",
+  },
   container: {
     flex: 1,
   },
