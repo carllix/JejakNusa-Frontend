@@ -4,29 +4,33 @@
 
 **JejakNusa** is a map-based digital platform offering a virtual, collaborative, and educational cultural experience. Users can explore the Archipelago’s heritage without geographic barriers, while also engaging with cultural MSMEs. It combines learning and play through cultural quizzes, challenges, and more.
 
+## Main features
 
-## Main features 
+### **Interactive Cultural Map**
 
-###  **Interactive Cultural Map**
 Displays location-based content with 3D views for popular sites.
 
-###  **Post & Translatep**
+### **Post & Translatep**
+
 A feature for uploading cultural content (photos or short videos) with AI-based automatic translations.
 
-###  **Cultural Exploration**
+### **Cultural Exploration**
+
 A cultural directory by region: language, traditions, cuisine, and arts.
 
-###  **Gamified Leaning**
+### **Gamified Leaning**
+
 “Word of the Day,” quizzes, and cultural challenges to enhance literacy.
 
+### **Cultural MSMEs Showcase**
 
-###  **Cultural MSMEs Showcase**
 A curated catalog of local cultural products connected with a global audience.
 
 ### **Profile & Achievements**
+
 A badge and progress system to encourage active participation.
 
-## Tech Stack  
+## Tech Stack
 
 <div align="center">
   <table>
@@ -66,7 +70,26 @@ A badge and progress system to encourage active participation.
   </table>
 </div>
 
+## Screenshots
 
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="docs/img/msmes.png" alt="MSMES" width="200"/>
+        <br><b>MSMES</b>
+      </td>
+      <td align="center">
+        <img src="docs/img/explore.png" alt="Explore" width="200"/>
+        <br><b>Explore</b>
+      </td>
+      <td align="center">
+        <img src="docs/img/peta.png" alt="peta" width="200"/>
+        <br><b>Peta</b>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ## How to Run
 
@@ -103,10 +126,9 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
+**Backend**
 
-
-**Backend** 
-1.  Clone the backend repository 
+1.  Clone the backend repository
 
 ```bash
 git clone https://github.com/carllix/JejakNusa-Backend.git
@@ -117,33 +139,32 @@ git clone https://github.com/carllix/JejakNusa-Backend.git
 ```bash
 cd JejakNusa-Backend
 ```
-3. Install the dependendencies 
+
+3. Install the dependendencies
 
 ```bash
 bun install
 ```
+
 4. Start the backend
 
 ```bash
 bun run dev
 ```
 
-
 ## Links
 
 <div align="left">
 
-  **Demo**: [Try our demo]()
-  
+**Demo**: [Try our demo]()
+
 </div>
-
-
 
 ## Author
 
- **Nama Anggota**       | **Github**                              |
---------------------    | --------------------------------------- |
-Dzaky Aurelia Fawwaz    | [WwzFwz](https://github.com/WwzFwz)     |
-Carlo Angkisan          | [carllix](https://github.com/carllix)   |
-Alfian Hanif Yustanto   | [barruadi](https://github.com/barruadi) |
-Adinda Putri            | [adndax](https://github.com/adndax)     |
+| **Nama Anggota**      | **Github**                              |
+| --------------------- | --------------------------------------- |
+| Dzaky Aurelia Fawwaz  | [WwzFwz](https://github.com/WwzFwz)     |
+| Carlo Angkisan        | [carllix](https://github.com/carllix)   |
+| Alfian Hanif Yustanto | [barruadi](https://github.com/barruadi) |
+| Adinda Putri          | [adndax](https://github.com/adndax)     |
