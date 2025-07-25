@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image, Platform } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter, usePathname } from 'expo-router';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import React from "react";
+import { View, Text, TouchableOpacity, Image, Platform } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter, usePathname } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface TabItem {
   name: string;
@@ -14,40 +14,40 @@ interface TabItem {
 
 const tabItems: TabItem[] = [
   {
-    name: 'home',
-    route: '/(tabs)/home',
-    whiteIcon: require('../../assets/images/home-white.png'),
-    chocolateIcon: require('../../assets/images/home-chocolate.png'),
-    label: 'Home'
+    name: "home",
+    route: "/(tabs)/home",
+    whiteIcon: require("../../assets/images/home-white.png"),
+    chocolateIcon: require("../../assets/images/home-chocolate.png"),
+    label: "Home",
   },
   {
-    name: 'explore',
-    route: '/(tabs)/explore',
-    whiteIcon: require('../../assets/images/explore-white.png'), 
-    chocolateIcon: require('../../assets/images/explore-chocolate.png'), 
-    label: 'Explore'
+    name: "explore",
+    route: "/(tabs)/explore",
+    whiteIcon: require("../../assets/images/explore-white.png"),
+    chocolateIcon: require("../../assets/images/explore-chocolate.png"),
+    label: "Explore",
   },
   {
-    name: 'laga',
-    route: '/(tabs)/laga',
-    whiteIcon: require('../../assets/images/upload-white.png'),
-    chocolateIcon: require('../../assets/images/upload-chocolate.png'),
-    label: 'Laga'
+    name: "laga",
+    route: "/(tabs)/laga",
+    whiteIcon: require("../../assets/images/upload-white.png"),
+    chocolateIcon: require("../../assets/images/upload-chocolate.png"),
+    label: "Laga",
   },
   {
-    name: 'umkm',
-    route: '/(tabs)/umkm',
-    whiteIcon: require('../../assets/images/umkm-white.png'),
-    chocolateIcon: require('../../assets/images/umkm-chocolate.png'),
-    label: 'MSMES'
+    name: "umkm",
+    route: "/(tabs)/umkm",
+    whiteIcon: require("../../assets/images/umkm-white.png"),
+    chocolateIcon: require("../../assets/images/umkm-chocolate.png"),
+    label: "MSMES",
   },
   {
-    name: 'profile',
-    route: '/(tabs)/profile',
-    whiteIcon: require('../../assets/images/profile-white.png'),
-    chocolateIcon: require('../../assets/images/profile-chocolate.png'),
-    label: 'Profile'
-  }
+    name: "profile",
+    route: "/(tabs)/profile",
+    whiteIcon: require("../../assets/images/profile-white.png"),
+    chocolateIcon: require("../../assets/images/profile-chocolate.png"),
+    label: "Profile",
+  },
 ];
 
 interface TabButtonProps {
@@ -59,15 +59,15 @@ interface TabButtonProps {
 const TabButton: React.FC<TabButtonProps> = ({ item, isActive, onPress }) => {
   const containerStyle = {
     flex: 1,
-    alignItems: 'center' as const,
-    justifyContent: 'center' as const,
+    alignItems: "center" as const,
+    justifyContent: "center" as const,
     paddingVertical: 8,
     paddingHorizontal: 4,
   };
 
   const buttonStyle = {
-    alignItems: 'center' as const,
-    justifyContent: 'center' as const,
+    alignItems: "center" as const,
+    justifyContent: "center" as const,
     paddingHorizontal: 12,
     paddingVertical: 8,
     minWidth: 60,
@@ -83,20 +83,20 @@ const TabButton: React.FC<TabButtonProps> = ({ item, isActive, onPress }) => {
 
   const textStyle = {
     fontSize: 11,
-    fontWeight: '500' as const,
-    textAlign: 'center' as const,
+    fontWeight: "500" as const,
+    textAlign: "center" as const,
     // Remove fontFamily untuk menghindari masalah loading font
   };
 
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       style={containerStyle}
       onPress={onPress}
       activeOpacity={0.7}
     >
       {isActive ? (
         <LinearGradient
-          colors={['#28110A', '#4E1F00']}
+          colors={["#28110A", "#4E1F00"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1 }}
           style={buttonStyle}
@@ -106,20 +106,16 @@ const TabButton: React.FC<TabButtonProps> = ({ item, isActive, onPress }) => {
             style={iconStyle}
             resizeMode="contain"
           />
-          <Text style={[textStyle, { color: 'white' }]}>
-            {item.label}
-          </Text>
+          <Text style={[textStyle, { color: "white" }]}>{item.label}</Text>
         </LinearGradient>
       ) : (
-        <View style={[buttonStyle, { backgroundColor: 'transparent' }]}>
+        <View style={[buttonStyle, { backgroundColor: "transparent" }]}>
           <Image
             source={item.chocolateIcon}
             style={iconStyle}
             resizeMode="contain"
           />
-          <Text style={[textStyle, { color: '#000' }]}>
-            {item.label}
-          </Text>
+          <Text style={[textStyle, { color: "#000" }]}>{item.label}</Text>
         </View>
       )}
     </TouchableOpacity>
@@ -132,12 +128,12 @@ const BottomBar: React.FC = () => {
   const insets = useSafeAreaInsets();
 
   const getActiveTab = (pathname: string): string => {
-    if (pathname.includes('/home')) return 'home';
-    if (pathname.includes('/explore')) return 'explore';
-    if (pathname.includes('/laga')) return 'laga';
-    if (pathname.includes('/umkm')) return 'umkm';
-    if (pathname.includes('/profile')) return 'profile';
-    return 'home';
+    if (pathname.includes("/home")) return "home";
+    if (pathname.includes("/explore")) return "explore";
+    if (pathname.includes("/laga")) return "laga";
+    if (pathname.includes("/umkm")) return "umkm";
+    if (pathname.includes("/profile")) return "profile";
+    return "home";
   };
 
   const activeTab = getActiveTab(pathname);
@@ -148,15 +144,15 @@ const BottomBar: React.FC = () => {
 
   // Style untuk container utama
   const containerStyle = {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
+    borderTopColor: "#E5E7EB",
     paddingBottom: Math.max(insets.bottom, 16), // Minimum 16px untuk Android
     paddingTop: 4,
     // Shadow yang konsisten untuk iOS dan Android
     ...Platform.select({
       ios: {
-        shadowColor: '#000',
+        shadowColor: "#000",
         shadowOffset: {
           width: 0,
           height: -2,
@@ -171,9 +167,9 @@ const BottomBar: React.FC = () => {
   };
 
   const tabContainerStyle = {
-    flexDirection: 'row' as const,
-    alignItems: 'center' as const,
-    justifyContent: 'space-around' as const,
+    flexDirection: "row" as const,
+    alignItems: "center" as const,
+    justifyContent: "space-around" as const,
     paddingHorizontal: 8,
     paddingVertical: 4,
   };
