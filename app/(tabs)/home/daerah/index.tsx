@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React, { useState } from "react";
 import { View, Text, Alert } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
@@ -21,8 +22,8 @@ export default function GestureDirectionScreenNewAPI() {
 
   // State untuk mengelola konten dan halaman
   const [contentCount, setContentCount] = useState(0);
-  const [page, setPage] = useState("maps");
-  const [pageNum, setPageNum] = useState(2); // pageNum akan siklus 0, 1, 2
+  const [page, setPage] = useState("daerah");
+  const [pageNum, setPageNum] = useState(1); // pageNum akan siklus 0, 1, 2
 
   // State untuk status gesture (hanya untuk ditampilkan di UI)
   const [gestureStatus, setGestureStatus] = useState(
@@ -30,13 +31,13 @@ export default function GestureDirectionScreenNewAPI() {
   );
 
   // Fungsi untuk memperbarui status di JS thread (karena callback Reanimated berjalan di UI thread)
-  const updateGestureStatus = (status) => {
+  const updateGestureStatus = (status: React.SetStateAction<string>) => {
     setGestureStatus(status);
   };
 
   // Fungsi untuk memperbarui nama halaman berdasarkan pageNum yang baru
   // Fungsi ini dipanggil dari JS thread, jadi bisa mengakses state terbaru
-  const updatePageName = (newNum) => {
+  const updatePageName = (newNum: number) => {
     // Pastikan pageNum selalu dalam rentang 0, 1, 2
     let currentPageMod = newNum % 3;
     if (currentPageMod < 0) {
@@ -45,17 +46,18 @@ export default function GestureDirectionScreenNewAPI() {
 
     if (currentPageMod === 0) {
       setPage("indonesia");
+      router.push("/home/indonesia");
     } else if (currentPageMod === 1) {
       setPage("daerah");
+      router.push("/home/daerah");
     } else if (currentPageMod === 2) {
       setPage("maps");
+      router.push("/home");
     }
   };
 
   // Fungsi untuk menampilkan alert di JS thread
-  const showAlert = (title, message) => {
-    Alert.alert(title, message);
-  };
+  const showAlert = (title: string, message: string | undefined) => {};
 
   // Definisikan gesture Pan
   const panGesture = Gesture.Pan()
@@ -92,7 +94,7 @@ export default function GestureDirectionScreenNewAPI() {
     .onEnd((event) => {
       // Ketika gesture selesai (jari diangkat)
       const finalStatus = gestureStatus; // Ambil status terakhir sebelum reset
-      runOnJS(showAlert)("Gesture Selesai", finalStatus);
+
       runOnJS(updateGestureStatus)("Tidak ada gesture terdeteksi");
 
       let newContentCount = contentCount;
@@ -105,16 +107,20 @@ export default function GestureDirectionScreenNewAPI() {
         newContentCount = contentCount + 1;
       } else if (finalStatus === "KANAN!") {
         newPageNum = pageNum - 1;
+        runOnJS(setPageNum)(newPageNum);
+
+        // Panggil updatePageName di JS thread dengan nilai pageNum yang sudah diperbarui
+        runOnJS(updatePageName)(newPageNum);
       } else if (finalStatus === "KIRI!") {
         newPageNum = pageNum + 1;
+        runOnJS(setPageNum)(newPageNum);
+
+        // Panggil updatePageName di JS thread dengan nilai pageNum yang sudah diperbarui
+        runOnJS(updatePageName)(newPageNum);
       }
 
       // Panggil setter state di JS thread dengan nilai yang sudah diperbarui
       runOnJS(setContentCount)(newContentCount);
-      runOnJS(setPageNum)(newPageNum);
-
-      // Panggil updatePageName di JS thread dengan nilai pageNum yang sudah diperbarui
-      runOnJS(updatePageName)(newPageNum);
 
       // Reset posisi elemen kembali ke awal dengan animasi
       translateX.value = withTiming(0, {

@@ -1,61 +1,53 @@
-import { Tabs } from 'expo-router';
-import { View, StyleSheet } from 'react-native';
+import { Tabs } from "expo-router";
+import { View, StyleSheet } from "react-native";
 
-import BottomBar from '../components/bottombar';
-
+import BottomBar from "../components/bottombar";
 
 export default function TabsLayout() {
   return (
     <View style={styles.container}>
       <Tabs
-
         screenOptions={{
           headerShown: false,
-          tabBarStyle: { display: 'none' },
-          animation: 'none', 
+          tabBarStyle: { display: "none" },
+          animation: "none",
           lazy: false,
         }}
       >
-
-        
         <Tabs.Screen
           name="umkm"
           options={{
-            title: 'umkm',
+            title: "umkm",
           }}
         />
-        
+
         <Tabs.Screen
           name="profile"
           options={{
-            title: '',
+            title: "",
           }}
         />
         <Tabs.Screen
-            name="laga"
-            options={{
-              title: 'laga',
-            }}
-          />
-            <Tabs.Screen
-            name="home"
-            options={{
-              title: 'home',
-            }}
-          />
+          name="laga"
+          options={{
+            title: "laga",
+          }}
+        />
+        <Tabs.Screen
+          name="home"
+          options={{
+            title: "home",
+          }}
+        />
 
-
-            <Tabs.Screen
-              name="explore"
-              options={{
-                title: 'explore',
-              }}
-          />
-        
-          
+        <Tabs.Screen
+          name="explore"
+          options={{
+            title: "explore",
+          }}
+        />
       </Tabs>
       <BottomBar></BottomBar>
-
     </View>
   );
 }
@@ -63,6 +55,6 @@ export default function TabsLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
 });

@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter, usePathname } from 'expo-router';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import React from "react";
+import { View, Text, TouchableOpacity, Image } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter, usePathname } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface TabItem {
   name: string;
@@ -14,40 +14,40 @@ interface TabItem {
 
 const tabItems: TabItem[] = [
   {
-    name: 'home',
-    route: '/(tabs)/home',
-    whiteIcon: require('../../assets/images/home-white.png'),
-    chocolateIcon: require('../../assets/images/home-chocolate.png'),
-    label: 'Home'
+    name: "home",
+    route: "/(tabs)/home",
+    whiteIcon: require("../../assets/images/home-white.png"),
+    chocolateIcon: require("../../assets/images/home-chocolate.png"),
+    label: "Home",
   },
   {
-    name: 'explore',
-    route: '/(tabs)/explore',
-    whiteIcon: require('../../assets/images/explore-white.png'), 
-    chocolateIcon: require('../../assets/images/explore-chocolate.png'), 
-    label: 'Explore'
+    name: "explore",
+    route: "/(tabs)/explore",
+    whiteIcon: require("../../assets/images/explore-white.png"),
+    chocolateIcon: require("../../assets/images/explore-chocolate.png"),
+    label: "Explore",
   },
   {
-    name: 'laga',
-    route: '/(tabs)/laga',
-    whiteIcon: require('../../assets/images/upload-white.png'),
-    chocolateIcon: require('../../assets/images/upload-chocolate.png'),
-    label: 'Laga'
+    name: "laga",
+    route: "/(tabs)/laga",
+    whiteIcon: require("../../assets/images/upload-white.png"),
+    chocolateIcon: require("../../assets/images/upload-chocolate.png"),
+    label: "Laga",
   },
   {
-    name: 'umkm',
-    route: '/(tabs)/umkm',
-    whiteIcon: require('../../assets/images/umkm-white.png'),
-    chocolateIcon: require('../../assets/images/umkm-chocolate.png'),
-    label: 'MSMES'
+    name: "umkm",
+    route: "/(tabs)/umkm",
+    whiteIcon: require("../../assets/images/umkm-white.png"),
+    chocolateIcon: require("../../assets/images/umkm-chocolate.png"),
+    label: "MSMES",
   },
   {
-    name: 'profile',
-    route: '/(tabs)/profile',
-    whiteIcon: require('../../assets/images/profile-white.png'),
-    chocolateIcon: require('../../assets/images/profile-chocolate.png'),
-    label: 'Profile'
-  }
+    name: "profile",
+    route: "/(tabs)/profile",
+    whiteIcon: require("../../assets/images/profile-white.png"),
+    chocolateIcon: require("../../assets/images/profile-chocolate.png"),
+    label: "Profile",
+  },
 ];
 
 interface TabButtonProps {
@@ -58,20 +58,20 @@ interface TabButtonProps {
 
 const TabButton: React.FC<TabButtonProps> = ({ item, isActive, onPress }) => {
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       className="flex-1 items-center justify-center py-2"
       onPress={onPress}
       activeOpacity={0.7}
     >
       {isActive ? (
         <LinearGradient
-          colors={['#28110A', '#4E1F00']}
+          colors={["#28110A", "#4E1F00"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1 }}
           className="items-center justify-center px-3 py-2 rounded-lg"
           style={{
             minWidth: 60,
-            minHeight: 50
+            minHeight: 50,
           }}
         >
           <Image
@@ -79,11 +79,11 @@ const TabButton: React.FC<TabButtonProps> = ({ item, isActive, onPress }) => {
             className="w-6 h-6 mb-1"
             resizeMode="contain"
           />
-          <Text 
+          <Text
             className="text-xs font-medium text-white"
-            style={{ 
-              fontFamily: 'Poppins-Medium',
-              fontSize: 11
+            style={{
+              fontFamily: "Poppins-Medium",
+              fontSize: 11,
             }}
           >
             {item.label}
@@ -94,7 +94,7 @@ const TabButton: React.FC<TabButtonProps> = ({ item, isActive, onPress }) => {
           className="items-center justify-center px-3 py-2 rounded-lg bg-transparent"
           style={{
             minWidth: 60,
-            minHeight: 50
+            minHeight: 50,
           }}
         >
           <Image
@@ -102,10 +102,10 @@ const TabButton: React.FC<TabButtonProps> = ({ item, isActive, onPress }) => {
             className="w-6 h-6 mb-1"
             resizeMode="contain"
           />
-          <Text 
+          <Text
             className="text-xs font-medium text-black font-poppins"
-            style={{ 
-              fontSize: 11
+            style={{
+              fontSize: 11,
             }}
           >
             {item.label}
@@ -122,12 +122,12 @@ const BottomBar: React.FC = () => {
   const insets = useSafeAreaInsets();
 
   const getActiveTab = (pathname: string): string => {
-    if (pathname.includes('/home')) return 'home';
-    if (pathname.includes('/explore')) return 'explore';
-    if (pathname.includes('/laga')) return 'laga';
-    if (pathname.includes('/umkm')) return 'umkm';
-    if (pathname.includes('/profile')) return 'profile';
-    return 'home';
+    if (pathname.includes("/home")) return "home";
+    if (pathname.includes("/explore")) return "explore";
+    if (pathname.includes("/laga")) return "laga";
+    if (pathname.includes("/umkm")) return "umkm";
+    if (pathname.includes("/profile")) return "profile";
+    return "home";
   };
 
   const activeTab = getActiveTab(pathname);
@@ -137,11 +137,11 @@ const BottomBar: React.FC = () => {
   };
 
   return (
-    <View 
+    <View
       className="bg-white border-t border-gray-200 shadow-lg"
       style={{
         paddingBottom: insets.bottom,
-        shadowColor: '#000',
+        shadowColor: "#000",
         shadowOffset: {
           width: 0,
           height: -2,

@@ -1,42 +1,97 @@
-// app/(tabs)/_layout.tsx
-import React from "react"; // Pastikan React diimpor
-import { Tabs } from "expo-router";
-import { useColorScheme } from "@/hooks/useColorScheme"; // Pastikan path ini benar
-import { TabBarIcon } from "@/components/navigation/TabBarIcon"; // Contoh jika Anda punya ikon kustom
+// app/(tabs)/home/_layout.tsx
+import { Stack, router } from "expo-router";
+import { Pressable, Text, Platform, StatusBar } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import CustomHeader from "../../components/HomeHeader"; // Import CustomHeader Anda
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function HomeStackLayout() {
+  const insets = useSafeAreaInsets();
+
+  // Tinggi Custom Header kustom (sesuaikan jika perlu)
+  // Ini adalah tinggi yang harus dikompensasi oleh konten layar
+  const CUSTOM_HEADER_HEIGHT_INCLUDING_OFFSET = 60 + 40; // Base height (e.g., 60) + your 40px offset
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: colorScheme === "dark" ? "#fff" : "#000",
-        headerShown: false, // Sembunyikan header default jika Anda ingin custom
-      }}
-    >
-      {/* Pastikan properti 'title' adalah string sederhana */}
-      <Tabs.Screen
-        name="index" // Ini merujuk ke app/(tabs)/index.tsx
+    <Stack>
+      {/* Screen for app/(tabs)/home/index.tsx (Halaman Utama) */}
+      <Stack.Screen
+        name="index"
         options={{
-          title: "Peta Utama", // Ini adalah teks yang muncul di tab bar
-          // Contoh penggunaan ikon kustom (jika Anda punya TabBarIcon)
-          // tabBarIcon: ({ color, focused }) => (
-          //   <TabBarIcon name={focused ? "map" : "map-outline"} color={color} />
-          // ),
+          headerShown: true, // <<< Pastikan ini TRUE agar properti 'header' bekerja
+          // Hapus properti headerTitle, headerRight, headerLeft, headerStyle,
+          // headerTransparent, headerTintColor, headerTitleStyle, headerTitleAlign
+          // karena sekarang CustomHeader yang akan mengelolanya.
+
+          // --- Inilah yang Penting: Gunakan properti 'header' ---
+          header: (
+            { navigation, route, options } // 'header' menerima fungsi yang mengembalikan komponen
+          ) => (
+            <CustomHeader
+              button1Text="explore"
+              onButton1Press={() => router.push("/home/daerah")}
+              button2Text="maps"
+              onButton2Press={() => router.push("/home")} // Navigasi ke peta provinsi
+              button3Text="indonesia"
+              onButton3Press={() => router.push("/home/indonesia")}
+              backgroundColor="rgba(244, 81, 30, 0)" // Warna latar belakang header kustom
+              heightOffset={40} // Jarak tambahan dari bagian atas layar
+            />
+          ),
         }}
       />
-      {/* Tambahkan Tabs.Screen lain sesuai kebutuhan Anda, contoh: */}
-      {/*
-      <Tabs.Screen
-        name="explore" // Ini merujuk ke app/(tabs)/explore.tsx
+
+      {/* Screen for app/(tabs)/home/daerah/index.tsx (Peta Provinsi) */}
+      <Stack.Screen
+        name="daerah/index"
         options={{
-          title: "Eksplorasi",
-          // tabBarIcon: ({ color, focused }) => (
-          //   <TabBarIcon name={focused ? "search" : "search-outline"} color={color} />
-          // ),
+          headerShown: true, // <<< Pastikan ini TRUE agar properti 'header' bekerja
+          // Hapus properti headerTitle, headerRight, headerLeft, headerStyle,
+          // headerTransparent, headerTintColor, headerTitleStyle, headerTitleAlign
+          // karena sekarang CustomHeader yang akan mengelolanya.
+
+          // --- Inilah yang Penting: Gunakan properti 'header' ---
+          header: (
+            { navigation, route, options } // 'header' menerima fungsi yang mengembalikan komponen
+          ) => (
+            <CustomHeader
+              button1Text="explore"
+              onButton1Press={() => router.push("/home/daerah")}
+              button2Text="maps"
+              onButton2Press={() => router.push("/home")} // Navigasi ke peta provinsi
+              button3Text="indonesia"
+              onButton3Press={() => router.push("/home/indonesia")}
+              backgroundColor="rgba(244, 81, 30, 0)" // Warna latar belakang header kustom
+              heightOffset={40} // Jarak tambahan dari bagian atas layar
+            />
+          ),
         }}
       />
-      */}
-    </Tabs>
+      <Stack.Screen
+        name="indonesia/index"
+        options={{
+          headerShown: true, // <<< Pastikan ini TRUE agar properti 'header' bekerja
+          // Hapus properti headerTitle, headerRight, headerLeft, headerStyle,
+          // headerTransparent, headerTintColor, headerTitleStyle, headerTitleAlign
+          // karena sekarang CustomHeader yang akan mengelolanya.
+
+          // --- Inilah yang Penting: Gunakan properti 'header' ---
+          header: (
+            { navigation, route, options } // 'header' menerima fungsi yang mengembalikan komponen
+          ) => (
+            <CustomHeader
+              button1Text="explore"
+              onButton1Press={() => router.push("/home/daerah")}
+              button2Text="maps"
+              onButton2Press={() => router.push("/home")} // Navigasi ke peta provinsi
+              button3Text="indonesia"
+              onButton3Press={() => router.push("/home/indonesia")}
+              backgroundColor="rgba(244, 81, 30, 0)" // Warna latar belakang header kustom
+              heightOffset={40} // Jarak tambahan dari bagian atas layar
+            />
+          ),
+        }}
+      />
+    </Stack>
   );
 }
