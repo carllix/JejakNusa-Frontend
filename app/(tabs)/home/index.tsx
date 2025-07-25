@@ -331,8 +331,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   customMarker: {
-    width: 50,
-    height: 50,
+    width: 70,
+    height: 70,
     backgroundColor: "white",
     borderRadius: 8,
     justifyContent: "center",
@@ -344,8 +344,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   markerImage: {
-    width: 40,
-    height: 40,
+    width: 65,
+    height: 65,
     borderRadius: 4,
   },
   calloutContainer: {
