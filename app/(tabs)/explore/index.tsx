@@ -81,7 +81,7 @@ const SearchBar: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   
   return (
-    <View className="px-4 py-3 bg-gray-50">
+    <View className="px-4 py-3 bg-transparent">
       <View className="flex-row items-center bg-white rounded-lg px-3 py-2 shadow-sm">
         <MaterialIcons 
           name="search"
@@ -112,7 +112,7 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
             ? require('../../../assets/images/default-explore-1.png')
             : require('../../../assets/images/default-explore-2.png')
           }
-          className="w-full h-48"
+          className="w-full  "
           resizeMode="cover"
         />
         {/* Overlay dengan gradient */}
@@ -145,18 +145,16 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
           <View className="flex-row items-center">
             <MaterialIcons name="person" size={16} color="#666" />
             <Text 
-              className="text-gray-600 text-sm ml-1"
-              style={{ fontFamily: 'Poppins-Regular' }}
+              className="text-gray-600 text-sm ml-1 font-poppins"
             >
               {region.contributors} contributors
             </Text>
           </View>
           
-          <View className="flex-row items-center">
+          <View className="flex-row items-center ml-2">
             <FontAwesome5 name="camera" size={14} color="#666" />
             <Text 
-              className="text-gray-600 text-sm ml-1"
-              style={{ fontFamily: 'Poppins-Regular' }}
+              className="text-gray-600 text-sm ml-1 font-poppins"
             >
               {region.contents} contents
             </Text>
@@ -190,7 +188,6 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
           </View>
         </View>
         
-        {/* Fixed Explore Button - Android Compatible */}
         <TouchableOpacity 
           onPress={() => {
             console.log(`Exploring ${region.name}`);
@@ -215,12 +212,8 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
             }}
           >
             <Text 
-              style={{ 
-                color: 'white',
-                textAlign: 'center',
-                fontWeight: '600',
-                fontFamily: 'Poppins-SemiBold'
-              }}
+            className='text-center font-medium font-poppins text-white '
+
             >
               Explore
             </Text>
@@ -233,7 +226,7 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
 
 const ExplorePage: React.FC = () => {
   return (
-    <View className="flex-1 bg-gray-50">
+    <View className="flex-1 bg-yellow-low">
       <StatusBar barStyle="light-content" />
       
       <Header title="Explore" />

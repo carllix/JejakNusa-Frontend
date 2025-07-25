@@ -79,14 +79,14 @@ const mockAchievements: Achievement[] = [
     title: 'Top Contributor',
     description: 'Received at July 10, 2025',
     date: 'July 10, 2025',
-    icon: '../../assets/images/ribbon-star.png'
+    icon: '../../../assets/images/ribbon-star.png'
   },
   {
     id: '2',
     title: 'Heroic Explorer',
     description: 'Received at April 16, 2025',
     date: 'April 16, 2025',
-    icon: '../../assets/images/hiker.png'
+    icon: '../../../assets/images/hiker.png'
   }
 ];
 
@@ -123,7 +123,7 @@ const Header: React.FC<{ title: string }> = ({ title }) => {
 
 const ProfileSection: React.FC<{ user: UserProfile }> = ({ user }) => {
   return (
-    <View className="bg-white mx-4 mt-4 rounded-lg p-6 shadow-sm">
+    <View className="bg-white  mx-4 mt-4 rounded-lg p-6">
       <View className="items-center mb-4">
         <View className="w-20 h-20 rounded-full overflow-hidden mb-3 border-4 border-amber-100">
           <Image 
@@ -159,7 +159,7 @@ const ProfileSection: React.FC<{ user: UserProfile }> = ({ user }) => {
         <View className="flex-row items-center">
           <Ionicons name="location-outline" size={16} color="#666" />
           <Text 
-            className="text-gray-600 ml-1 font-poppins"
+            className="text-gray-600 ml-1 mr-4 font-poppins"
           >
             {user.location}
           </Text>
@@ -168,8 +168,7 @@ const ProfileSection: React.FC<{ user: UserProfile }> = ({ user }) => {
         <View className="flex-row items-center">
           <AntDesign name="clockcircleo" size={16} color="#666" />
           <Text 
-            className="text-gray-600 ml-1"
-            style={{ fontFamily: 'Poppins-Regular' }}
+            className="text-gray-600 ml-2 font-poppins"
           >
             Joined on {user.joinDate}
           </Text>
@@ -238,6 +237,7 @@ const ProfileSection: React.FC<{ user: UserProfile }> = ({ user }) => {
             Edit Profile
           </Text>
         </TouchableOpacity>
+        <View className='w-2'></View>
         
         <TouchableOpacity className="flex-1 bg-gray-100 py-3 rounded-lg flex-row items-center justify-center">
           <Feather name="share" size={16} color="#666" style={{ marginRight: 8 }} />
@@ -290,7 +290,7 @@ const RecentPostsSection: React.FC<{ posts: Post[] }> = ({ posts }) => {
                 </Text>
               </View>
               
-              <View className="flex-row items-center">
+              <View className="flex-row items-center ml-2">
                 <FontAwesome5 name="comment" size={14} color="#666" />
                 <Text 
                   className="text-gray-600 text-sm ml-1"
@@ -313,12 +313,11 @@ const AchievementsSection: React.FC<{ achievements: Achievement[] }> = ({ achiev
       <View className="flex-row items-center mb-4">
         <Image 
           source={require('../../../assets/images/medals.png')}
-          className="w-5 h-5 mr-2"
+          className="w-8 h-8 mr-2"
           resizeMode="contain"
         />
         <Text 
-          className="text-lg font-semibold text-gray-900"
-          style={{ fontFamily: 'Poppins-SemiBold' }}
+          className="text-lg font-semibold text-gray-900 font-poppins"
         >
           Latest Achievement
         </Text>
@@ -327,7 +326,7 @@ const AchievementsSection: React.FC<{ achievements: Achievement[] }> = ({ achiev
       {achievements.map((achievement) => (
         <View key={achievement.id} className="flex-row items-center py-3 border-b border-gray-100 last:border-b-0">
           <Image 
-            source={require('../../../assets/images/ribbon-star.png')}
+            source={require('../../../assets/images/hiker.png')}
             className="w-10 h-10 mr-3"
             resizeMode="contain"
           />
@@ -352,7 +351,7 @@ const AchievementsSection: React.FC<{ achievements: Achievement[] }> = ({ achiev
 
 const ProfilePage: React.FC = () => {
   return (
-    <View className="flex-1 bg-gray-50">
+    <View className="flex-1 bg-yellow-low">
       <StatusBar barStyle="light-content" />
       
       <Header title="Profile" />

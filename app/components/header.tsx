@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text,Image,ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 interface HeaderProps {
@@ -8,18 +8,17 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ title }) => {
   return (
-    <LinearGradient
-      colors={['#28110A', '#4E1F00']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
-      className="px-6 py-4 items-center justify-center"
-    >
-      <Text 
-        className="text-white text-xl font-semibold text-center"
-      >
-        {title}
-      </Text>
-    </LinearGradient>
+<ImageBackground 
+  source={require('../../assets/images/batik.png')}
+  resizeMode='cover'
+  className="px-6 py-6 items-center justify-center"
+>
+
+    <Text className="text-white text-xl font-semibold text-center">
+      {title}
+    </Text>
+
+</ImageBackground>
   );
 };
 
