@@ -9,10 +9,9 @@ import {
   Image,
   TouchableOpacity,
   Linking,
-} from "react-native"; // Tambahkan TouchableOpacity
-import MapView, { Marker, Callout, Region } from "react-native-maps"; // Import Marker dan Callout
+} from "react-native"; 
+import MapView, { Marker, Callout, Region } from "react-native-maps"; 
 
-// Data provinsi dengan koordinat (ini hanya sebagian kecil sebagai contoh!)
 const provincesWithCoords = [
   { name: "Aceh", latitude: 5.55, longitude: 95.316, path: "Aceh" },
   {
@@ -261,7 +260,7 @@ const getRandomProvinceRegion = (): Region => {
   return {
     latitude: random.latitude,
     longitude: random.longitude,
-    latitudeDelta: 1.5, // zoom level sedang
+    latitudeDelta: 1.5, 
     longitudeDelta: 1.5,
   };
 };
@@ -285,7 +284,7 @@ const MyMap = () => {
   const openWebsite = () => {
     Linking.openURL(
       "https://www.google.com/maps/place/7+Tempat+Keajaiban+dunia/@-7.6078728,110.2038319,2a,89.9y,85.52h,94.68t/data=!3m7!1e1!3m5!1sueD4CkqetE9dT7SUo6cyug!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-4.6815258553536125%26panoid%3DueD4CkqetE9dT7SUo6cyug%26yaw%3D85.52253035939387!7i13312!8i6656!4m14!1m7!3m6!1s0x2e7a8dd217aad765:0x99123cb8cb53fa40!2s7+Tempat+Keajaiban+dunia!8m2!3d-7.6078632!4d110.2038479!16s%2Fg%2F11sjvt6t4p!3m5!1s0x2e7a8dd217aad765:0x99123cb8cb53fa40!8m2!3d-7.6078632!4d110.2038479!16s%2Fg%2F11sjvt6t4p?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D"
-    ); // Ganti dengan URL tujuan
+    ); 
   };
   return (
     <View style={styles.container}>
@@ -300,7 +299,7 @@ const MyMap = () => {
           >
             <View style={styles.customMarker}>
               <Image
-                source={imageMap[province.path]} // ganti URL gambar sesuai kebutuhan
+                source={imageMap[province.path]} 
                 style={styles.markerImage}
                 resizeMode="contain"
               />
@@ -334,7 +333,7 @@ const MyMap = () => {
         >
           <View style={styles.customMarker}>
             <Image
-              source={require("../../../assets/images/provinces/Borobudur.png")} // ganti URL gambar sesuai kebutuhan
+              source={require("../../../assets/images/provinces/Borobudur.png")} 
               style={styles.markerImage}
               resizeMode="contain"
             />
@@ -403,13 +402,9 @@ const styles = StyleSheet.create({
   },
   calloutContent: {
     backgroundColor: "white",
-    // borderRadius: 10,
     padding: 15,
     minWidth: 200,
     shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
     elevation: 5,
   },
   calloutTitle: {

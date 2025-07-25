@@ -57,7 +57,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     } catch (error) {
       console.error('Error loading stored auth:', error);
-      // Clear potentially corrupted data
       await clearAuthData();
     } finally {
       setIsLoading(false);
@@ -114,14 +113,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       const { user: userData, token: authToken } = responseData.data;
 
-      // Store auth data
       await storeAuthData(authToken, userData);
       
-      // Update state
       setToken(authToken);
       setUser(userData);
 
-      // Navigate to home
       router.replace('../(tabs)/home');
     } catch (error) {
       // console.error('Login error:', error);
@@ -159,14 +155,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       const { user: userData, token: authToken } = responseData.data;
 
-      // Store auth data
       await storeAuthData(authToken, userData);
       
-      // Update state
       setToken(authToken);
       setUser(userData);
 
-      // Navigate to home
       router.replace('../(tabs)/home');
     } catch (error) {
       // console.error('Registration error:', error);
@@ -180,17 +173,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setIsLoading(true);
       
-      // Clear stored data
       await clearAuthData();
       
-      // Clear state
       setToken(null);
       setUser(null);
 
-      // // Navigate to login
-      // router.replace('../login');
     } catch (error) {
-      // console.error('Logout error:', error);
     } finally {
       setIsLoading(false);
     }
@@ -213,7 +201,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-// Custom hook to use auth context
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (context === undefined) {

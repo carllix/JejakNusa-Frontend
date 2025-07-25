@@ -121,38 +121,6 @@ const mockLeaderboard: LeaderboardUser[] = [
   { id: '5', rank: 5, name: 'Dinda Ackerman', location: 'Lampung', points: 1050, badges: 6 }
 ];
 
-// // Components
-// const Header: React.FC<{ title: string }> = ({ title }) => {
-//   const insets = useSafeAreaInsets();
-  
-//   return (
-//     <LinearGradient
-//       colors={['#28110A', '#4E1F00']}
-//       start={{ x: 0, y: 0 }}
-//       end={{ x: 0, y: 1 }}
-//       style={{
-//         paddingTop: insets.top + 10,
-//         paddingHorizontal: 24,
-//         paddingBottom: 16,
-//         alignItems: 'center',
-//         justifyContent: 'center'
-//       }}
-//     >
-//       <Text 
-//         style={{
-//           color: 'white',
-//           fontSize: 20,
-//           fontWeight: '600',
-//           textAlign: 'center',
-//           fontFamily: 'Poppins-SemiBold'
-//         }}
-//       >
-//         {title}
-//       </Text>
-//     </LinearGradient>
-//   );
-// };
-
 const WordOfDayCard: React.FC<{ word: WordOfDay }> = ({ word }) => {
   return (
     <View className="bg-white mx-4 mt-4 rounded-lg p-4 shadow-sm">

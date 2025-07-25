@@ -1,36 +1,34 @@
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
   Alert,
-  Image, // Make sure Image is imported
-  TouchableOpacity,
-  TextInput,
+  Dimensions,
+  Image,
   Modal,
   ScrollView,
-  Dimensions,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  runOnJS,
-  withTiming,
   Easing,
-  interpolate,
   Extrapolate,
+  interpolate,
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
 } from "react-native-reanimated";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-// Konfigurasi animasi smooth tanpa spring
 const SMOOTH_TIMING_CONFIG = {
-  duration: 300, // Durasi lebih cepat
-  easing: Easing.out(Easing.quad), // Easing yang smooth
+  duration: 300,
+  easing: Easing.out(Easing.quad),
 };
 
-// Data dummy untuk konten seperti TikTok/Reels
 const dummyContent = [
   {
     id: 1,
@@ -67,7 +65,7 @@ const dummyContent = [
     id: 4,
     username: "culture_indonesia",
     description: "Makanan Khas daerah Jawa #food #makanlagi",
-    // This image is already local, no change needed here.
+
     image: require("../../../../assets/images/content/9.jpg"),
     likes: 987,
     comments: 45,
@@ -86,7 +84,6 @@ const dummyContent = [
   },
 ];
 
-// Dummy page content for horizontal navigation
 const pageContent = {
   maps: {
     title: "Maps Indonesia",
@@ -135,15 +132,12 @@ export default function TikTokReelsComponent() {
   const [contents, setContents] = useState(dummyContent);
   const [gestureStatus, setGestureStatus] = useState("Swipe untuk navigasi");
 
-  // Direction lock states
-  const [gestureDirection, setGestureDirection] = useState(null); // 'horizontal' | 'vertical' | null
+  const [gestureDirection, setGestureDirection] = useState(null); 
 
-  // States from original gesture component
   const [contentCount, setContentCount] = useState(0);
   const [page, setPage] = useState("daerah");
   const [pageNum, setPageNum] = useState(2);
 
-  // Modal states
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
 
@@ -163,7 +157,6 @@ export default function TikTokReelsComponent() {
     }
   };
 
-  // Function to update page name based on pageNum
   const updatePageName = (newNum) => {
     let currentPageMod = newNum % 3;
     if (currentPageMod < 0) {
@@ -211,9 +204,8 @@ export default function TikTokReelsComponent() {
       runOnJS(updateGestureStatus)("Gesture dimulai...");
     })
     .onChange((event) => {
-      const threshold = 20; // Threshold lebih kecil untuk responsivitas lebih baik
+      const threshold = 20;
 
-      // Lock direction on first significant movement
       if (!gestureDirection) {
         if (
           Math.abs(event.translationX) > threshold ||
@@ -227,14 +219,13 @@ export default function TikTokReelsComponent() {
         }
       }
 
-      // Apply movement based on locked direction with smooth interpolation
-      if (gestureDirection === "horizontal") {
-        // Smooth horizontal movement dengan resistance
-        const resistance = 0.8; // Memberikan sedikit resistance
-        translateX.value = event.translationX * resistance;
-        translateY.value = 0; // Lock vertical movement
 
-        const feedbackThreshold = 40; // Threshold lebih kecil
+      if (gestureDirection === "horizontal") {
+        const resistance = 0.8;
+        translateX.value = event.translationX * resistance;
+        translateY.value = 0; 
+
+        const feedbackThreshold = 40;
         let currentStatus = "Bergerak horizontal...";
 
         if (event.translationX > feedbackThreshold) {
@@ -244,10 +235,9 @@ export default function TikTokReelsComponent() {
         }
         runOnJS(updateGestureStatus)(currentStatus);
       } else if (gestureDirection === "vertical") {
-        // Smooth vertical movement dengan resistance
         const resistance = 0.8;
         translateY.value = event.translationY * resistance;
-        translateX.value = 0; // Lock horizontal movement
+        translateX.value = 0; 
 
         const feedbackThreshold = 40;
         let currentStatus = "Bergerak vertikal...";
@@ -266,7 +256,6 @@ export default function TikTokReelsComponent() {
       let newPageNum = pageNum;
 
       if (gestureDirection === "horizontal") {
-        // Handle horizontal gestures
         if (event.translationX > threshold) {
           newPageNum = pageNum - 1;
           runOnJS(setPageNum)(newPageNum);
@@ -276,23 +265,21 @@ export default function TikTokReelsComponent() {
           runOnJS(setPageNum)(newPageNum);
           runOnJS(updatePageName)(newPageNum);
         }
-
-        // Reset position after horizontal swipe
+        
         translateX.value = withTiming(0, SMOOTH_TIMING_CONFIG);
         translateY.value = withTiming(0, SMOOTH_TIMING_CONFIG);
       } else if (gestureDirection === "vertical") {
         if (event.translationY > threshold) {
-          // ↓ Swipe ke bawah → Dismiss tanpa mantul
+       
           runOnJS(navigateContent)("down");
           newContentCount = contentCount - 1;
           translateY.value = withTiming(0, SMOOTH_TIMING_CONFIG);
         } else if (event.translationY < -threshold) {
-          // ↑ Swipe ke atas → Next content biasa
           runOnJS(navigateContent)("up");
           newContentCount = contentCount + 1;
           translateY.value = withTiming(0, SMOOTH_TIMING_CONFIG);
         } else {
-          // Tidak cukup threshold → tidak memantul, langsung hilang
+
           translateY.value = withTiming(
             SCREEN_HEIGHT,
             SMOOTH_TIMING_CONFIG,
@@ -308,16 +295,13 @@ export default function TikTokReelsComponent() {
           );
         }
 
-        // Reset horizontal posisi (selalu)
         translateX.value = withTiming(0, SMOOTH_TIMING_CONFIG);
       } else {
-        // Jika tidak ada direction (fallback)
         translateX.value = withTiming(0, SMOOTH_TIMING_CONFIG);
         translateY.value = withTiming(0, SMOOTH_TIMING_CONFIG);
       }
     });
 
-  // Main content animated style
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -327,12 +311,11 @@ export default function TikTokReelsComponent() {
     };
   });
 
-  // Next content preview (vertical) - Smooth interpolation
   const nextContentStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       translateY.value,
       [-120, 0],
-      [0.8, 0], // Opacity lebih tinggi untuk preview yang lebih jelas
+      [0.8, 0],
       Extrapolate.CLAMP
     );
     const translateYNext = interpolate(
@@ -348,7 +331,6 @@ export default function TikTokReelsComponent() {
     };
   });
 
-  // Previous content preview (vertical) - Smooth interpolation
   const prevContentStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       translateY.value,
@@ -369,12 +351,11 @@ export default function TikTokReelsComponent() {
     };
   });
 
-  // Page preview styles (horizontal) - Smooth interpolation
   const nextPageStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       translateX.value,
       [-120, 0],
-      [0.9, 0], // Opacity tinggi untuk page preview
+      [0.9, 0],
       Extrapolate.CLAMP
     );
     const translateXNext = interpolate(
@@ -415,7 +396,6 @@ export default function TikTokReelsComponent() {
     currentIndex < contents.length - 1 ? contents[currentIndex + 1] : null;
   const prevContent = currentIndex > 0 ? contents[currentIndex - 1] : null;
 
-  // Get page info for previews
   const getPageInfo = (pageOffset) => {
     const targetPage = (pageNum + pageOffset) % 3;
     const normalizedPage = targetPage < 0 ? targetPage + 3 : targetPage;
@@ -429,7 +409,6 @@ export default function TikTokReelsComponent() {
     <View style={{ flex: 1, backgroundColor: "black" }}>
       <GestureDetector gesture={panGesture}>
         <View style={{ flex: 1 }}>
-          {/* Previous Content Preview (Vertical) */}
           {prevContent && (
             <Animated.View
               style={[
@@ -443,7 +422,6 @@ export default function TikTokReelsComponent() {
                 prevContentStyle,
               ]}
             >
-              {/* Conditional rendering for image source */}
               <Image
                 source={
                   typeof prevContent.image === "string" &&
@@ -476,7 +454,6 @@ export default function TikTokReelsComponent() {
             </Animated.View>
           )}
 
-          {/* Next Content Preview (Vertical) */}
           {nextContent && (
             <Animated.View
               style={[
@@ -490,7 +467,6 @@ export default function TikTokReelsComponent() {
                 nextContentStyle,
               ]}
             >
-              {/* Conditional rendering for image source */}
               <Image
                 source={
                   typeof nextContent.image === "string" &&
@@ -523,7 +499,6 @@ export default function TikTokReelsComponent() {
             </Animated.View>
           )}
 
-          {/* Previous Page Preview (Horizontal) */}
           <Animated.View
             style={[
               {
@@ -562,7 +537,6 @@ export default function TikTokReelsComponent() {
             </View>
           </Animated.View>
 
-          {/* Next Page Preview (Horizontal) */}
           <Animated.View
             style={[
               {
@@ -601,11 +575,8 @@ export default function TikTokReelsComponent() {
             </View>
           </Animated.View>
 
-          {/* Main Content */}
           <Animated.View style={[{ flex: 1 }, animatedStyle]}>
             <View style={{ flex: 1, position: "relative" }}>
-              {/* Background Image */}
-              {/* Conditional rendering for image source */}
               <Image
                 source={
                   typeof currentContent.image === "string" &&
@@ -620,7 +591,6 @@ export default function TikTokReelsComponent() {
                 resizeMode="contain"
               />
 
-              {/* Overlay Gradient */}
               <View
                 style={{
                   position: "absolute",
@@ -644,7 +614,6 @@ export default function TikTokReelsComponent() {
                 />
               </View>
 
-              {/* Top Bar - Status hanya */}
               <View
                 style={{
                   position: "absolute",
@@ -670,7 +639,6 @@ export default function TikTokReelsComponent() {
                 </View>
               </View>
 
-              {/* Right Side Actions */}
               <View
                 style={{
                   position: "absolute",
@@ -681,7 +649,6 @@ export default function TikTokReelsComponent() {
                   rowGap: 28,
                 }}
               >
-                {/* Like Button */}
                 <TouchableOpacity
                   onPress={toggleLike}
                   style={{ alignItems: "center", marginBottom: 24 }}
@@ -696,11 +663,11 @@ export default function TikTokReelsComponent() {
                     }}
                   >
                     <Image
-                      source={require("../../../../assets/images/like.png")} // Local image
+                      source={require("../../../../assets/images/like.png")}
                       resizeMode="contain"
                       style={{
-                        width: "100%", // Make the image take 100% of the parent's width
-                        height: "100%", // Make the image take 100% of the parent's height
+                        width: "100%",
+                        height: "100%",
                       }}
                     ></Image>
                   </View>
@@ -715,7 +682,6 @@ export default function TikTokReelsComponent() {
                   </Text>
                 </TouchableOpacity>
 
-                {/* Comment Button */}
                 <TouchableOpacity
                   onPress={() => setShowComments(true)}
                   style={{ alignItems: "center", marginBottom: 24 }}
@@ -730,11 +696,11 @@ export default function TikTokReelsComponent() {
                     }}
                   >
                     <Image
-                      source={require("../../../../assets/images/comment.png")} // Local image
+                      source={require("../../../../assets/images/comment.png")}
                       resizeMode="contain"
                       style={{
-                        width: "100%", // Make the image take 100% of the parent's width
-                        height: "100%", // Make the image take 100% of the parent's height
+                        width: "100%",
+                        height: "100%",
                       }}
                     ></Image>
                   </View>
@@ -749,7 +715,6 @@ export default function TikTokReelsComponent() {
                   </Text>
                 </TouchableOpacity>
 
-                {/* Share Button */}
                 <TouchableOpacity
                   onPress={handleShare}
                   style={{ alignItems: "center", marginBottom: 24 }}
@@ -764,11 +729,11 @@ export default function TikTokReelsComponent() {
                     }}
                   >
                     <Image
-                      source={require("../../../../assets/images/share.png")} // Local image
+                      source={require("../../../../assets/images/share.png")}
                       resizeMode="contain"
                       style={{
-                        width: "100%", // Make the image take 100% of the parent's width
-                        height: "100%", // Make the image take 100% of the parent's height
+                        width: "100%",
+                        height: "100%",
                       }}
                     ></Image>
                   </View>
@@ -784,7 +749,6 @@ export default function TikTokReelsComponent() {
                 </TouchableOpacity>
               </View>
 
-              {/* Bottom Content Info */}
               <View
                 style={{
                   position: "absolute",
@@ -819,7 +783,6 @@ export default function TikTokReelsComponent() {
         </View>
       </GestureDetector>
 
-      {/* Comments Modal */}
       <Modal
         visible={showComments}
         animationType="slide"
@@ -833,7 +796,6 @@ export default function TikTokReelsComponent() {
             marginTop: 325,
           }}
         >
-          {/* Comments Header */}
           <View
             style={{
               flexDirection: "row",
@@ -850,7 +812,6 @@ export default function TikTokReelsComponent() {
             </TouchableOpacity>
           </View>
 
-          {/* Comments List */}
           <ScrollView style={{ flex: 1, padding: 16 }}>
             {dummyComments.map((comment) => (
               <View
@@ -901,7 +862,6 @@ export default function TikTokReelsComponent() {
             ))}
           </ScrollView>
 
-          {/* Comment Input */}
           <View
             style={{
               flexDirection: "row",

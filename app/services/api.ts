@@ -80,14 +80,14 @@ class ApiService {
     }
   }
 
-  // GET request
+  
   async get<T>(endpoint: string): Promise<ApiResponse<T>> {
     return this.makeRequest<T>(endpoint, {
       method: 'GET',
     });
   }
 
-  // POST request
+  
   async post<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
     return this.makeRequest<T>(endpoint, {
       method: 'POST',
@@ -95,7 +95,7 @@ class ApiService {
     });
   }
 
-  // PUT request
+  
   async put<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
     return this.makeRequest<T>(endpoint, {
       method: 'PUT',
@@ -103,7 +103,7 @@ class ApiService {
     });
   }
 
-  // PATCH request
+  
   async patch<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
     return this.makeRequest<T>(endpoint, {
       method: 'PATCH',
@@ -111,14 +111,14 @@ class ApiService {
     });
   }
 
-  // DELETE request
+  
   async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
     return this.makeRequest<T>(endpoint, {
       method: 'DELETE',
     });
   }
 
-  // Upload file
+  
   async upload<T>(endpoint: string, formData: FormData): Promise<ApiResponse<T>> {
     const token = await this.getToken();
     const url = `${this.baseUrl}${endpoint}`;
@@ -160,8 +160,8 @@ class ApiService {
   }
 }
 
-// Create and export a singleton instance
+
 export const apiService = new ApiService();
 
-// Export the class for custom instances if needed
+
 export default ApiService;

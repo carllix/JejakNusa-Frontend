@@ -12,7 +12,7 @@ interface UseApiReturn<T> extends UseApiState<T> {
   reset: () => void;
 }
 
-// Generic hook for API calls
+
 export function useApi<T = any>(
   apiCall: (...args: any[]) => Promise<ApiResponse<T>>
 ): UseApiReturn<T> {
@@ -66,43 +66,43 @@ export function useApi<T = any>(
   };
 }
 
-// Specific hooks for common API patterns
 
-// GET request hook
+
+
 export function useGet<T = any>(endpoint: string) {
   return useApi<T>(() => apiService.get<T>(endpoint));
 }
 
-// POST request hook
+
 export function usePost<T = any>(endpoint: string) {
   return useApi<T>((data: any) => apiService.post<T>(endpoint, data));
 }
 
-// PUT request hook
+
 export function usePut<T = any>(endpoint: string) {
   return useApi<T>((data: any) => apiService.put<T>(endpoint, data));
 }
 
-// PATCH request hook
+
 export function usePatch<T = any>(endpoint: string) {
   return useApi<T>((data: any) => apiService.patch<T>(endpoint, data));
 }
 
-// DELETE request hook
+
 export function useDelete<T = any>(endpoint: string) {
   return useApi<T>(() => apiService.delete<T>(endpoint));
 }
 
-// Upload hook
+
 export function useUpload<T = any>(endpoint: string) {
   return useApi<T>((formData: FormData) => apiService.upload<T>(endpoint, formData));
 }
 
-// Hook for data fetching with automatic execution
+
 export function useFetch<T = any>(endpoint: string, autoExecute: boolean = true) {
   const { data, loading, error, execute, reset } = useGet<T>(endpoint);
 
-  // Auto-execute on mount if autoExecute is true
+  
   useState(() => {
     if (autoExecute) {
       execute();
