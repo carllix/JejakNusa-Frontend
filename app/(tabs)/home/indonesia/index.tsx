@@ -17,7 +17,10 @@ import Animated, {
   useAnimatedStyle,
   runOnJS,
   withTiming,
+  withSpring,
   Easing,
+  interpolate,
+  Extrapolate,
 } from "react-native-reanimated";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
@@ -84,6 +87,25 @@ const dummyContent = [
   },
 ];
 
+// Dummy page content for horizontal navigation
+const pageContent = {
+  maps: {
+    title: "Maps Indonesia",
+    bg: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600&fit=crop",
+    color: "#10B981",
+  },
+  indonesia: {
+    title: "Indonesia",
+    bg: "https://images.unsplash.com/photo-1555217851-6141535bd771?w=400&h=600&fit=crop",
+    color: "#EF4444",
+  },
+  daerah: {
+    title: "Daerah",
+    bg: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400&h=600&fit=crop",
+    color: "#3B82F6",
+  },
+};
+
 // Dummy comments data
 const dummyComments = [
   { id: 1, username: "user123", comment: "Keren banget!", time: "2j" },
@@ -114,6 +136,9 @@ export default function TikTokReelsComponent() {
   const [contents, setContents] = useState(dummyContent);
   const [gestureStatus, setGestureStatus] = useState("Swipe untuk navigasi");
 
+  // Direction lock states
+  const [gestureDirection, setGestureDirection] = useState(null); // 'horizontal' | 'vertical' | null
+
   // States from original gesture component
   const [contentCount, setContentCount] = useState(0);
   const [page, setPage] = useState("indonesia");
@@ -127,6 +152,10 @@ export default function TikTokReelsComponent() {
     setGestureStatus(status);
   };
 
+  const setDirection = (direction) => {
+    setGestureDirection(direction);
+  };
+
   const navigateContent = (direction) => {
     if (direction === "up" && currentIndex < contents.length - 1) {
       setCurrentIndex(currentIndex + 1);
@@ -135,7 +164,7 @@ export default function TikTokReelsComponent() {
     }
   };
 
-  // Function to update page name based on pageNum (from original)
+  // Function to update page name based on pageNum
   const updatePageName = (newNum) => {
     let currentPageMod = newNum % 3;
     if (currentPageMod < 0) {
@@ -183,50 +212,70 @@ export default function TikTokReelsComponent() {
       runOnJS(updateGestureStatus)("Gesture dimulai...");
     })
     .onChange((event) => {
-      translateX.value = event.translationX;
-      translateY.value = event.translationY;
+      const threshold = 30; // Lower threshold for direction detection
 
-      const threshold = 50;
-      let currentStatus = "Bergerak...";
-
-      if (Math.abs(event.translationX) > Math.abs(event.translationY)) {
-        // Horizontal gesture (left/right) - for page navigation
-        if (event.translationX > threshold) {
-          currentStatus = "KANAN! → Daerah";
-        } else if (event.translationX < -threshold) {
-          currentStatus = "KIRI! → Maps";
-        }
-      } else {
-        // Vertical gesture (up/down) - for content navigation
-        if (event.translationY > threshold) {
-          currentStatus = "BAWAH! (Previous Content)";
-        } else if (event.translationY < -threshold) {
-          currentStatus = "ATAS! (Next Content)";
+      // Lock direction on first significant movement
+      if (!gestureDirection) {
+        if (
+          Math.abs(event.translationX) > threshold ||
+          Math.abs(event.translationY) > threshold
+        ) {
+          if (Math.abs(event.translationX) > Math.abs(event.translationY)) {
+            runOnJS(setDirection)("horizontal");
+          } else {
+            runOnJS(setDirection)("vertical");
+          }
         }
       }
-      runOnJS(updateGestureStatus)(currentStatus);
+
+      // Apply movement based on locked direction
+      if (gestureDirection === "horizontal") {
+        translateX.value = event.translationX;
+        translateY.value = 0; // Lock vertical movement
+
+        const feedbackThreshold = 50;
+        let currentStatus = "Bergerak horizontal...";
+
+        if (event.translationX > feedbackThreshold) {
+          currentStatus = "KANAN! → Daerah";
+        } else if (event.translationX < -feedbackThreshold) {
+          currentStatus = "KIRI! → Maps";
+        }
+        runOnJS(updateGestureStatus)(currentStatus);
+      } else if (gestureDirection === "vertical") {
+        translateY.value = event.translationY;
+        translateX.value = 0; // Lock horizontal movement
+
+        const feedbackThreshold = 50;
+        let currentStatus = "Bergerak vertikal...";
+
+        if (event.translationY > feedbackThreshold) {
+          currentStatus = "BAWAH! (Previous Content)";
+        } else if (event.translationY < -feedbackThreshold) {
+          currentStatus = "ATAS! (Next Content)";
+        }
+        runOnJS(updateGestureStatus)(currentStatus);
+      }
     })
     .onEnd((event) => {
       const threshold = 100;
-      const finalStatus = gestureStatus;
-
       let newContentCount = contentCount;
       let newPageNum = pageNum;
 
-      if (Math.abs(event.translationX) > Math.abs(event.translationY)) {
+      if (gestureDirection === "horizontal") {
         // Handle horizontal gestures (page navigation)
         if (event.translationX > threshold) {
           // Right swipe → Daerah
-          newPageNum = pageNum - 1; // Increment to go to daerah
+          newPageNum = pageNum - 1;
           runOnJS(setPageNum)(newPageNum);
           runOnJS(updatePageName)(newPageNum);
         } else if (event.translationX < -threshold) {
           // Left swipe → Maps
-          newPageNum = pageNum + 1; // Decrement to go to maps
+          newPageNum = pageNum + 1;
           runOnJS(setPageNum)(newPageNum);
           runOnJS(updatePageName)(newPageNum);
         }
-      } else {
+      } else if (gestureDirection === "vertical") {
         // Handle vertical gestures (content navigation)
         if (event.translationY > threshold) {
           // Down swipe - previous content
@@ -241,18 +290,20 @@ export default function TikTokReelsComponent() {
 
       runOnJS(setContentCount)(newContentCount);
       runOnJS(updateGestureStatus)("Swipe untuk navigasi");
+      runOnJS(setDirection)(null); // Reset direction lock
 
-      // Reset position with animation
-      translateX.value = withTiming(0, {
-        duration: 300,
-        easing: Easing.out(Easing.ease),
+      // Smooth spring animation back to center
+      translateX.value = withSpring(0, {
+        damping: 20,
+        stiffness: 300,
       });
-      translateY.value = withTiming(0, {
-        duration: 300,
-        easing: Easing.out(Easing.ease),
+      translateY.value = withSpring(0, {
+        damping: 20,
+        stiffness: 300,
       });
     });
 
+  // Main content animated style
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -262,124 +313,366 @@ export default function TikTokReelsComponent() {
     };
   });
 
+  // Next content preview (vertical)
+  const nextContentStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translateY.value,
+      [-100, 0],
+      [0.7, 0],
+      Extrapolate.CLAMP
+    );
+    const translateYNext = interpolate(
+      translateY.value,
+      [-100, 0],
+      [0, SCREEN_HEIGHT],
+      Extrapolate.CLAMP
+    );
+
+    return {
+      opacity,
+      transform: [{ translateY: translateYNext }],
+    };
+  });
+
+  // Previous content preview (vertical)
+  const prevContentStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translateY.value,
+      [0, 100],
+      [0, 0.7],
+      Extrapolate.CLAMP
+    );
+    const translateYPrev = interpolate(
+      translateY.value,
+      [0, 100],
+      [-SCREEN_HEIGHT, 0],
+      Extrapolate.CLAMP
+    );
+
+    return {
+      opacity,
+      transform: [{ translateY: translateYPrev }],
+    };
+  });
+
+  // Page preview styles (horizontal)
+  const nextPageStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translateX.value,
+      [-100, 0],
+      [0.8, 0],
+      Extrapolate.CLAMP
+    );
+    const translateXNext = interpolate(
+      translateX.value,
+      [-100, 0],
+      [0, SCREEN_WIDTH],
+      Extrapolate.CLAMP
+    );
+
+    return {
+      opacity,
+      transform: [{ translateX: translateXNext }],
+    };
+  });
+
+  const prevPageStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translateX.value,
+      [0, 100],
+      [0, 0.8],
+      Extrapolate.CLAMP
+    );
+    const translateXPrev = interpolate(
+      translateX.value,
+      [0, 100],
+      [-SCREEN_WIDTH, 0],
+      Extrapolate.CLAMP
+    );
+
+    return {
+      opacity,
+      transform: [{ translateX: translateXPrev }],
+    };
+  });
+
   const currentContent = contents[currentIndex];
+  const nextContent =
+    currentIndex < contents.length - 1 ? contents[currentIndex + 1] : null;
+  const prevContent = currentIndex > 0 ? contents[currentIndex - 1] : null;
+
+  // Get page info for previews
+  const getPageInfo = (pageOffset) => {
+    const targetPage = (pageNum + pageOffset) % 3;
+    const normalizedPage = targetPage < 0 ? targetPage + 3 : targetPage;
+
+    if (normalizedPage === 0) return pageContent.maps;
+    if (normalizedPage === 1) return pageContent.indonesia;
+    return pageContent.daerah;
+  };
 
   return (
     <View className="flex-1 bg-black">
       <GestureDetector gesture={panGesture}>
-        <Animated.View style={[{ flex: 1 }, animatedStyle]}>
-          {/* Main Content Container */}
-          <View className="flex-1 relative">
-            {/* Background Image/Video */}
-            <Image
-              source={{ uri: currentContent.image }}
-              className="absolute inset-0 w-full h-full"
-              resizeMode="cover"
-            />
-
-            {/* Overlay Gradient */}
-            <View className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
-
-            {/* Top Bar */}
-            <View className="absolute top-12 left-0 right-0 flex-row justify-between items-center px-4 z-10">
-              <TouchableOpacity onPress={() => router.back()}>
-                <Text className="text-white text-lg">← Back</Text>
-              </TouchableOpacity>
-              <Text className="text-white text-sm">{gestureStatus}</Text>
-            </View>
-
-            {/* Right Side Actions */}
-            <View className="absolute right-4 bottom-32 z-10">
-              {/* Like Button */}
-              <TouchableOpacity
-                onPress={toggleLike}
-                className="items-center mb-6"
+        <View style={{ flex: 1 }}>
+          {/* Previous Content Preview (Vertical) */}
+          {prevContent && (
+            <Animated.View
+              style={[
+                {
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  zIndex: 1,
+                },
+                prevContentStyle,
+              ]}
+            >
+              <Image
+                source={{ uri: prevContent.image }}
+                style={{ flex: 1, width: "100%", height: "100%" }}
+                resizeMode="cover"
+              />
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: 50,
+                  left: 20,
+                  backgroundColor: "rgba(0,0,0,0.6)",
+                  padding: 10,
+                  borderRadius: 8,
+                }}
               >
-                <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center mb-1">
-                  <Text
-                    className={`text-2xl ${currentContent.isLiked ? "text-red-500" : "text-white"}`}
-                  >
-                    {currentContent.isLiked ? "❤️" : "🤍"}
+                <Text
+                  style={{ color: "white", fontSize: 12, fontWeight: "bold" }}
+                >
+                  @{prevContent.username}
+                </Text>
+              </View>
+            </Animated.View>
+          )}
+
+          {/* Next Content Preview (Vertical) */}
+          {nextContent && (
+            <Animated.View
+              style={[
+                {
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  zIndex: 1,
+                },
+                nextContentStyle,
+              ]}
+            >
+              <Image
+                source={{ uri: nextContent.image }}
+                style={{ flex: 1, width: "100%", height: "100%" }}
+                resizeMode="cover"
+              />
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: 50,
+                  left: 20,
+                  backgroundColor: "rgba(0,0,0,0.6)",
+                  padding: 10,
+                  borderRadius: 8,
+                }}
+              >
+                <Text
+                  style={{ color: "white", fontSize: 12, fontWeight: "bold" }}
+                >
+                  @{nextContent.username}
+                </Text>
+              </View>
+            </Animated.View>
+          )}
+
+          {/* Previous Page Preview (Horizontal) */}
+          <Animated.View
+            style={[
+              {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 1,
+              },
+              prevPageStyle,
+            ]}
+          >
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: getPageInfo(-1).color,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{ color: "white", fontSize: 24, fontWeight: "bold" }}
+              >
+                {getPageInfo(-1).title}
+              </Text>
+            </View>
+          </Animated.View>
+
+          {/* Next Page Preview (Horizontal) */}
+          <Animated.View
+            style={[
+              {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 1,
+              },
+              nextPageStyle,
+            ]}
+          >
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: getPageInfo(1).color,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{ color: "white", fontSize: 24, fontWeight: "bold" }}
+              >
+                {getPageInfo(1).title}
+              </Text>
+            </View>
+          </Animated.View>
+
+          {/* Main Content */}
+          <Animated.View style={[{ flex: 1, zIndex: 2 }, animatedStyle]}>
+            <View className="flex-1 relative">
+              {/* Background Image */}
+              <Image
+                source={{ uri: currentContent.image }}
+                className="absolute inset-0 w-full h-full"
+                resizeMode="cover"
+              />
+
+              {/* Overlay Gradient */}
+              <View className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+
+              {/* Top Bar */}
+              <View className="absolute top-12 left-0 right-0 flex-row justify-between items-center px-4 z-10">
+                <TouchableOpacity onPress={() => router.back()}>
+                  <Text className="text-white text-lg">← Back</Text>
+                </TouchableOpacity>
+                <Text className="text-white text-sm">{gestureStatus}</Text>
+              </View>
+
+              {/* Right Side Actions */}
+              <View className="absolute right-4 bottom-32 z-10">
+                {/* Like Button */}
+                <TouchableOpacity
+                  onPress={toggleLike}
+                  className="items-center mb-6"
+                >
+                  <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center mb-1">
+                    <Text
+                      className={`text-2xl ${currentContent.isLiked ? "text-red-500" : "text-white"}`}
+                    >
+                      {currentContent.isLiked ? "❤️" : "🤍"}
+                    </Text>
+                  </View>
+                  <Text className="text-white text-xs font-semibold">
+                    {currentContent.likes.toLocaleString()}
+                  </Text>
+                </TouchableOpacity>
+
+                {/* Comment Button */}
+                <TouchableOpacity
+                  onPress={() => setShowComments(true)}
+                  className="items-center mb-6"
+                >
+                  <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center mb-1">
+                    <Text className="text-white text-xl">💬</Text>
+                  </View>
+                  <Text className="text-white text-xs font-semibold">
+                    {currentContent.comments}
+                  </Text>
+                </TouchableOpacity>
+
+                {/* Share Button */}
+                <TouchableOpacity
+                  onPress={handleShare}
+                  className="items-center mb-6"
+                >
+                  <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center mb-1">
+                    <Text className="text-white text-xl">↗️</Text>
+                  </View>
+                  <Text className="text-white text-xs font-semibold">
+                    {currentContent.shares}
+                  </Text>
+                </TouchableOpacity>
+
+                {/* Profile Picture */}
+                <TouchableOpacity
+                  onPress={handleFollow}
+                  className="items-center"
+                >
+                  <View className="w-12 h-12 rounded-full bg-gray-300 justify-center items-center border-2 border-white">
+                    <Text className="text-lg">👤</Text>
+                  </View>
+                  <View className="w-6 h-6 rounded-full bg-red-500 justify-center items-center -mt-2 border-2 border-white">
+                    <Text className="text-white text-xs font-bold">+</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+
+              {/* Bottom Content Info */}
+              <View className="absolute bottom-8 left-4 right-20 z-10">
+                <Text className="text-white font-bold text-lg mb-2">
+                  @{currentContent.username}
+                </Text>
+                <Text className="text-white text-sm leading-5 mb-3">
+                  {currentContent.description}
+                </Text>
+
+                {/* Debug Info */}
+                <View className="bg-black/50 p-2 rounded mb-2">
+                  <Text className="text-white text-xs">
+                    Content: {contentCount}
+                  </Text>
+                  <Text className="text-white text-xs">
+                    Page: {page} ({pageNum})
+                  </Text>
+                  <Text className="text-white text-xs">
+                    Index: {currentIndex + 1}/{contents.length}
+                  </Text>
+                  <Text className="text-white text-xs">
+                    Direction: {gestureDirection || "none"}
                   </Text>
                 </View>
-                <Text className="text-white text-xs font-semibold">
-                  {currentContent.likes.toLocaleString()}
-                </Text>
-              </TouchableOpacity>
 
-              {/* Comment Button */}
-              <TouchableOpacity
-                onPress={() => setShowComments(true)}
-                className="items-center mb-6"
-              >
-                <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center mb-1">
-                  <Text className="text-white text-xl">💬</Text>
+                {/* Progress Indicator */}
+                <View className="flex-row space-x-1">
+                  {contents.map((_, index) => (
+                    <View
+                      key={index}
+                      className={`h-1 flex-1 rounded ${
+                        index === currentIndex ? "bg-white" : "bg-white/30"
+                      }`}
+                    />
+                  ))}
                 </View>
-                <Text className="text-white text-xs font-semibold">
-                  {currentContent.comments}
-                </Text>
-              </TouchableOpacity>
-
-              {/* Share Button */}
-              <TouchableOpacity
-                onPress={handleShare}
-                className="items-center mb-6"
-              >
-                <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center mb-1">
-                  <Text className="text-white text-xl">↗️</Text>
-                </View>
-                <Text className="text-white text-xs font-semibold">
-                  {currentContent.shares}
-                </Text>
-              </TouchableOpacity>
-
-              {/* Profile Picture */}
-              <TouchableOpacity onPress={handleFollow} className="items-center">
-                <View className="w-12 h-12 rounded-full bg-gray-300 justify-center items-center border-2 border-white">
-                  <Text className="text-lg">👤</Text>
-                </View>
-                <View className="w-6 h-6 rounded-full bg-red-500 justify-center items-center -mt-2 border-2 border-white">
-                  <Text className="text-white text-xs font-bold">+</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            {/* Bottom Content Info */}
-            <View className="absolute bottom-8 left-4 right-20 z-10">
-              <Text className="text-white font-bold text-lg mb-2">
-                @{currentContent.username}
-              </Text>
-              <Text className="text-white text-sm leading-5 mb-3">
-                {currentContent.description}
-              </Text>
-
-              {/* Debug Info */}
-              <View className="bg-black/50 p-2 rounded mb-2">
-                <Text className="text-white text-xs">
-                  Content: {contentCount}
-                </Text>
-                <Text className="text-white text-xs">
-                  Page: {page} ({pageNum})
-                </Text>
-                <Text className="text-white text-xs">
-                  Index: {currentIndex + 1}/{contents.length}
-                </Text>
-              </View>
-
-              {/* Progress Indicator */}
-              <View className="flex-row space-x-1">
-                {contents.map((_, index) => (
-                  <View
-                    key={index}
-                    className={`h-1 flex-1 rounded ${
-                      index === currentIndex ? "bg-white" : "bg-white/30"
-                    }`}
-                  />
-                ))}
               </View>
             </View>
-          </View>
-        </Animated.View>
+          </Animated.View>
+        </View>
       </GestureDetector>
 
       {/* Comments Modal */}
