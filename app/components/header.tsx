@@ -11,10 +11,10 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
 <ImageBackground 
   source={require('../../assets/images/batik.png')}
   resizeMode='cover'
-  className="px-6 py-4 items-center justify-center"
+  className="px-6 py-6 items-center justify-center"
 >
 
-    <Text className="text-lol text-xl font-semibold text-center">
+    <Text className="text-white text-xl font-semibold text-center">
       {title}
     </Text>
 

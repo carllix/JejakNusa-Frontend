@@ -209,8 +209,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           onPress={() => {/* Handle buy now */}}
         >
           <Text 
-            className="text-white text-center font-semibold"
-            style={{ fontFamily: 'Poppins-SemiBold' }}
+            className="text-white text-center font-semibold font-poppins"
           >
             Buy Now
           </Text>
