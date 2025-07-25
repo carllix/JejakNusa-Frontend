@@ -41,7 +41,7 @@ const mockProducts: Product[] = [
     title: 'Batik Traditional Cloth',
     price: 'Rp 95.000,00',
     description: 'Traditional batik cloth from Central Java',
-    image: 'https://images.unsplash.com/photo-1594736797933-d0301ba2fe65?w=400',
+    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400',
     seller: 'Batik Nusantara',
     location: 'Yogyakarta, DIY',
     category: 'Premium'
@@ -93,7 +93,7 @@ const SearchBar: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   
   return (
-    <View className="px-4 py-3 bg-gray-50">
+    <View className="px-4 py-3 bg-transparent">
       <View className="flex-row items-center bg-white rounded-lg px-3 py-2 shadow-sm">
         <Image 
           source={require('../../../assets/images/search.png')}
@@ -222,7 +222,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 
 const MSMESPage: React.FC = () => {
   return (
-    <View className="flex-1 bg-gray-50">
+    <View className="flex-1 bg-yellow-low">
       <StatusBar barStyle="light-content" />
       
       <Header title="MSMES" />
