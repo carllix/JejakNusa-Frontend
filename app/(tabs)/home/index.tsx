@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Button, Alert, StyleSheet, Text } from "react-native"; // Tambahkan Text untuk judul marker
-import MapView, { Marker, Callout } from "react-native-maps"; // Import Marker dan Callout
+import React, { useEffect, useState } from "react";
+import { View, Button, Alert, StyleSheet, Text, Image } from "react-native"; // Tambahkan Text untuk judul marker
+import MapView, { Marker, Callout, Region } from "react-native-maps"; // Import Marker dan Callout
 
 // Data provinsi dengan koordinat (ini hanya sebagian kecil sebagai contoh!)
 const provincesWithCoords = [
@@ -43,19 +43,30 @@ const provincesWithCoords = [
   { name: "Papua Selatan", latitude: -7.5, longitude: 139.5 },
   { name: "Papua Barat Daya", latitude: -0.8833, longitude: 131.25 },
 ];
+const getRandomProvinceRegion = (): Region => {
+  const random =
+    provincesWithCoords[Math.floor(Math.random() * provincesWithCoords.length)];
+  return {
+    latitude: random.latitude,
+    longitude: random.longitude,
+    latitudeDelta: 1.5, // zoom level sedang
+    longitudeDelta: 1.5,
+  };
+};
 
 const MyMap = () => {
+  const [initialRegion, setInitialRegion] = useState<Region | null>(null);
+
+  useEffect(() => {
+    const region = getRandomProvinceRegion();
+    setInitialRegion(region);
+  }, []);
+
+  if (!initialRegion) return <Text>Memuat peta...</Text>;
+
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: -2.5489, // Pusat Indonesia yang lebih umum
-          longitude: 118.0149,
-          latitudeDelta: 15.0, // Zoom out sedikit agar lebih banyak provinsi terlihat
-          longitudeDelta: 15.0,
-        }}
-      >
+      <MapView style={styles.map} initialRegion={initialRegion}>
         {provincesWithCoords.map((province, index) => (
           <Marker
             key={index}
@@ -63,8 +74,14 @@ const MyMap = () => {
               latitude: province.latitude,
               longitude: province.longitude,
             }}
-            title={province.name} // Judul marker yang akan muncul
           >
+            <View style={styles.customMarker}>
+              <Image
+                source={require("../../../assets/markers/province.png")} // ganti URL gambar sesuai kebutuhan
+                style={styles.markerImage}
+                resizeMode="contain"
+              />
+            </View>
             <Callout>
               <View>
                 <Text style={styles.calloutText}>{province.name}</Text>
@@ -91,6 +108,25 @@ const styles = StyleSheet.create({
   calloutText: {
     fontWeight: "bold",
     marginBottom: 5,
+  },
+  customMarker: {
+    width: 50,
+    height: 50,
+    backgroundColor: "white",
+    borderRadius: 8, // hapus jika mau full kotak
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 5, // untuk Android
+  },
+
+  markerImage: {
+    width: 40,
+    height: 70,
+    borderRadius: 4, // bisa disesuaikan
   },
 });
 
