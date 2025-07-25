@@ -17,13 +17,18 @@ import Animated, {
   useAnimatedStyle,
   runOnJS,
   withTiming,
-  withSpring,
   Easing,
   interpolate,
   Extrapolate,
 } from "react-native-reanimated";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
+
+// Konfigurasi animasi smooth tanpa spring
+const SMOOTH_TIMING_CONFIG = {
+  duration: 300, // Durasi lebih cepat
+  easing: Easing.out(Easing.quad), // Easing yang smooth
+};
 
 // Data dummy untuk konten seperti TikTok/Reels
 const dummyContent = [
@@ -212,7 +217,7 @@ export default function TikTokReelsComponent() {
       runOnJS(updateGestureStatus)("Gesture dimulai...");
     })
     .onChange((event) => {
-      const threshold = 30; // Lower threshold for direction detection
+      const threshold = 20; // Threshold lebih kecil untuk responsivitas lebih baik
 
       // Lock direction on first significant movement
       if (!gestureDirection) {
@@ -228,12 +233,14 @@ export default function TikTokReelsComponent() {
         }
       }
 
-      // Apply movement based on locked direction
+      // Apply movement based on locked direction with smooth interpolation
       if (gestureDirection === "horizontal") {
-        translateX.value = event.translationX;
+        // Smooth horizontal movement dengan resistance
+        const resistance = 0.8; // Memberikan sedikit resistance
+        translateX.value = event.translationX * resistance;
         translateY.value = 0; // Lock vertical movement
 
-        const feedbackThreshold = 50;
+        const feedbackThreshold = 40; // Threshold lebih kecil
         let currentStatus = "Bergerak horizontal...";
 
         if (event.translationX > feedbackThreshold) {
@@ -243,10 +250,12 @@ export default function TikTokReelsComponent() {
         }
         runOnJS(updateGestureStatus)(currentStatus);
       } else if (gestureDirection === "vertical") {
-        translateY.value = event.translationY;
+        // Smooth vertical movement dengan resistance
+        const resistance = 0.8;
+        translateY.value = event.translationY * resistance;
         translateX.value = 0; // Lock horizontal movement
 
-        const feedbackThreshold = 50;
+        const feedbackThreshold = 40;
         let currentStatus = "Bergerak vertikal...";
 
         if (event.translationY > feedbackThreshold) {
@@ -258,7 +267,7 @@ export default function TikTokReelsComponent() {
       }
     })
     .onEnd((event) => {
-      const threshold = 100;
+      const threshold = 80; // Threshold lebih kecil untuk navigasi lebih mudah
       let newContentCount = contentCount;
       let newPageNum = pageNum;
 
@@ -292,15 +301,9 @@ export default function TikTokReelsComponent() {
       runOnJS(updateGestureStatus)("Swipe untuk navigasi");
       runOnJS(setDirection)(null); // Reset direction lock
 
-      // Smooth spring animation back to center
-      translateX.value = withSpring(0, {
-        damping: 20,
-        stiffness: 300,
-      });
-      translateY.value = withSpring(0, {
-        damping: 20,
-        stiffness: 300,
-      });
+      // SMOOTH ANIMATION TANPA SPRING - MENGGUNAKAN TIMING
+      translateX.value = withTiming(0, SMOOTH_TIMING_CONFIG);
+      translateY.value = withTiming(0, SMOOTH_TIMING_CONFIG);
     });
 
   // Main content animated style
@@ -313,17 +316,17 @@ export default function TikTokReelsComponent() {
     };
   });
 
-  // Next content preview (vertical)
+  // Next content preview (vertical) - Smooth interpolation
   const nextContentStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       translateY.value,
-      [-100, 0],
-      [0.7, 0],
+      [-120, 0],
+      [0.8, 0], // Opacity lebih tinggi untuk preview yang lebih jelas
       Extrapolate.CLAMP
     );
     const translateYNext = interpolate(
       translateY.value,
-      [-100, 0],
+      [-120, 0],
       [0, SCREEN_HEIGHT],
       Extrapolate.CLAMP
     );
@@ -334,17 +337,17 @@ export default function TikTokReelsComponent() {
     };
   });
 
-  // Previous content preview (vertical)
+  // Previous content preview (vertical) - Smooth interpolation
   const prevContentStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       translateY.value,
-      [0, 100],
-      [0, 0.7],
+      [0, 120],
+      [0, 0.8],
       Extrapolate.CLAMP
     );
     const translateYPrev = interpolate(
       translateY.value,
-      [0, 100],
+      [0, 120],
       [-SCREEN_HEIGHT, 0],
       Extrapolate.CLAMP
     );
@@ -355,17 +358,17 @@ export default function TikTokReelsComponent() {
     };
   });
 
-  // Page preview styles (horizontal)
+  // Page preview styles (horizontal) - Smooth interpolation
   const nextPageStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       translateX.value,
-      [-100, 0],
-      [0.8, 0],
+      [-120, 0],
+      [0.9, 0], // Opacity tinggi untuk page preview
       Extrapolate.CLAMP
     );
     const translateXNext = interpolate(
       translateX.value,
-      [-100, 0],
+      [-120, 0],
       [0, SCREEN_WIDTH],
       Extrapolate.CLAMP
     );
@@ -379,13 +382,13 @@ export default function TikTokReelsComponent() {
   const prevPageStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       translateX.value,
-      [0, 100],
-      [0, 0.8],
+      [0, 120],
+      [0, 0.9],
       Extrapolate.CLAMP
     );
     const translateXPrev = interpolate(
       translateX.value,
-      [0, 100],
+      [0, 120],
       [-SCREEN_WIDTH, 0],
       Extrapolate.CLAMP
     );
@@ -410,9 +413,9 @@ export default function TikTokReelsComponent() {
     if (normalizedPage === 1) return pageContent.indonesia;
     return pageContent.daerah;
   };
-
+  const screenHeight = Dimensions.get("window").height;
   return (
-    <View className="flex-1 bg-black">
+    <View style={{ flex: 1, backgroundColor: "black" }}>
       <GestureDetector gesture={panGesture}>
         <View style={{ flex: 1 }}>
           {/* Previous Content Preview (Vertical) */}
@@ -440,13 +443,13 @@ export default function TikTokReelsComponent() {
                   position: "absolute",
                   bottom: 50,
                   left: 20,
-                  backgroundColor: "rgba(0,0,0,0.6)",
-                  padding: 10,
-                  borderRadius: 8,
+                  backgroundColor: "rgba(0,0,0,0.7)",
+                  padding: 12,
+                  borderRadius: 10,
                 }}
               >
                 <Text
-                  style={{ color: "white", fontSize: 12, fontWeight: "bold" }}
+                  style={{ color: "white", fontSize: 14, fontWeight: "bold" }}
                 >
                   @{prevContent.username}
                 </Text>
@@ -479,13 +482,13 @@ export default function TikTokReelsComponent() {
                   position: "absolute",
                   bottom: 50,
                   left: 20,
-                  backgroundColor: "rgba(0,0,0,0.6)",
-                  padding: 10,
-                  borderRadius: 8,
+                  backgroundColor: "rgba(0,0,0,0.7)",
+                  padding: 12,
+                  borderRadius: 10,
                 }}
               >
                 <Text
-                  style={{ color: "white", fontSize: 12, fontWeight: "bold" }}
+                  style={{ color: "white", fontSize: 14, fontWeight: "bold" }}
                 >
                   @{nextContent.username}
                 </Text>
@@ -516,9 +519,19 @@ export default function TikTokReelsComponent() {
               }}
             >
               <Text
-                style={{ color: "white", fontSize: 24, fontWeight: "bold" }}
+                style={{ color: "white", fontSize: 28, fontWeight: "bold" }}
               >
                 {getPageInfo(-1).title}
+              </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 16,
+                  marginTop: 8,
+                  opacity: 0.8,
+                }}
+              >
+                ← Swipe untuk masuk
               </Text>
             </View>
           </Animated.View>
@@ -546,49 +559,132 @@ export default function TikTokReelsComponent() {
               }}
             >
               <Text
-                style={{ color: "white", fontSize: 24, fontWeight: "bold" }}
+                style={{ color: "white", fontSize: 28, fontWeight: "bold" }}
               >
                 {getPageInfo(1).title}
+              </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 16,
+                  marginTop: 8,
+                  opacity: 0.8,
+                }}
+              >
+                Swipe untuk masuk →
               </Text>
             </View>
           </Animated.View>
 
           {/* Main Content */}
           <Animated.View style={[{ flex: 1, zIndex: 2 }, animatedStyle]}>
-            <View className="flex-1 relative">
+            <View style={{ flex: 1, position: "relative" }}>
               {/* Background Image */}
               <Image
                 source={{ uri: currentContent.image }}
-                className="absolute inset-0 w-full h-full"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                }}
                 resizeMode="cover"
               />
 
               {/* Overlay Gradient */}
-              <View className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+              <View
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: "transparent",
+                }}
+              >
+                <View
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: "50%",
+                    backgroundColor: "transparent",
+                    background: "linear-gradient(transparent, rgba(0,0,0,0.7))",
+                  }}
+                />
+              </View>
 
-              {/* Top Bar */}
-              <View className="absolute top-12 left-0 right-0 flex-row justify-between items-center px-4 z-10">
-                <TouchableOpacity onPress={() => router.back()}>
-                  <Text className="text-white text-lg">← Back</Text>
-                </TouchableOpacity>
-                <Text className="text-white text-sm">{gestureStatus}</Text>
+              {/* Top Bar - Status hanya */}
+              <View
+                style={{
+                  position: "absolute",
+                  top: 60,
+                  left: 0,
+                  right: 0,
+                  alignItems: "center",
+                  zIndex: 10,
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.6)",
+                    paddingHorizontal: 16,
+                    paddingVertical: 8,
+                    borderRadius: 20,
+                  }}
+                >
+                  <Text
+                    style={{ color: "white", fontSize: 12, fontWeight: "500" }}
+                  >
+                    {gestureStatus}
+                  </Text>
+                </View>
               </View>
 
               {/* Right Side Actions */}
-              <View className="absolute right-4 bottom-32 z-10">
+              <View
+                style={{
+                  position: "absolute",
+                  right: 16,
+                  bottom: 140,
+                  zIndex: 10,
+                  alignItems: "center",
+                }}
+              >
                 {/* Like Button */}
                 <TouchableOpacity
                   onPress={toggleLike}
-                  className="items-center mb-6"
+                  style={{ alignItems: "center", marginBottom: 24 }}
                 >
-                  <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center mb-1">
+                  <View
+                    style={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: 25,
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginBottom: 4,
+                    }}
+                  >
                     <Text
-                      className={`text-2xl ${currentContent.isLiked ? "text-red-500" : "text-white"}`}
+                      style={{
+                        fontSize: 24,
+                        color: currentContent.isLiked ? "#FF3040" : "white",
+                      }}
                     >
                       {currentContent.isLiked ? "❤️" : "🤍"}
                     </Text>
                   </View>
-                  <Text className="text-white text-xs font-semibold">
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 12,
+                      fontWeight: "600",
+                    }}
+                  >
                     {currentContent.likes.toLocaleString()}
                   </Text>
                 </TouchableOpacity>
@@ -596,12 +692,28 @@ export default function TikTokReelsComponent() {
                 {/* Comment Button */}
                 <TouchableOpacity
                   onPress={() => setShowComments(true)}
-                  className="items-center mb-6"
+                  style={{ alignItems: "center", marginBottom: 24 }}
                 >
-                  <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center mb-1">
-                    <Text className="text-white text-xl">💬</Text>
+                  <View
+                    style={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: 25,
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginBottom: 4,
+                    }}
+                  >
+                    <Text style={{ color: "white", fontSize: 22 }}>💬</Text>
                   </View>
-                  <Text className="text-white text-xs font-semibold">
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 12,
+                      fontWeight: "600",
+                    }}
+                  >
                     {currentContent.comments}
                   </Text>
                 </TouchableOpacity>
@@ -609,12 +721,28 @@ export default function TikTokReelsComponent() {
                 {/* Share Button */}
                 <TouchableOpacity
                   onPress={handleShare}
-                  className="items-center mb-6"
+                  style={{ alignItems: "center", marginBottom: 24 }}
                 >
-                  <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center mb-1">
-                    <Text className="text-white text-xl">↗️</Text>
+                  <View
+                    style={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: 25,
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginBottom: 4,
+                    }}
+                  >
+                    <Text style={{ color: "white", fontSize: 22 }}>↗️</Text>
                   </View>
-                  <Text className="text-white text-xs font-semibold">
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 12,
+                      fontWeight: "600",
+                    }}
+                  >
                     {currentContent.shares}
                   </Text>
                 </TouchableOpacity>
@@ -622,50 +750,95 @@ export default function TikTokReelsComponent() {
                 {/* Profile Picture */}
                 <TouchableOpacity
                   onPress={handleFollow}
-                  className="items-center"
+                  style={{ alignItems: "center", position: "relative" }}
                 >
-                  <View className="w-12 h-12 rounded-full bg-gray-300 justify-center items-center border-2 border-white">
-                    <Text className="text-lg">👤</Text>
+                  <View
+                    style={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: 25,
+                      backgroundColor: "#D1D5DB",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderWidth: 3,
+                      borderColor: "white",
+                    }}
+                  >
+                    <Text style={{ fontSize: 20 }}>👤</Text>
                   </View>
-                  <View className="w-6 h-6 rounded-full bg-red-500 justify-center items-center -mt-2 border-2 border-white">
-                    <Text className="text-white text-xs font-bold">+</Text>
+                  <View
+                    style={{
+                      position: "absolute",
+                      bottom: -8,
+                      width: 24,
+                      height: 24,
+                      borderRadius: 12,
+                      backgroundColor: "#EF4444",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderWidth: 2,
+                      borderColor: "white",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 12,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      +
+                    </Text>
                   </View>
                 </TouchableOpacity>
               </View>
 
               {/* Bottom Content Info */}
-              <View className="absolute bottom-8 left-4 right-20 z-10">
-                <Text className="text-white font-bold text-lg mb-2">
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: 40,
+                  left: 16,
+                  right: 80,
+                  zIndex: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontWeight: "bold",
+                    fontSize: 18,
+                    marginBottom: 8,
+                  }}
+                >
                   @{currentContent.username}
                 </Text>
-                <Text className="text-white text-sm leading-5 mb-3">
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 14,
+                    lineHeight: 20,
+                    marginBottom: 12,
+                  }}
+                >
                   {currentContent.description}
                 </Text>
 
-                {/* Debug Info */}
-                <View className="bg-black/50 p-2 rounded mb-2">
-                  <Text className="text-white text-xs">
-                    Content: {contentCount}
-                  </Text>
-                  <Text className="text-white text-xs">
-                    Page: {page} ({pageNum})
-                  </Text>
-                  <Text className="text-white text-xs">
-                    Index: {currentIndex + 1}/{contents.length}
-                  </Text>
-                  <Text className="text-white text-xs">
-                    Direction: {gestureDirection || "none"}
-                  </Text>
-                </View>
-
                 {/* Progress Indicator */}
-                <View className="flex-row space-x-1">
+                <View style={{ flexDirection: "row" }}>
                   {contents.map((_, index) => (
                     <View
                       key={index}
-                      className={`h-1 flex-1 rounded ${
-                        index === currentIndex ? "bg-white" : "bg-white/30"
-                      }`}
+                      style={{
+                        height: 3,
+                        flex: 1,
+                        borderRadius: 2,
+                        backgroundColor:
+                          index === currentIndex
+                            ? "white"
+                            : "rgba(255,255,255,0.3)",
+                        marginRight: index < contents.length - 1 ? 4 : 0,
+                      }}
                     />
                   ))}
                 </View>
@@ -680,52 +853,118 @@ export default function TikTokReelsComponent() {
         visible={showComments}
         animationType="slide"
         onRequestClose={() => setShowComments(false)}
+        transparent={true}
       >
-        <View className="flex-1 bg-white">
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "white",
+            marginTop: 325,
+          }}
+        >
           {/* Comments Header */}
-          <View className="flex-row justify-between items-center p-4 border-b border-gray-200">
-            <Text className="font-bold text-lg">Komentar</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: 16,
+              borderBottomWidth: 1,
+              borderBottomColor: "#E5E7EB",
+            }}
+          >
+            <Text style={{ fontWeight: "bold", fontSize: 18 }}>Komentar</Text>
             <TouchableOpacity onPress={() => setShowComments(false)}>
-              <Text className="text-gray-500 text-lg">✕</Text>
+              <Text style={{ color: "#6B7280", fontSize: 18 }}>✕</Text>
             </TouchableOpacity>
           </View>
 
           {/* Comments List */}
-          <ScrollView className="flex-1 p-4">
+          <ScrollView style={{ flex: 1, padding: 16 }}>
             {dummyComments.map((comment) => (
-              <View key={comment.id} className="flex-row items-start mb-4">
-                <View className="w-8 h-8 rounded-full bg-gray-300 justify-center items-center mr-3">
-                  <Text className="text-sm">👤</Text>
+              <View
+                key={comment.id}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "flex-start",
+                  marginBottom: 16,
+                }}
+              >
+                <View
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: 16,
+                    backgroundColor: "#D1D5DB",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginRight: 12,
+                  }}
+                >
+                  <Text style={{ fontSize: 14 }}>👤</Text>
                 </View>
-                <View className="flex-1">
-                  <View className="flex-row items-center mb-1">
-                    <Text className="font-semibold text-sm mr-2">
+                <View style={{ flex: 1 }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginBottom: 4,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontWeight: "600",
+                        fontSize: 14,
+                        marginRight: 8,
+                      }}
+                    >
                       {comment.username}
                     </Text>
-                    <Text className="text-gray-500 text-xs">
+                    <Text style={{ color: "#6B7280", fontSize: 12 }}>
                       {comment.time}
                     </Text>
                   </View>
-                  <Text className="text-gray-800">{comment.comment}</Text>
+                  <Text style={{ color: "#1F2937" }}>{comment.comment}</Text>
                 </View>
               </View>
             ))}
           </ScrollView>
 
           {/* Comment Input */}
-          <View className="flex-row items-center p-4 border-t border-gray-200">
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              padding: 16,
+              borderTopWidth: 1,
+              borderTopColor: "#E5E7EB",
+            }}
+          >
             <TextInput
               value={newComment}
               onChangeText={setNewComment}
               placeholder="Tulis komentar..."
-              className="flex-1 border border-gray-300 rounded-full px-4 py-2 mr-3"
+              style={{
+                flex: 1,
+                borderWidth: 1,
+                borderColor: "#D1D5DB",
+                borderRadius: 25,
+                paddingHorizontal: 16,
+                paddingVertical: 8,
+                marginRight: 12,
+              }}
               multiline={false}
             />
             <TouchableOpacity
               onPress={addComment}
-              className="bg-blue-500 rounded-full px-6 py-2"
+              style={{
+                backgroundColor: "#3B82F6",
+                borderRadius: 25,
+                paddingHorizontal: 24,
+                paddingVertical: 8,
+              }}
             >
-              <Text className="text-white font-semibold">Kirim</Text>
+              <Text style={{ color: "white", fontWeight: "600" }}>Kirim</Text>
             </TouchableOpacity>
           </View>
         </View>
