@@ -35,8 +35,9 @@ const dummyContent = [
   {
     id: 1,
     username: "traveler_indonesia",
-    description: "Pantai Kuta yang memukau di Bali 🏖️ #bali #pantai #sunset",
-    image: require("../../../../assets/images/content/4.jpg"),
+    description:
+      "Pasar tradisional khas jawa tengah #berdagang #ekonomikreatif #jawa",
+    image: require("../../../../assets/images/content/6.jpg"),
     likes: 1234,
     comments: 89,
     shares: 45,
@@ -45,9 +46,8 @@ const dummyContent = [
   {
     id: 2,
     username: "foodie_nusantara",
-    description:
-      "Gudeg Jogja yang legendaris! Siapa yang kangen? 🍛 #jogja #gudeg #kuliner",
-    image: require("../../../../assets/images/content/3.jpg"),
+    description: "Tari khas jawa #dance #jawa",
+    image: require("../../../../assets/images/content/7.jpg"),
     likes: 2156,
     comments: 134,
     shares: 67,
@@ -56,9 +56,8 @@ const dummyContent = [
   {
     id: 3,
     username: "adventure_id",
-    description:
-      "Sunrise di Bromo yang tak terlupakan ⛰️ #bromo #sunrise #adventure",
-    image: require("../../../../assets/images/content/2.jpg"),
+    description: "Wayang manusia dari Jawa #jawa #wayang #kesenian",
+    image: require("../../../../assets/images/content/8.jpg"),
     likes: 3421,
     comments: 210,
     shares: 156,
@@ -67,9 +66,9 @@ const dummyContent = [
   {
     id: 4,
     username: "culture_indonesia",
-    description: "Tari Kecak Bali yang memesona 💃 #bali #tarikecak #budaya",
+    description: "Makanan Khas daerah Jawa #food #makanlagi",
     // This image is already local, no change needed here.
-    image: require("../../../../assets/images/content/1.jpg"),
+    image: require("../../../../assets/images/content/9.jpg"),
     likes: 987,
     comments: 45,
     shares: 23,
@@ -78,9 +77,8 @@ const dummyContent = [
   {
     id: 5,
     username: "nature_lover",
-    description:
-      "Danau Toba yang mempesona dari atas 🌊 #danautoба #sumut #alam",
-    image: require("../../../../assets/images/content/5.jpg"),
+    description: "Kesenian wayang #wayang #pengenpulang",
+    image: require("../../../../assets/images/content/10.jpg"),
     likes: 1876,
     comments: 92,
     shares: 78,
