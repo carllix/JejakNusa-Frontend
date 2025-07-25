@@ -8,14 +8,15 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  ImageBackground
+  ImageBackground,
+  Alert
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'expo-image';
 // Import icons
-import { MaterialIcons,Feather } from '@expo/vector-icons';
-import { router, Router } from 'expo-router';
-
+import { MaterialIcons, Feather } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import { useAuth } from '../contexts/AuthContext';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -23,31 +24,57 @@ const LoginPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { login } = useAuth();
+
+  const validateInputs = () => {
+    if (!email.trim()) {
+      Alert.alert('Error', 'Please enter your email');
+      return false;
+    }
+
+    if (!password.trim()) {
+      Alert.alert('Error', 'Please enter your password');
+      return false;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      Alert.alert('Error', 'Please enter a valid email address');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSignIn = async () => {
-    setIsLoading(true);
-    // Implementasi login logic
-    console.log('Sign in with:', { email, password });
-    
-    // Simulate loading
-    setTimeout(() => {
+    if (!validateInputs()) return;
+
+    try {
+      setIsLoading(true);
+      await login(email, password);
+      // Navigation is handled in the AuthContext
+    } catch (error) {
+      // console.error('Login error:', error);
+      Alert.alert(
+        'Login Failed', 
+        error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.'
+      );
+    } finally {
       setIsLoading(false);
-    }, 2000);
+    }
   };
 
   const handleGoogleSignIn = () => {
-    console.log('Sign in with Google');
-    // Implementasi Google sign in
+    Alert.alert('Coming Soon', 'Google Sign In will be available soon!');
   };
 
   const handleForgotPassword = () => {
-    console.log('Forgot password');
-    // Navigate to forgot password screen
+    Alert.alert('Forgot Password', 'Password recovery feature will be available soon!');
   };
 
   const handleSignUp = () => {
-    console.log('Navigate to sign up');
-    router.push('/register');
-    // Navigate to sign up screen
+    router.push('./register');
   };
 
   return (
@@ -134,6 +161,8 @@ const LoginPage: React.FC = () => {
                     onChangeText={setEmail}
                     keyboardType="email-address"
                     autoCapitalize="none"
+                    autoCorrect={false}
+                    editable={!isLoading}
                     style={{ fontFamily: 'Poppins-Regular' }}
                   />
                 </View>
@@ -161,11 +190,15 @@ const LoginPage: React.FC = () => {
                     value={password}
                     onChangeText={setPassword}
                     secureTextEntry={!showPassword}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    editable={!isLoading}
                     style={{ fontFamily: 'Poppins-Regular' }}
                   />
                   <TouchableOpacity 
                     onPress={() => setShowPassword(!showPassword)}
                     className="ml-2"
+                    disabled={isLoading}
                   >
                     <Feather 
                       name={showPassword ? "eye" : "eye-off"} 
@@ -180,6 +213,7 @@ const LoginPage: React.FC = () => {
               <TouchableOpacity 
                 onPress={handleForgotPassword}
                 className="self-end mb-6"
+                disabled={isLoading}
               >
                 <Text 
                   className="text-gray-600 text-sm"
@@ -194,6 +228,9 @@ const LoginPage: React.FC = () => {
                 onPress={handleSignIn}
                 disabled={isLoading}
                 className="mb-6"
+                style={{
+                  opacity: isLoading ? 0.7 : 1
+                }}
               >
                 <LinearGradient
                   colors={['#28110A', '#4E1F00']}
@@ -226,6 +263,10 @@ const LoginPage: React.FC = () => {
               <TouchableOpacity 
                 onPress={handleGoogleSignIn}
                 className="bg-white border border-gray-200 rounded-lg py-3 px-4 flex-row items-center justify-center mb-6"
+                disabled={isLoading}
+                style={{
+                  opacity: isLoading ? 0.7 : 1
+                }}
               >
                 <Image 
                   source={require('../../assets/images/google-logo.png')}
@@ -247,7 +288,11 @@ const LoginPage: React.FC = () => {
                 >
                   New here? 
                 </Text>
-                <TouchableOpacity onPress={handleSignUp} className="ml-1">
+                <TouchableOpacity 
+                  onPress={handleSignUp} 
+                  className="ml-1"
+                  disabled={isLoading}
+                >
                   <Text 
                     className="text-amber-800 text-sm font-medium"
                     style={{ fontFamily: 'Poppins-Medium' }}

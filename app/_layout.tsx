@@ -3,20 +3,16 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import "./global.css";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
-
-import "react-native-reanimated";
-import "./global.css";
-
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { GestureHandlerRootView } from "react-native-gesture-handler"; // Import this
-import { StyleSheet } from "react-native"; // For styling GestureHandlerRootView
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { StyleSheet } from "react-native";
 import { useEffect } from "react";
+import { AuthProvider } from './contexts/AuthContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -44,22 +40,23 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }}/>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
-      {/* Add any other global screens/routes here if you have them,
-            e.g., <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
+      <AuthProvider>
+        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </AuthProvider>
     </GestureHandlerRootView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // It's important for GestureHandlerRootView to take up the full screen
+    flex: 1,
   },
 });

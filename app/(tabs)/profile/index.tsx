@@ -11,6 +11,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Header from '@/app/components/header';
 import { Ionicons, Feather, FontAwesome5,AntDesign } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 
 // Interface untuk data user
@@ -361,6 +362,15 @@ const ProfilePage: React.FC = () => {
         <ProfileSection user={mockUser} />
         <RecentPostsSection posts={mockPosts} />
         <AchievementsSection achievements={mockAchievements} />
+        
+        {/* Added for testing navigation */}
+        {/* <TouchableOpacity 
+          className="bg-blue-500 py-3 rounded-lg flex-row items-center justify-center mx-4 mb-6"
+          onPress={() => router.push('../../(auth)/login')}
+        >
+          <Text className="text-white font-medium mr-2">Go to Login (Test)</Text>
+          <Ionicons name="arrow-forward" size={20} color="white" />
+        </TouchableOpacity> */}
       </ScrollView>
     </View>
   );
