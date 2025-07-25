@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter, usePathname } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -57,9 +57,40 @@ interface TabButtonProps {
 }
 
 const TabButton: React.FC<TabButtonProps> = ({ item, isActive, onPress }) => {
+  const containerStyle = {
+    flex: 1,
+    alignItems: 'center' as const,
+    justifyContent: 'center' as const,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+  };
+
+  const buttonStyle = {
+    alignItems: 'center' as const,
+    justifyContent: 'center' as const,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    minWidth: 60,
+    minHeight: 50,
+    borderRadius: 8,
+  };
+
+  const iconStyle = {
+    width: 24,
+    height: 24,
+    marginBottom: 4,
+  };
+
+  const textStyle = {
+    fontSize: 11,
+    fontWeight: '500' as const,
+    textAlign: 'center' as const,
+    // Remove fontFamily untuk menghindari masalah loading font
+  };
+
   return (
     <TouchableOpacity 
-      className="flex-1 items-center justify-center py-2"
+      style={containerStyle}
       onPress={onPress}
       activeOpacity={0.7}
     >
@@ -68,48 +99,25 @@ const TabButton: React.FC<TabButtonProps> = ({ item, isActive, onPress }) => {
           colors={['#28110A', '#4E1F00']}
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1 }}
-          className="items-center justify-center px-3 py-2"
-          style={{
-            minWidth: 60,
-            minHeight: 50,
-            borderRadius: 8, // Perbaikan: tambahkan borderRadius di style
-          }}
+          style={buttonStyle}
         >
           <Image
             source={item.whiteIcon}
-            className="w-6 h-6 mb-1"
+            style={iconStyle}
             resizeMode="contain"
           />
-          <Text 
-            className="text-xs font-medium text-white"
-            style={{ 
-              fontFamily: 'Poppins-Medium',
-              fontSize: 11
-            }}
-          >
+          <Text style={[textStyle, { color: 'white' }]}>
             {item.label}
           </Text>
         </LinearGradient>
       ) : (
-        <View
-          className="items-center justify-center px-3 py-2 bg-transparent"
-          style={{
-            minWidth: 60,
-            minHeight: 50,
-            borderRadius: 8, // Konsistensi dengan active state
-          }}
-        >
+        <View style={[buttonStyle, { backgroundColor: 'transparent' }]}>
           <Image
             source={item.chocolateIcon}
-            className="w-6 h-6 mb-1"
+            style={iconStyle}
             resizeMode="contain"
           />
-          <Text 
-            className="text-xs font-medium text-black font-poppins"
-            style={{ 
-              fontSize: 11
-            }}
-          >
+          <Text style={[textStyle, { color: '#000' }]}>
             {item.label}
           </Text>
         </View>
@@ -138,11 +146,16 @@ const BottomBar: React.FC = () => {
     router.push(route as any);
   };
 
-  return (
-    <View 
-      className="bg-white border-t border-gray-200 shadow-lg"
-      style={{
-        paddingBottom: insets.bottom,
+  // Style untuk container utama
+  const containerStyle = {
+    backgroundColor: 'white',
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+    paddingBottom: Math.max(insets.bottom, 16), // Minimum 16px untuk Android
+    paddingTop: 4,
+    // Shadow yang konsisten untuk iOS dan Android
+    ...Platform.select({
+      ios: {
         shadowColor: '#000',
         shadowOffset: {
           width: 0,
@@ -150,10 +163,24 @@ const BottomBar: React.FC = () => {
         },
         shadowOpacity: 0.1,
         shadowRadius: 3.84,
+      },
+      android: {
         elevation: 5,
-      }}
-    >
-      <View className="flex-row items-center justify-around px-2 py-1">
+      },
+    }),
+  };
+
+  const tabContainerStyle = {
+    flexDirection: 'row' as const,
+    alignItems: 'center' as const,
+    justifyContent: 'space-around' as const,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  };
+
+  return (
+    <View style={containerStyle}>
+      <View style={tabContainerStyle}>
         {tabItems.map((item) => (
           <TabButton
             key={item.name}
