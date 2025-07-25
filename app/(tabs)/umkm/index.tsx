@@ -223,7 +223,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 
 const FloatingAddButton: React.FC = () => {
   const handleAddUMKM = () => {
-    router.push('./addItem');
+    router.push('/umkm/addItem');
   };
 
   const buttonSize = 64;
