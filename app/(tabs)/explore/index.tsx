@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-// Import icons
-import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 
-// Interface untuk region data
+import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import Header from '@/app/components/header';
+
 interface Region {
   id: string;
   name: string;
@@ -46,36 +46,36 @@ const mockRegions: Region[] = [
   }
 ];
 
-const Header: React.FC<{ title: string }> = ({ title }) => {
-  const insets = useSafeAreaInsets();
+// const Header: React.FC<{ title: string }> = ({ title }) => {
+//   const insets = useSafeAreaInsets();
   
-  return (
-    <LinearGradient
-      colors={['#28110A', '#4E1F00']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
-      style={{
-        paddingTop: insets.top + 10,
-        paddingHorizontal: 24,
-        paddingBottom: 16,
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
-      <Text 
-        style={{
-          color: 'white',
-          fontSize: 20,
-          fontWeight: '600',
-          textAlign: 'center',
-          fontFamily: 'Poppins-SemiBold'
-        }}
-      >
-        {title}
-      </Text>
-    </LinearGradient>
-  );
-};
+//   return (
+//     <LinearGradient
+//       colors={['#28110A', '#4E1F00']}
+//       start={{ x: 0, y: 0 }}
+//       end={{ x: 0, y: 1 }}
+//       style={{
+//         paddingTop: insets.top + 10,
+//         paddingHorizontal: 24,
+//         paddingBottom: 16,
+//         alignItems: 'center',
+//         justifyContent: 'center'
+//       }}
+//     >
+//       <Text 
+//         style={{
+//           color: 'white',
+//           fontSize: 20,
+//           fontWeight: '600',
+//           textAlign: 'center',
+//           fontFamily: 'Poppins-SemiBold'
+//         }}
+//       >
+//         {title}
+//       </Text>
+//     </LinearGradient>
+//   );
+// };
 
 const SearchBar: React.FC = () => {
   const [searchText, setSearchText] = useState('');
