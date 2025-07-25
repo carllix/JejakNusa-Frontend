@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -277,6 +278,7 @@ const MyMap = () => {
     Alert.alert("Provinsi", `Anda memilih: ${provinceName}`, [
       { text: "OK", style: "default" },
     ]);
+    router.push("/home/daerah");
   };
 
   if (!initialRegion) return <Text>Memuat peta...</Text>;
