@@ -12,7 +12,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Dropdown from '@/app/components/dropdown';
 
-// Interface untuk product
+
 interface Product {
   id: string;
   title: string;
@@ -112,10 +112,7 @@ const SearchBar: React.FC = () => {
   );
 };
 
-// Import dropdown component (pastikan path sesuai)
-// import Dropdown from './components/Dropdown';
 
-// Data untuk dropdown options
 const typeOptions = [
   { label: 'All types', value: 'all' },
   { label: 'Handmade', value: 'handmade' },
@@ -139,7 +136,7 @@ const FilterButtons: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState('all');
   
   return (
-    <View className="flex-row px-4 py-2 space-x-3">
+    <View className="flex-row px-4 py-2 space-x-6">
       <Dropdown
         options={typeOptions}
         selectedValue={selectedType}
@@ -147,6 +144,7 @@ const FilterButtons: React.FC = () => {
         placeholder="Select Type"
         style={{ flex: 1 }}
       />
+      <View className='w-2'></View>
       
       <Dropdown
         options={regionOptions}
@@ -175,8 +173,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       
       <View className="p-4">
         <Text 
-          className="text-xl font-semibold text-gray-900 mb-1"
-          style={{ fontFamily: 'Poppins-SemiBold' }}
+          className="text-xl font-semibold text-gray-900 mb-1 font-poppins"
         >
           {product.price}
         </Text>

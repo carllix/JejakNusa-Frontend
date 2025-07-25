@@ -126,7 +126,7 @@ const BottomBar: React.FC = () => {
   const getActiveTab = (pathname: string): string => {
     if (pathname.includes('/home')) return 'home';
     if (pathname.includes('/explore')) return 'explore';
-    if (pathname.includes('/upload')) return 'upload';
+    if (pathname.includes('/laga')) return 'laga';
     if (pathname.includes('/umkm')) return 'umkm';
     if (pathname.includes('/profile')) return 'profile';
     return 'home';

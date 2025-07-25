@@ -112,7 +112,7 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
             ? require('../../../assets/images/default-explore-1.png')
             : require('../../../assets/images/default-explore-2.png')
           }
-          className="w-full h-48"
+          className="w-full  "
           resizeMode="cover"
         />
         {/* Overlay dengan gradient */}
@@ -145,8 +145,7 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
           <View className="flex-row items-center">
             <MaterialIcons name="person" size={16} color="#666" />
             <Text 
-              className="text-gray-600 text-sm ml-1"
-              style={{ fontFamily: 'Poppins-Regular' }}
+              className="text-gray-600 text-sm ml-1 font-poppins"
             >
               {region.contributors} contributors
             </Text>
@@ -155,8 +154,7 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
           <View className="flex-row items-center">
             <FontAwesome5 name="camera" size={14} color="#666" />
             <Text 
-              className="text-gray-600 text-sm ml-1"
-              style={{ fontFamily: 'Poppins-Regular' }}
+              className="text-gray-600 text-sm ml-1 font-poppins"
             >
               {region.contents} contents
             </Text>
@@ -190,7 +188,6 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
           </View>
         </View>
         
-        {/* Fixed Explore Button - Android Compatible */}
         <TouchableOpacity 
           onPress={() => {
             console.log(`Exploring ${region.name}`);
@@ -215,12 +212,8 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
             }}
           >
             <Text 
-              style={{ 
-                color: 'white',
-                textAlign: 'center',
-                fontWeight: '600',
-                fontFamily: 'Poppins-SemiBold'
-              }}
+            className='text-center font-medium font-poppins text-white '
+
             >
               Explore
             </Text>

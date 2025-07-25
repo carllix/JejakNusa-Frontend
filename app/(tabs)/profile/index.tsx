@@ -159,7 +159,7 @@ const ProfileSection: React.FC<{ user: UserProfile }> = ({ user }) => {
         <View className="flex-row items-center">
           <Ionicons name="location-outline" size={16} color="#666" />
           <Text 
-            className="text-gray-600 ml-1 font-poppins"
+            className="text-gray-600 ml-1 mr-4 font-poppins"
           >
             {user.location}
           </Text>
@@ -168,8 +168,7 @@ const ProfileSection: React.FC<{ user: UserProfile }> = ({ user }) => {
         <View className="flex-row items-center">
           <AntDesign name="clockcircleo" size={16} color="#666" />
           <Text 
-            className="text-gray-600 ml-1"
-            style={{ fontFamily: 'Poppins-Regular' }}
+            className="text-gray-600 ml-2 font-poppins"
           >
             Joined on {user.joinDate}
           </Text>
@@ -238,6 +237,7 @@ const ProfileSection: React.FC<{ user: UserProfile }> = ({ user }) => {
             Edit Profile
           </Text>
         </TouchableOpacity>
+        <View className='w-2'></View>
         
         <TouchableOpacity className="flex-1 bg-gray-100 py-3 rounded-lg flex-row items-center justify-center">
           <Feather name="share" size={16} color="#666" style={{ marginRight: 8 }} />
