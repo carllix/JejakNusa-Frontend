@@ -213,32 +213,12 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   );
 };
 
-// Floating Action Button Component untuk Add UMKM
 const FloatingAddButton: React.FC = () => {
   const handleAddUMKM = () => {
-    // Navigate langsung ke halaman addItem.tsx
-    // Untuk Expo Router
     router.push('./addItem');
-    
-    // Untuk React Navigation
-    // navigation.navigate('AddItem');
-    
-    // Sementara console log untuk testing
-    console.log("Navigate to addItem.tsx");
-    
-    // Uncomment salah satu sesuai navigation system yang digunakan:
-    
-    // Option 1: Jika menggunakan Expo Router
-    // import { router } from 'expo-router';
-    // router.push('./addItem');
-    
-    // Option 2: Jika menggunakan React Navigation
-    // import { useNavigation } from '@react-navigation/native';
-    // const navigation = useNavigation();
-    // navigation.navigate('AddItem');
   };
 
-  const buttonSize = 64; // 16 * 4 = 64px
+  const buttonSize = 64;
 
   return (
     <TouchableOpacity
@@ -248,7 +228,7 @@ const FloatingAddButton: React.FC = () => {
         right: 24,
         width: buttonSize,
         height: buttonSize,
-        borderRadius: buttonSize / 2, // Setengah dari width/height untuk lingkaran sempurna
+        borderRadius: buttonSize / 2,
         elevation: 8,
         shadowColor: '#000',
         shadowOffset: {
@@ -286,8 +266,6 @@ const FloatingAddButton: React.FC = () => {
     </TouchableOpacity>
   );
 };
-
-
 
 const MSMESPage: React.FC = () => {
   return (
