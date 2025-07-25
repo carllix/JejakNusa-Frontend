@@ -11,8 +11,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // Import icons
-import { MaterialIcons ,FontAwesome5} from '@expo/vector-icons';
-
+import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 
 // Interface untuk region data
 interface Region {
@@ -109,7 +108,10 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
       {/* Region Image */}
       <View className="relative">
         <Image 
-          source={require('../../../assets/images/default-explore-1.png')} // Ganti dengan region.image dinamis jika perlu
+          source={region.id === '1' 
+            ? require('../../../assets/images/default-explore-1.png')
+            : require('../../../assets/images/default-explore-2.png')
+          }
           className="w-full h-48"
           resizeMode="cover"
         />
@@ -188,19 +190,37 @@ const RegionCard: React.FC<{ region: Region }> = ({ region }) => {
           </View>
         </View>
         
-        {/* Explore Button */}
+        {/* Fixed Explore Button - Android Compatible */}
         <TouchableOpacity 
-          onPress={() => {/* Handle explore region */}}
+          onPress={() => {
+            console.log(`Exploring ${region.name}`);
+            // Handle explore region navigation
+          }}
+          style={{
+            borderRadius: 8,
+            overflow: 'hidden',
+            marginTop: 4
+          }}
+          activeOpacity={0.8}
         >
           <LinearGradient
             colors={['#28110A', '#4E1F00']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
-            className="py-3 rounded-lg"
+            style={{
+              paddingVertical: 12,
+              paddingHorizontal: 16,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
           >
             <Text 
-              className="text-white text-center font-semibold"
-              style={{ fontFamily: 'Poppins-SemiBold' }}
+              style={{ 
+                color: 'white',
+                textAlign: 'center',
+                fontWeight: '600',
+                fontFamily: 'Poppins-SemiBold'
+              }}
             >
               Explore
             </Text>
@@ -225,103 +245,6 @@ const ExplorePage: React.FC = () => {
           {mockRegions.map((region) => (
             <RegionCard key={region.id} region={region} />
           ))}
-          
-          {/* Card kedua dengan gambar berbeda */}
-          <View className="bg-white mx-4 my-2 rounded-lg shadow-sm overflow-hidden">
-            <View className="relative">
-              <Image 
-                source={require('../../../assets/images/default-explore-2.png')}
-                className="w-full h-48"
-                resizeMode="cover"
-              />
-              <LinearGradient
-                colors={['transparent', 'rgba(0,0,0,0.7)']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 0, y: 1 }}
-                className="absolute inset-0"
-              />
-              <View className="absolute bottom-4 left-4 right-4">
-                <Text 
-                  className="text-white text-2xl font-bold mb-1"
-                  style={{ fontFamily: 'Poppins-Bold' }}
-                >
-                  Sumatera Utara
-                </Text>
-                <Text 
-                  className="text-white text-sm opacity-90"
-                  style={{ fontFamily: 'Poppins-Regular' }}
-                >
-                  A region rooted in strong customs and ancestral values.
-                </Text>
-              </View>
-            </View>
-            
-            <View className="p-4">
-              <View className="flex-row items-center mb-4 space-x-6">
-                <View className="flex-row items-center">
-                  <MaterialIcons name="person" size={16} color="#666" />
-                  <Text 
-                    className="text-gray-600 text-sm ml-1"
-                    style={{ fontFamily: 'Poppins-Regular' }}
-                  >
-                    24 contributors
-                  </Text>
-                </View>
-                
-                <View className="flex-row items-center">
-                  <FontAwesome5 name="camera" size={14} color="#666" />
-                  <Text 
-                    className="text-gray-600 text-sm ml-1"
-                    style={{ fontFamily: 'Poppins-Regular' }}
-                  >
-                    112 contents
-                  </Text>
-                </View>
-              </View>
-
-              <View className="mb-4">
-                <Text 
-                  className="text-gray-900 font-semibold mb-3"
-                  style={{ fontFamily: 'Poppins-SemiBold' }}
-                >
-                  Cultural Highlights:
-                </Text>
-                
-                <View className="flex-row flex-wrap">
-                  {['Tor-tor Dance', 'Batak Architecture', 'Gondang Music', 'Ulos Weaving'].map((highlight, index) => (
-                    <View
-                      key={index}
-                      className="mr-2 mb-2 px-3 py-1 rounded-full"
-                      style={{ backgroundColor: '#74502D' }}
-                    >
-                      <Text 
-                        className="text-white text-xs font-medium"
-                        style={{ fontFamily: 'Poppins-Medium' }}
-                      >
-                        {highlight}
-                      </Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-              
-              <TouchableOpacity>
-                <LinearGradient
-                  colors={['#28110A', '#4E1F00']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
-                  className="py-3 rounded-lg"
-                >
-                  <Text 
-                    className="text-white text-center font-semibold"
-                    style={{ fontFamily: 'Poppins-SemiBold' }}
-                  >
-                    Explore
-                  </Text>
-                </LinearGradient>
-              </TouchableOpacity>
-            </View>
-          </View>
         </View>
       </ScrollView>
     </View>

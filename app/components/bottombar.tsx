@@ -28,11 +28,11 @@ const tabItems: TabItem[] = [
     label: 'Explore'
   },
   {
-    name: 'upload',
-    route: '/(tabs)/upload',
+    name: 'laga',
+    route: '/(tabs)/laga',
     whiteIcon: require('../../assets/images/upload-white.png'),
     chocolateIcon: require('../../assets/images/upload-chocolate.png'),
-    label: 'Upload'
+    label: 'Laga'
   },
   {
     name: 'umkm',
