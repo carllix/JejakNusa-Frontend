@@ -12,7 +12,7 @@ import MapView, { Marker, Callout, Region } from "react-native-maps"; // Import 
 
 // Data provinsi dengan koordinat (ini hanya sebagian kecil sebagai contoh!)
 const provincesWithCoords = [
-  { name: "Aceh", latitude: 5.55, longitude: 95.316, path: "Aceh.jpg" },
+  { name: "Aceh", latitude: 5.55, longitude: 95.316, path: "Aceh" },
   {
     name: "Sumatera Utara",
     latitude: 2.19,
@@ -208,7 +208,7 @@ const provincesWithCoords = [
     name: "Papua Barat Daya",
     latitude: -0.8833,
     longitude: 131.25,
-    path: "PapuaBaratData",
+    path: "PapuaBaratDaya",
   },
 ];
 
@@ -227,11 +227,11 @@ const imageMap: { [key: string]: any } = {
   JawaBarat: require("../../../assets/images/provinces/JawaBarat.jpg"),
   DKIJakarta: require("../../../assets/images/provinces/DKIJakarta.jpg"),
   JawaTengah: require("../../../assets/images/provinces/JawaTengah.jpg"),
-  DIYSogyakarta: require("../../../assets/images/provinces/DIYogyakarta.jpg"),
+  DIYogyakarta: require("../../../assets/images/provinces/DIYogyakarta.jpg"),
   JawaTimur: require("../../../assets/images/provinces/JawaTimur.jpg"),
   Bali: require("../../../assets/images/provinces/Bali.jpg"),
-  NusaTenggaraBarat: require("../../../assets/images/provinces/NTB.jpg"),
-  NusaTenggaraTimur: require("../../../assets/images/provinces/NTT.jpg"),
+  NTB: require("../../../assets/images/provinces/NTB.jpg"),
+  NTT: require("../../../assets/images/provinces/NTT.jpg"),
   KalimantanBarat: require("../../../assets/images/provinces/Kalbar.jpg"),
   KalimantanTengah: require("../../../assets/images/provinces/Kalteng.jpg"),
   KalimantanSelatan: require("../../../assets/images/provinces/Kalsel.jpg"),
