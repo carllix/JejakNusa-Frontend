@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Button, Alert, StyleSheet, Text, Image } from "react-native"; // Tambahkan Text untuk judul marker
+import {
+  View,
+  Button,
+  Alert,
+  StyleSheet,
+  Text,
+  Image,
+  TouchableOpacity,
+} from "react-native"; // Tambahkan TouchableOpacity
 import MapView, { Marker, Callout, Region } from "react-native-maps"; // Import Marker dan Callout
 
 // Data provinsi dengan koordinat (ini hanya sebagian kecil sebagai contoh!)
@@ -43,6 +51,7 @@ const provincesWithCoords = [
   { name: "Papua Selatan", latitude: -7.5, longitude: 139.5 },
   { name: "Papua Barat Daya", latitude: -0.8833, longitude: 131.25 },
 ];
+
 const getRandomProvinceRegion = (): Region => {
   const random =
     provincesWithCoords[Math.floor(Math.random() * provincesWithCoords.length)];
@@ -61,6 +70,12 @@ const MyMap = () => {
     const region = getRandomProvinceRegion();
     setInitialRegion(region);
   }, []);
+
+  const handleProvincePress = (provinceName: string) => {
+    Alert.alert("Provinsi", `Anda memilih: ${provinceName}`, [
+      { text: "OK", style: "default" },
+    ]);
+  };
 
   if (!initialRegion) return <Text>Memuat peta...</Text>;
 
@@ -82,13 +97,22 @@ const MyMap = () => {
                 resizeMode="contain"
               />
             </View>
-            <Callout tooltip>
-              <View style={styles.customCalloutContainer}>
+            <Callout
+              style={styles.calloutContainer}
+              onPress={() => handleProvincePress(province.name)}
+            >
+              <View style={styles.calloutContent}>
                 <Text style={styles.calloutTitle}>{province.name}</Text>
-                <Button
-                  title={`Jelajahi ${province.name}`}
-                  onPress={() => Alert.alert(`Provinsi: ${province.name}`)}
-                />
+
+                <TouchableOpacity
+                  style={styles.calloutButton}
+                  onPress={() => handleProvincePress(province.name)}
+                  activeOpacity={0.7}
+                >
+                  <Text style={styles.calloutButtonText}>
+                    Jelajahi {province.name}
+                  </Text>
+                </TouchableOpacity>
               </View>
             </Callout>
           </Marker>
@@ -105,49 +129,67 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
-  calloutText: {
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
   customMarker: {
     width: 50,
     height: 50,
     backgroundColor: "white",
-    borderRadius: 8, // hapus jika mau full kotak
+    borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 2,
-    elevation: 5, // untuk Android
-  },
-
-  customCalloutContainer: {
-    width: 200,
-    padding: 16,
-    backgroundColor: "white",
-    borderRadius: 12,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
     elevation: 5,
-    alignItems: "center",
+  },
+  markerImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 4,
+  },
+  calloutContainer: {
+    backgroundColor: "transparent",
+    borderRadius: 0,
+    padding: 0,
+    margin: 0,
+  },
+  calloutContent: {
+    backgroundColor: "white",
+    // borderRadius: 10,
+    padding: 15,
+    minWidth: 200,
+    shadowColor: "#000",
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
+    elevation: 5,
   },
   calloutTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 10,
+    color: "#333",
+    marginBottom: 5,
     textAlign: "center",
   },
-
-  markerImage: {
-    width: 40,
-    height: 70,
-    borderRadius: 4, // bisa disesuaikan
+  calloutSubtitle: {
+    fontSize: 12,
+    color: "#666",
+    marginBottom: 10,
+    textAlign: "center",
+    fontStyle: "italic",
+  },
+  calloutButton: {
+    backgroundColor: "#74502D",
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 6,
+    alignItems: "center",
+    marginTop: 5,
+  },
+  calloutButtonText: {
+    color: "white",
+    fontSize: 14,
+    fontWeight: "600",
   },
 });
 
