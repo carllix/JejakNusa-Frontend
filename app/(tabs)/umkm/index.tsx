@@ -218,7 +218,7 @@ const FloatingAddButton: React.FC = () => {
   const handleAddUMKM = () => {
     // Navigate langsung ke halaman addItem.tsx
     // Untuk Expo Router
-    router.push('/umkm/addItem');
+    router.push('./addItem');
     
     // Untuk React Navigation
     // navigation.navigate('AddItem');
