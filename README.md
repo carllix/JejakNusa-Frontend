@@ -1,16 +1,96 @@
-# Welcome to your Expo app 👋
+# Welcome to JejakNusa
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
 
-## Get started
+**JejakNusa** is a map-based digital platform offering a virtual, collaborative, and educational cultural experience. Users can explore the Archipelago’s heritage without geographic barriers, while also engaging with cultural MSMEs. It combines learning and play through cultural quizzes, challenges, and more.
 
-1. Install dependencies
+
+## Main features 
+
+###  **Interactive Cultural Map**
+Displays location-based content with 3D views for popular sites.
+
+###  **Post & Translatep**
+A feature for uploading cultural content (photos or short videos) with AI-based automatic translations.
+
+###  **Cultural Exploration**
+A cultural directory by region: language, traditions, cuisine, and arts.
+
+###  **Gamified Leaning**
+“Word of the Day,” quizzes, and cultural challenges to enhance literacy.
+
+
+###  **Cultural MSMEs Showcase**
+A curated catalog of local cultural products connected with a global audience.
+
+### **Profile & Achievements**
+A badge and progress system to encourage active participation.
+
+## Tech Stack  
+
+<div align="center">
+  <table>
+    <tr>
+      <th>Layer</th>
+      <th>Technology</th>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Frontend-4CAF50?style=for-the-badge" alt="Frontend"/>
+      </td>
+      <td><strong>React Native</strong><br>NativeWind</td>
+      <td>A cross-platform mobile-first approach for Android and iOS, enabling rapid development</td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Backend-2196F3?style=for-the-badge" alt="Backend"/>
+      </td>
+      <td><strong>Hono</strong><br>Drizzle ORM</td> 
+      <td>A minimalist and high-performance backend stack</td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Database-FF9800?style=for-the-badge" alt="Database"/>
+      </td>
+      <td><strong>PostgreSQL</strong>
+      <td>Data storage dan caching untuk performa optimal</td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://img.shields.io/badge/AI%20Service-9C27B0?style=for-the-badge" alt="AI Service"/>
+      </td>
+      <td><strong>FastAPI</strong><br>GeminiAI</td>
+      <td>Machine learning dan AI processing</td>
+    </tr>
+  </table>
+</div>
+
+
+
+## How to Run
+
+**Frontend:**
+
+1. Clone the Frontend Repository:
+
+```bash
+git clone https://github.com/carllix/JejakNusa-Frontend.git
+```
+
+2. Navigate to the frontend directory:
+
+```bash
+cd JejakNusa-Frontend
+```
+
+3. Install dependencies
 
    ```bash
    npm install
    ```
 
-2. Start the app
+4. Start the frontend
 
    ```bash
    npx expo start
@@ -23,28 +103,47 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
 
-When you're ready, run:
+**Backend** 
+1.  Clone the backend repository 
 
 ```bash
-npm run reset-project
+git clone https://github.com/carllix/JejakNusa-Backend.git
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Navigate to the Backend directory:
 
-## Learn more
+```bash
+cd JejakNusa-Backend
+```
+3. Install the dependendencies 
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+bun install
+```
+4. Start the backend
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+bun run dev
+```
 
-## Join the community
 
-Join our community of developers creating universal apps.
+## Links
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+<div align="left">
+
+  **Demo**: [Try our demo]()
+  
+</div>
+
+
+
+## Author
+
+ **Nama Anggota**       | **Github**                              |
+--------------------    | --------------------------------------- |
+Dzaky Aurelia Fawwaz    | [WwzFwz](https://github.com/WwzFwz)     |
+Carlo Angkisan          | [carllix](https://github.com/carllix)   |
+Alfian Hanif Yustanto   | [barruadi](https://github.com/barruadi) |
+Adinda Putri            | [adndax](https://github.com/adndax)     |
