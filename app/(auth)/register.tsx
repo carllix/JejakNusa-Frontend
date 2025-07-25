@@ -161,7 +161,7 @@ const RegisterPage: React.FC = () => {
                     onChangeText={setEmail}
                     keyboardType="email-address"
                     autoCapitalize="none"
-                    style={{ fontFamily: 'Poppins-Regular' }}
+
                   />
                 </View>
               </View>
@@ -170,7 +170,6 @@ const RegisterPage: React.FC = () => {
               <View className="mb-4">
                 <Text 
                   className="text-gray-700 mb-2 font-medium"
-                  style={{ fontFamily: 'Poppins-Medium' }}
                 >
                   Password
                 </Text>
@@ -188,7 +187,6 @@ const RegisterPage: React.FC = () => {
                     value={password}
                     onChangeText={setPassword}
                     secureTextEntry={!showPassword}
-                    style={{ fontFamily: 'Poppins-Regular' }}
                   />
                   <TouchableOpacity 
                     onPress={() => setShowPassword(!showPassword)}

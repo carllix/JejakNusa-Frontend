@@ -68,10 +68,11 @@ const TabButton: React.FC<TabButtonProps> = ({ item, isActive, onPress }) => {
           colors={['#28110A', '#4E1F00']}
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1 }}
-          className="items-center justify-center px-3 py-2 rounded-lg"
+          className="items-center justify-center px-3 py-2"
           style={{
             minWidth: 60,
-            minHeight: 50
+            minHeight: 50,
+            borderRadius: 8, // Perbaikan: tambahkan borderRadius di style
           }}
         >
           <Image
@@ -91,10 +92,11 @@ const TabButton: React.FC<TabButtonProps> = ({ item, isActive, onPress }) => {
         </LinearGradient>
       ) : (
         <View
-          className="items-center justify-center px-3 py-2 rounded-lg bg-transparent"
+          className="items-center justify-center px-3 py-2 bg-transparent"
           style={{
             minWidth: 60,
-            minHeight: 50
+            minHeight: 50,
+            borderRadius: 8, // Konsistensi dengan active state
           }}
         >
           <Image
