@@ -56,8 +56,7 @@ const dummyContent = [
   {
     id: 3,
     username: "adventure_id",
-    description:
-      "Sunrise di Bromo yang tak terlupakan ⛰️ #bromo #sunrise #adventure",
+    description: "Kesenian batik asli dari jawa #jawa #culuture #batik",
     image: require("../../../../assets/images/content/2.jpg"),
     likes: 3421,
     comments: 210,
@@ -667,7 +666,7 @@ export default function TikTokReelsComponent() {
                   <Text
                     style={{ color: "white", fontSize: 12, fontWeight: "500" }}
                   >
-                    {gestureStatus}
+                    Indonesia
                   </Text>
                 </View>
               </View>
