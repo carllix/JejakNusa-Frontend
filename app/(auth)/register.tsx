@@ -7,7 +7,8 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
-  ScrollView
+  ScrollView,
+  ImageBackground
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'expo-image';
@@ -37,7 +38,6 @@ const RegisterPage: React.FC = () => {
 
     setIsLoading(true);
 
-
     setTimeout(() => {
       setIsLoading(false);
       router.replace('/(tabs)/home');
@@ -48,8 +48,6 @@ const RegisterPage: React.FC = () => {
     console.log('Sign up with Google');
   };
 
-
-
   const handleSignIn = () => {
     router.push('/login');
   };
@@ -58,15 +56,20 @@ const RegisterPage: React.FC = () => {
     <View className="flex-1">
       <StatusBar barStyle="light-content" backgroundColor="#4E1F00" />
   
-      <LinearGradient
-        colors={['#4E1F00', '#28110A']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0.8, y: 1 }}
+      {/* Background with Batik Pattern and Gradient Overlay */}
+      <ImageBackground
+        source={require('../../assets/images/batik-bg.png')}
         className="flex-1"
-        // style={{
-        //   transform: [{ rotate: '195.03deg' }]
-        // }}
-      />
+        resizeMode="cover"
+      >
+        <LinearGradient
+          colors={['#4E1F00', '#28110A']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0.8, y: 1 }}
+          className="flex-1"
+          style={{ opacity: 0.9 }}
+        />
+      </ImageBackground>
       
       {/* Content Container */}
       <KeyboardAvoidingView 
@@ -161,7 +164,7 @@ const RegisterPage: React.FC = () => {
                     onChangeText={setEmail}
                     keyboardType="email-address"
                     autoCapitalize="none"
-
+                    style={{ fontFamily: 'Poppins-Regular' }}
                   />
                 </View>
               </View>
@@ -170,6 +173,7 @@ const RegisterPage: React.FC = () => {
               <View className="mb-4">
                 <Text 
                   className="text-gray-700 mb-2 font-medium"
+                  style={{ fontFamily: 'Poppins-Medium' }}
                 >
                   Password
                 </Text>
@@ -187,6 +191,7 @@ const RegisterPage: React.FC = () => {
                     value={password}
                     onChangeText={setPassword}
                     secureTextEntry={!showPassword}
+                    style={{ fontFamily: 'Poppins-Regular' }}
                   />
                   <TouchableOpacity 
                     onPress={() => setShowPassword(!showPassword)}
@@ -284,8 +289,6 @@ const RegisterPage: React.FC = () => {
                     Google
                   </Text>
                 </TouchableOpacity>
-
-            
               </View>
 
               {/* Sign In Link */}

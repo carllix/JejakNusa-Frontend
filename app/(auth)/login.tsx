@@ -7,12 +7,14 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
-  ScrollView
+  ScrollView,
+  ImageBackground
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'expo-image';
 // Import icons
 import { MaterialIcons,Feather } from '@expo/vector-icons';
+import { router, Router } from 'expo-router';
 
 
 const LoginPage: React.FC = () => {
@@ -44,6 +46,7 @@ const LoginPage: React.FC = () => {
 
   const handleSignUp = () => {
     console.log('Navigate to sign up');
+    router.push('/register');
     // Navigate to sign up screen
   };
 
@@ -51,16 +54,19 @@ const LoginPage: React.FC = () => {
     <View className="flex-1">
       <StatusBar barStyle="light-content" backgroundColor="#4E1F00" />
       
-      {/* Background Gradient */}
-      <LinearGradient
-        colors={['#4E1F00', '#28110A']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0.8, y: 1 }}
+      <ImageBackground
+        source={require('../../assets/images/batik-bg.png')}
         className="flex-1"
-        // style={{
-        //   transform: [{ rotate: '195.03deg' }]
-        // }}
-      />
+        resizeMode="cover"
+      >
+        <LinearGradient
+          colors={['#4E1F00', '#28110A']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0.8, y: 1 }}
+          className="flex-1"
+          style={{ opacity: 0.9 }}
+        />
+      </ImageBackground>
       
       {/* Content Container */}
       <KeyboardAvoidingView 
