@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-// Import icons - pastikan library sudah ter-install
+import Header from '@/app/components/header';
 import { Ionicons, Feather, FontAwesome5,AntDesign } from '@expo/vector-icons';
+
 
 // Interface untuk data user
 interface UserProfile {
@@ -90,36 +91,36 @@ const mockAchievements: Achievement[] = [
   }
 ];
 
-const Header: React.FC<{ title: string }> = ({ title }) => {
-  const insets = useSafeAreaInsets();
+// const Header: React.FC<{ title: string }> = ({ title }) => {
+//   const insets = useSafeAreaInsets();
   
-  return (
-    <LinearGradient
-      colors={['#28110A', '#4E1F00']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
-      style={{
-        paddingTop: insets.top + 10,
-        paddingHorizontal: 24,
-        paddingBottom: 16,
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
-      <Text 
-        style={{
-          color: 'white',
-          fontSize: 20,
-          fontWeight: '600',
-          textAlign: 'center',
-          fontFamily: 'Poppins-SemiBold'
-        }}
-      >
-        {title}
-      </Text>
-    </LinearGradient>
-  );
-};
+//   return (
+//     <LinearGradient
+//       colors={['#28110A', '#4E1F00']}
+//       start={{ x: 0, y: 0 }}
+//       end={{ x: 0, y: 1 }}
+//       style={{
+//         // paddingTop: insets.top + 10,
+//         paddingHorizontal: 24,
+//         paddingBottom: 16,
+//         alignItems: 'center',
+//         justifyContent: 'center'
+//       }}
+//     >
+//       <Text 
+//         style={{
+//           color: 'white',
+//           fontSize: 20,
+//           fontWeight: '600',
+//           textAlign: 'center',
+//           fontFamily: 'Poppins-SemiBold'
+//         }}
+//       >
+//         {title}
+//       </Text>
+//     </LinearGradient>
+//   );
+// };
 
 const ProfileSection: React.FC<{ user: UserProfile }> = ({ user }) => {
   return (

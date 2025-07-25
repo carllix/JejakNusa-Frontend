@@ -13,6 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Dropdown from '@/app/components/dropdown';
 import { router } from 'expo-router';
+import Header from '@/app/components/header';
 
 
 interface Product {
@@ -60,36 +61,36 @@ const mockProducts: Product[] = [
   }
 ];
 
-const Header: React.FC<{ title: string }> = ({ title }) => {
-  const insets = useSafeAreaInsets();
+// const Header: React.FC<{ title: string }> = ({ title }) => {
+//   const insets = useSafeAreaInsets();
   
-  return (
-    <LinearGradient
-      colors={['#6b4b41ff', '#4E1F00']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
-      style={{
-        paddingTop: insets.top + 10,
-        paddingHorizontal: 24,
-        paddingBottom: 16,
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
-      <Text 
-        style={{
-          color: 'white',
-          fontSize: 20,
-          fontWeight: '600',
-          textAlign: 'center',
-          fontFamily: 'Poppins-SemiBold'
-        }}
-      >
-        {title}
-      </Text>
-    </LinearGradient>
-  );
-};
+//   return (
+//     <LinearGradient
+//       colors={['#6b4b41ff', '#4E1F00']}
+//       start={{ x: 0, y: 0 }}
+//       end={{ x: 0, y: 1 }}
+//       style={{
+//         paddingTop: insets.top + 10,
+//         paddingHorizontal: 24,
+//         paddingBottom: 16,
+//         alignItems: 'center',
+//         justifyContent: 'center'
+//       }}
+//     >
+//       <Text 
+//         style={{
+//           color: 'white',
+//           fontSize: 20,
+//           fontWeight: '600',
+//           textAlign: 'center',
+//           fontFamily: 'Poppins-SemiBold'
+//         }}
+//       >
+//         {title}
+//       </Text>
+//     </LinearGradient>
+//   );
+// };
 
 const SearchBar: React.FC = () => {
   const [searchText, setSearchText] = useState('');

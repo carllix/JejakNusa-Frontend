@@ -77,7 +77,7 @@ const MyMap = () => {
           >
             <View style={styles.customMarker}>
               <Image
-                source={require("../../../assets/markers/province.png")} // ganti URL gambar sesuai kebutuhan
+                source={require("../../../assets/markers/province.png")} 
                 style={styles.markerImage}
                 resizeMode="contain"
               />

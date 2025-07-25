@@ -6,11 +6,12 @@ import {
   TouchableOpacity, 
   Image,
   StatusBar,
-  FlatList
+
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-// Import icons
+import Header from '@/app/components/header';
+
 import { Ionicons , SimpleLineIcons,AntDesign,Octicons,MaterialIcons } from '@expo/vector-icons';
 
 // Interfaces
@@ -120,37 +121,37 @@ const mockLeaderboard: LeaderboardUser[] = [
   { id: '5', rank: 5, name: 'Dinda Ackerman', location: 'Lampung', points: 1050, badges: 6 }
 ];
 
-// Components
-const Header: React.FC<{ title: string }> = ({ title }) => {
-  const insets = useSafeAreaInsets();
+// // Components
+// const Header: React.FC<{ title: string }> = ({ title }) => {
+//   const insets = useSafeAreaInsets();
   
-  return (
-    <LinearGradient
-      colors={['#28110A', '#4E1F00']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
-      style={{
-        paddingTop: insets.top + 10,
-        paddingHorizontal: 24,
-        paddingBottom: 16,
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
-      <Text 
-        style={{
-          color: 'white',
-          fontSize: 20,
-          fontWeight: '600',
-          textAlign: 'center',
-          fontFamily: 'Poppins-SemiBold'
-        }}
-      >
-        {title}
-      </Text>
-    </LinearGradient>
-  );
-};
+//   return (
+//     <LinearGradient
+//       colors={['#28110A', '#4E1F00']}
+//       start={{ x: 0, y: 0 }}
+//       end={{ x: 0, y: 1 }}
+//       style={{
+//         paddingTop: insets.top + 10,
+//         paddingHorizontal: 24,
+//         paddingBottom: 16,
+//         alignItems: 'center',
+//         justifyContent: 'center'
+//       }}
+//     >
+//       <Text 
+//         style={{
+//           color: 'white',
+//           fontSize: 20,
+//           fontWeight: '600',
+//           textAlign: 'center',
+//           fontFamily: 'Poppins-SemiBold'
+//         }}
+//       >
+//         {title}
+//       </Text>
+//     </LinearGradient>
+//   );
+// };
 
 const WordOfDayCard: React.FC<{ word: WordOfDay }> = ({ word }) => {
   return (
