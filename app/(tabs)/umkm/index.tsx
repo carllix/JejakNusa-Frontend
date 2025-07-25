@@ -6,13 +6,16 @@ import {
   TextInput, 
   TouchableOpacity, 
   Image,
-  StatusBar
+  StatusBar,
+  Alert
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Dropdown from '@/app/components/dropdown';
+import { provinceOptions } from '@/app/types/types';
+import { router } from 'expo-router';
 
-
+// Interface untuk product
 interface Product {
   id: string;
   title: string;
@@ -63,7 +66,7 @@ const Header: React.FC<{ title: string }> = ({ title }) => {
   
   return (
     <LinearGradient
-      colors={['#28110A', '#4E1F00']}
+      colors={['#6b4b41ff', '#4E1F00']}
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
       style={{
@@ -112,23 +115,12 @@ const SearchBar: React.FC = () => {
   );
 };
 
-
 const typeOptions = [
   { label: 'All types', value: 'all' },
   { label: 'Handmade', value: 'handmade' },
   { label: 'Premium', value: 'premium' },
   { label: 'Traditional', value: 'traditional' },
   { label: 'Modern', value: 'modern' }
-];
-
-const regionOptions = [
-  { label: 'All regions', value: 'all' },
-  { label: 'Jawa Barat', value: 'jabar' },
-  { label: 'Jawa Tengah', value: 'jateng' },
-  { label: 'Jawa Timur', value: 'jatim' },
-  { label: 'DIY Yogyakarta', value: 'diy' },
-  { label: 'Bali', value: 'bali' },
-  { label: 'Sumatera', value: 'sumatra' }
 ];
 
 const FilterButtons: React.FC = () => {
@@ -147,7 +139,7 @@ const FilterButtons: React.FC = () => {
       <View className='w-2'></View>
       
       <Dropdown
-        options={regionOptions}
+        options={provinceOptions}
         selectedValue={selectedRegion}
         onSelect={setSelectedRegion}
         placeholder="Select Region"
@@ -219,6 +211,60 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   );
 };
 
+const FloatingAddButton: React.FC = () => {
+  const handleAddUMKM = () => {
+    router.push('./addItem');
+  };
+
+  const buttonSize = 64;
+
+  return (
+    <TouchableOpacity
+      style={{
+        position: 'absolute',
+        bottom: 24,
+        right: 24,
+        width: buttonSize,
+        height: buttonSize,
+        borderRadius: buttonSize / 2,
+        elevation: 8,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+      }}
+      onPress={handleAddUMKM}
+      activeOpacity={0.8}
+    >
+      <LinearGradient
+        colors={['#92400e', '#6b4b41ff']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{
+          width: buttonSize,
+          height: buttonSize,
+          borderRadius: buttonSize / 2,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Text 
+          style={{
+            color: 'white',
+            fontSize: 24,
+            fontWeight: 'bold',
+          }}
+        >
+          +
+        </Text>
+      </LinearGradient>
+    </TouchableOpacity>
+  );
+};
+
 const MSMESPage: React.FC = () => {
   return (
     <View className="flex-1 bg-yellow-low">
@@ -235,7 +281,13 @@ const MSMESPage: React.FC = () => {
             <ProductCard key={product.id} product={product} />
           ))}
         </View>
+        
+        {/* Spacing untuk floating button */}
+        <View className="h-20" />
       </ScrollView>
+      
+      {/* Floating Action Button untuk Add UMKM */}
+      <FloatingAddButton />
     </View>
   );
 };
