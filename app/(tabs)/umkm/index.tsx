@@ -12,6 +12,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Dropdown from '@/app/components/dropdown';
+import { router } from 'expo-router';
 
 
 interface Product {
@@ -122,6 +123,15 @@ const typeOptions = [
   { label: 'Modern', value: 'modern' }
 ];
 
+const provinceOptions = [
+  { label: 'All regions', value: 'all' },
+  { label: 'Jawa Barat', value: 'jabar' },
+  { label: 'Jawa Tengah', value: 'jateng' },
+  { label: 'Jawa Timur', value: 'jatim' },
+  { label: 'DIY Yogyakarta', value: 'diy' },
+  { label: 'Bali', value: 'bali' },
+  { label: 'Sumatera', value: 'sumatra' }
+];
 const FilterButtons: React.FC = () => {
   const [selectedType, setSelectedType] = useState('all');
   const [selectedRegion, setSelectedRegion] = useState('all');
