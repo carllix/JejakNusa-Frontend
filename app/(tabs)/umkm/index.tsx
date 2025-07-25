@@ -15,7 +15,7 @@ import Dropdown from '@/app/components/dropdown';
 import { router } from 'expo-router';
 import Header from '@/app/components/header';
 
-
+// Interface untuk product
 interface Product {
   id: string;
   title: string;
