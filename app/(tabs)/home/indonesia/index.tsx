@@ -4,7 +4,7 @@ import {
   View,
   Text,
   Alert,
-  Image,
+  Image, // Make sure Image is imported
   TouchableOpacity,
   TextInput,
   Modal,
@@ -36,8 +36,7 @@ const dummyContent = [
     id: 1,
     username: "traveler_indonesia",
     description: "Pantai Kuta yang memukau di Bali 🏖️ #bali #pantai #sunset",
-    image:
-      "https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=400&h=600&fit=crop",
+    image: require("../../../../assets/images/content/4.jpg"),
     likes: 1234,
     comments: 89,
     shares: 45,
@@ -48,8 +47,7 @@ const dummyContent = [
     username: "foodie_nusantara",
     description:
       "Gudeg Jogja yang legendaris! Siapa yang kangen? 🍛 #jogja #gudeg #kuliner",
-    image:
-      "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=600&fit=crop",
+    image: require("../../../../assets/images/content/3.jpg"),
     likes: 2156,
     comments: 134,
     shares: 67,
@@ -60,8 +58,7 @@ const dummyContent = [
     username: "adventure_id",
     description:
       "Sunrise di Bromo yang tak terlupakan ⛰️ #bromo #sunrise #adventure",
-    image:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop",
+    image: require("../../../../assets/images/content/2.jpg"),
     likes: 3421,
     comments: 210,
     shares: 156,
@@ -71,8 +68,8 @@ const dummyContent = [
     id: 4,
     username: "culture_indonesia",
     description: "Tari Kecak Bali yang memesona 💃 #bali #tarikecak #budaya",
-    image:
-      "https://images.unsplash.com/photo-1555400082-ac5d8f6d6a43?w=400&h=600&fit=crop",
+    // This image is already local, no change needed here.
+    image: require("../../../../assets/images/content/1.jpg"),
     likes: 987,
     comments: 45,
     shares: 23,
@@ -83,8 +80,7 @@ const dummyContent = [
     username: "nature_lover",
     description:
       "Danau Toba yang mempesona dari atas 🌊 #danautoба #sumut #alam",
-    image:
-      "https://images.unsplash.com/photo-1504198458649-3128b932f49e?w=400&h=600&fit=crop",
+    image: require("../../../../assets/images/content/5.jpg"),
     likes: 1876,
     comments: 92,
     shares: 78,
@@ -267,43 +263,60 @@ export default function TikTokReelsComponent() {
       }
     })
     .onEnd((event) => {
-      const threshold = 80; // Threshold lebih kecil untuk navigasi lebih mudah
+      const threshold = 80;
       let newContentCount = contentCount;
       let newPageNum = pageNum;
 
       if (gestureDirection === "horizontal") {
-        // Handle horizontal gestures (page navigation)
+        // Handle horizontal gestures
         if (event.translationX > threshold) {
-          // Right swipe → Daerah
           newPageNum = pageNum - 1;
           runOnJS(setPageNum)(newPageNum);
           runOnJS(updatePageName)(newPageNum);
         } else if (event.translationX < -threshold) {
-          // Left swipe → Maps
           newPageNum = pageNum + 1;
           runOnJS(setPageNum)(newPageNum);
           runOnJS(updatePageName)(newPageNum);
         }
+
+        // Reset position after horizontal swipe
+        translateX.value = withTiming(0, SMOOTH_TIMING_CONFIG);
+        translateY.value = withTiming(0, SMOOTH_TIMING_CONFIG);
       } else if (gestureDirection === "vertical") {
-        // Handle vertical gestures (content navigation)
         if (event.translationY > threshold) {
-          // Down swipe - previous content
+          // ↓ Swipe ke bawah → Dismiss tanpa mantul
           runOnJS(navigateContent)("down");
           newContentCount = contentCount - 1;
+          translateY.value = withTiming(0, SMOOTH_TIMING_CONFIG);
         } else if (event.translationY < -threshold) {
-          // Up swipe - next content
+          // ↑ Swipe ke atas → Next content biasa
           runOnJS(navigateContent)("up");
           newContentCount = contentCount + 1;
+          translateY.value = withTiming(0, SMOOTH_TIMING_CONFIG);
+        } else {
+          // Tidak cukup threshold → tidak memantul, langsung hilang
+          translateY.value = withTiming(
+            SCREEN_HEIGHT,
+            SMOOTH_TIMING_CONFIG,
+            (finished) => {
+              if (finished) {
+                runOnJS(navigateContent)("down");
+                runOnJS(setContentCount)(contentCount - 1);
+                runOnJS(updateGestureStatus)("Swipe untuk navigasi");
+                runOnJS(setDirection)(null);
+                translateY.value = 0;
+              }
+            }
+          );
         }
+
+        // Reset horizontal posisi (selalu)
+        translateX.value = withTiming(0, SMOOTH_TIMING_CONFIG);
+      } else {
+        // Jika tidak ada direction (fallback)
+        translateX.value = withTiming(0, SMOOTH_TIMING_CONFIG);
+        translateY.value = withTiming(0, SMOOTH_TIMING_CONFIG);
       }
-
-      runOnJS(setContentCount)(newContentCount);
-      runOnJS(updateGestureStatus)("Swipe untuk navigasi");
-      runOnJS(setDirection)(null); // Reset direction lock
-
-      // SMOOTH ANIMATION TANPA SPRING - MENGGUNAKAN TIMING
-      translateX.value = withTiming(0, SMOOTH_TIMING_CONFIG);
-      translateY.value = withTiming(0, SMOOTH_TIMING_CONFIG);
     });
 
   // Main content animated style
@@ -428,15 +441,23 @@ export default function TikTokReelsComponent() {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  zIndex: 1,
                 },
                 prevContentStyle,
               ]}
             >
+              {/* Conditional rendering for image source */}
               <Image
-                source={{ uri: prevContent.image }}
-                style={{ flex: 1, width: "100%", height: "100%" }}
-                resizeMode="cover"
+                source={
+                  typeof prevContent.image === "string" &&
+                  prevContent.image.startsWith("http")
+                    ? { uri: prevContent.image }
+                    : prevContent.image
+                }
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+                resizeMode="contain"
               />
               <View
                 style={{
@@ -467,15 +488,23 @@ export default function TikTokReelsComponent() {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  zIndex: 1,
                 },
                 nextContentStyle,
               ]}
             >
+              {/* Conditional rendering for image source */}
               <Image
-                source={{ uri: nextContent.image }}
-                style={{ flex: 1, width: "100%", height: "100%" }}
-                resizeMode="cover"
+                source={
+                  typeof nextContent.image === "string" &&
+                  nextContent.image.startsWith("http")
+                    ? { uri: nextContent.image }
+                    : nextContent.image
+                }
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+                resizeMode="contain"
               />
               <View
                 style={{
@@ -505,7 +534,6 @@ export default function TikTokReelsComponent() {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                zIndex: 1,
               },
               prevPageStyle,
             ]}
@@ -545,7 +573,6 @@ export default function TikTokReelsComponent() {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                zIndex: 1,
               },
               nextPageStyle,
             ]}
@@ -577,19 +604,22 @@ export default function TikTokReelsComponent() {
           </Animated.View>
 
           {/* Main Content */}
-          <Animated.View style={[{ flex: 1, zIndex: 2 }, animatedStyle]}>
+          <Animated.View style={[{ flex: 1 }, animatedStyle]}>
             <View style={{ flex: 1, position: "relative" }}>
               {/* Background Image */}
+              {/* Conditional rendering for image source */}
               <Image
-                source={{ uri: currentContent.image }}
+                source={
+                  typeof currentContent.image === "string" &&
+                  currentContent.image.startsWith("http")
+                    ? { uri: currentContent.image }
+                    : currentContent.image
+                }
                 style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
+                  width: "100%",
+                  height: "100%",
                 }}
-                resizeMode="cover"
+                resizeMode="contain"
               />
 
               {/* Overlay Gradient */}
@@ -624,7 +654,6 @@ export default function TikTokReelsComponent() {
                   left: 0,
                   right: 0,
                   alignItems: "center",
-                  zIndex: 10,
                 }}
               >
                 <View
@@ -648,9 +677,10 @@ export default function TikTokReelsComponent() {
                 style={{
                   position: "absolute",
                   right: 16,
-                  bottom: 140,
-                  zIndex: 10,
+                  bottom: 850 - 758,
+
                   alignItems: "center",
+                  rowGap: 28,
                 }}
               >
                 {/* Like Button */}
@@ -660,23 +690,21 @@ export default function TikTokReelsComponent() {
                 >
                   <View
                     style={{
-                      width: 50,
-                      height: 50,
-                      borderRadius: 25,
-                      backgroundColor: "rgba(255,255,255,0.2)",
+                      width: 30,
+                      height: 30,
                       justifyContent: "center",
                       alignItems: "center",
                       marginBottom: 4,
                     }}
                   >
-                    <Text
+                    <Image
+                      source={require("../../../../assets/images/like.png")} // Local image
+                      resizeMode="contain"
                       style={{
-                        fontSize: 24,
-                        color: currentContent.isLiked ? "#FF3040" : "white",
+                        width: "100%", // Make the image take 100% of the parent's width
+                        height: "100%", // Make the image take 100% of the parent's height
                       }}
-                    >
-                      {currentContent.isLiked ? "❤️" : "🤍"}
-                    </Text>
+                    ></Image>
                   </View>
                   <Text
                     style={{
@@ -696,16 +724,21 @@ export default function TikTokReelsComponent() {
                 >
                   <View
                     style={{
-                      width: 50,
-                      height: 50,
-                      borderRadius: 25,
-                      backgroundColor: "rgba(255,255,255,0.2)",
+                      width: 30,
+                      height: 30,
                       justifyContent: "center",
                       alignItems: "center",
                       marginBottom: 4,
                     }}
                   >
-                    <Text style={{ color: "white", fontSize: 22 }}>💬</Text>
+                    <Image
+                      source={require("../../../../assets/images/comment.png")} // Local image
+                      resizeMode="contain"
+                      style={{
+                        width: "100%", // Make the image take 100% of the parent's width
+                        height: "100%", // Make the image take 100% of the parent's height
+                      }}
+                    ></Image>
                   </View>
                   <Text
                     style={{
@@ -725,16 +758,21 @@ export default function TikTokReelsComponent() {
                 >
                   <View
                     style={{
-                      width: 50,
-                      height: 50,
-                      borderRadius: 25,
-                      backgroundColor: "rgba(255,255,255,0.2)",
+                      width: 30,
+                      height: 30,
                       justifyContent: "center",
                       alignItems: "center",
                       marginBottom: 4,
                     }}
                   >
-                    <Text style={{ color: "white", fontSize: 22 }}>↗️</Text>
+                    <Image
+                      source={require("../../../../assets/images/share.png")} // Local image
+                      resizeMode="contain"
+                      style={{
+                        width: "100%", // Make the image take 100% of the parent's width
+                        height: "100%", // Make the image take 100% of the parent's height
+                      }}
+                    ></Image>
                   </View>
                   <Text
                     style={{
@@ -746,61 +784,15 @@ export default function TikTokReelsComponent() {
                     {currentContent.shares}
                   </Text>
                 </TouchableOpacity>
-
-                {/* Profile Picture */}
-                <TouchableOpacity
-                  onPress={handleFollow}
-                  style={{ alignItems: "center", position: "relative" }}
-                >
-                  <View
-                    style={{
-                      width: 50,
-                      height: 50,
-                      borderRadius: 25,
-                      backgroundColor: "#D1D5DB",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderWidth: 3,
-                      borderColor: "white",
-                    }}
-                  >
-                    <Text style={{ fontSize: 20 }}>👤</Text>
-                  </View>
-                  <View
-                    style={{
-                      position: "absolute",
-                      bottom: -8,
-                      width: 24,
-                      height: 24,
-                      borderRadius: 12,
-                      backgroundColor: "#EF4444",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderWidth: 2,
-                      borderColor: "white",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: "white",
-                        fontSize: 12,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      +
-                    </Text>
-                  </View>
-                </TouchableOpacity>
               </View>
 
               {/* Bottom Content Info */}
               <View
                 style={{
                   position: "absolute",
-                  bottom: 40,
+                  bottom: 10,
                   left: 16,
                   right: 80,
-                  zIndex: 10,
                 }}
               >
                 <Text
@@ -823,25 +815,6 @@ export default function TikTokReelsComponent() {
                 >
                   {currentContent.description}
                 </Text>
-
-                {/* Progress Indicator */}
-                <View style={{ flexDirection: "row" }}>
-                  {contents.map((_, index) => (
-                    <View
-                      key={index}
-                      style={{
-                        height: 3,
-                        flex: 1,
-                        borderRadius: 2,
-                        backgroundColor:
-                          index === currentIndex
-                            ? "white"
-                            : "rgba(255,255,255,0.3)",
-                        marginRight: index < contents.length - 1 ? 4 : 0,
-                      }}
-                    />
-                  ))}
-                </View>
               </View>
             </View>
           </Animated.View>
