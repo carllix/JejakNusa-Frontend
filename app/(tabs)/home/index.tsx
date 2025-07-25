@@ -82,11 +82,11 @@ const MyMap = () => {
                 resizeMode="contain"
               />
             </View>
-            <Callout>
-              <View>
-                <Text style={styles.calloutText}>{province.name}</Text>
+            <Callout tooltip>
+              <View style={styles.customCalloutContainer}>
+                <Text style={styles.calloutTitle}>{province.name}</Text>
                 <Button
-                  title={`Lihat ${province.name}`}
+                  title={`Jelajahi ${province.name}`}
                   onPress={() => Alert.alert(`Provinsi: ${province.name}`)}
                 />
               </View>
@@ -121,6 +121,27 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 2,
     elevation: 5, // untuk Android
+  },
+
+  customCalloutContainer: {
+    width: 200,
+    padding: 16,
+    backgroundColor: "white",
+    borderRadius: 12,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+    alignItems: "center",
+  },
+  calloutTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
   },
 
   markerImage: {
