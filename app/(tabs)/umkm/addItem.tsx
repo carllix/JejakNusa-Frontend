@@ -206,12 +206,10 @@ const AddItemPage: React.FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  //  function untuk simulasi upload (tidak benar-benar upload)
   const UploadToCloudinary = async (imageUri: string): Promise<string> => {
     try {
       setIsUploading(true);
       
-      // Simulasi loading upload (2 detik)
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       // Return  URL (bisa pakai gambar yang dipilih atau placeholder)
@@ -310,7 +308,6 @@ const AddItemPage: React.FC = () => {
   };
 
   const handleBack = () => {
-    // Navigate back ke halaman UMKM (index.tsx)
     router.push('./');
   };
 
