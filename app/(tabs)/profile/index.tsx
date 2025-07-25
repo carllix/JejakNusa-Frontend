@@ -80,7 +80,6 @@ const mockAchievements: Achievement[] = [
   }
 ];
 
-// Component untuk user yang belum login
 const LoginPrompt: React.FC = () => {
   const handleLoginPress = () => {
     router.push('/login');
@@ -428,7 +427,6 @@ const AuthenticatedProfile: React.FC = () => {
             onPress={handleLogout}
             className="bg-red-500 py-4 rounded-lg flex-row items-center justify-center"
           >
-            <Ionicons name="log-out-outline" size={20} color="white" style={{ marginRight: 8 }} />
             <Text 
               className="text-white font-semibold text-base"
               style={{ fontFamily: 'Poppins-SemiBold' }}
@@ -445,7 +443,6 @@ const AuthenticatedProfile: React.FC = () => {
 const ProfilePage: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
 
-  // Tampilkan loading jika masih checking auth
   if (isLoading) {
     return (
       <View className="flex-1 bg-yellow-low justify-center items-center">

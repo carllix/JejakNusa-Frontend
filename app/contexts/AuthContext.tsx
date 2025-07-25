@@ -187,8 +187,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setToken(null);
       setUser(null);
 
-      // Navigate to login
-      router.replace('../login');
+      // // Navigate to login
+      // router.replace('../login');
     } catch (error) {
       // console.error('Logout error:', error);
     } finally {
